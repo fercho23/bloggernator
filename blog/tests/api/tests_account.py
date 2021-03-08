@@ -69,9 +69,9 @@ class AccountTests(TestCase):
         }
 
         self.assertEqual(response.status_code, HTTP_200_OK)
-        self.assertEqual(result['result'], expected_value['result'])
-        self.assertEqual(result['object']['email'], expected_value['object']['email'])
-        self.assertEqual(result['object']['username'], expected_value['object']['username'])
+        self.assertEqual(result.get('result', None), expected_value['result'])
+        self.assertEqual(result.get('object', {}).get('email'), expected_value['object']['email'])
+        self.assertEqual(result.get('object', {}).get('username'), expected_value['object']['username'])
 
 
     def test_login_user(self):
@@ -93,13 +93,7 @@ class AccountTests(TestCase):
             'object': obj_serialized
         }
 
-        # print('')
-        # print('')
-        # print(response.content)
-        # print('')
-        # print('')
-
         self.assertEqual(response.status_code, HTTP_200_OK)
-        self.assertEqual(result['result'], expected_value['result'])
-        self.assertEqual(result['object'], expected_value['object'])
+        self.assertEqual(result.get('result', None), expected_value['result'])
+        self.assertEqual(result.get('object', None), expected_value['object'])
         self.assertIn('access_token', result)
