@@ -14,8 +14,8 @@ from rest_framework.views import APIView
 
 from blog.models.User import User
 
-from blog.serializers.AccountSerializer import SignupSerializer
-from blog.serializers.UserSerializer import UserSerializer
+from blog.serializers.AccountSerializer import LoginSerializer, SignupSerializer
+from blog.serializers.UserSerializer import UserModelSerializer
 
 
 class SignupView(APIView):
@@ -28,20 +28,46 @@ class SignupView(APIView):
 
         try:
             serializer.is_valid(raise_exception=True)
-            data = serializer.validated_data
 
-            obj = User.objects.create_user(
-                email=data['email'],
-                username=data['username'],
-                password=data['password'],
-            )
-
-            obj_serializer = UserSerializer(obj, context={'request': request})
+            obj, token = serializer.save()
+            obj_serialized = UserModelSerializer(obj, context={'request': request}).data
 
             response_data['result'] = True
-            # response_data['object'] = JSONRenderer().render(obj_serializer.data)
-            response_data['object'] = obj_serializer.data
+            response_data['object'] = obj_serialized
+            response_data['access_token'] = token
         except Exception as e:
+            status = HTTP_400_BAD_REQUEST
+            response_data['error'] = True
+
+            if isinstance(e, ValidationError):
+                status = HTTP_422_UNPROCESSABLE_ENTITY
+                response_data['validation_errors'] = e.get_full_details() if not serializer.errors else serializer.errors
+            else:
+                if isinstance(e, ObjectDoesNotExist):
+                    status = HTTP_404_NOT_FOUND
+                response_data['message'] = str(e)
+
+        return Response(response_data, status=status)
+
+
+class LoginView(APIView):
+
+    def post(self, request, *args, **kwargs):
+        response_data = {}
+        status = HTTP_200_OK
+        serializer = LoginSerializer(data=request.data)
+
+        try:
+            serializer.is_valid(raise_exception=True)
+
+            obj, token = serializer.save()
+            obj_serialized = UserModelSerializer(obj, context={'request': request}).data
+
+            response_data['result'] = True
+            response_data['object'] = obj_serialized
+            response_data['access_token'] = token
+        except Exception as e:
+
             status = HTTP_400_BAD_REQUEST
             response_data['error'] = True
 

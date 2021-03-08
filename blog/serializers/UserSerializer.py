@@ -5,7 +5,7 @@ from rest_framework import serializers
 from blog.models.User import User
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserModelSerializer(serializers.ModelSerializer):
     photo_url = serializers.SerializerMethodField()
 
     class Meta:

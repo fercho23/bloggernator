@@ -3,7 +3,7 @@
   "model": "blog.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$216000$TQ5RugMhTvST$UvtURc84vPmNCo3RqK3rtA/6L2OEDa8ynPH9NiGI2BA=",
+    "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
     "is_superuser": true,
     "uuid": "cce06edc-8636-4375-b61e-5959b5c6eac6",
     "email": "admin@bloggernator.com",
@@ -13,7 +13,6 @@
     "last_login": "2021-03-07T22:47:47.813Z",
     "date_joined": "2021-03-07T22:47:08.746Z",
     "photo": "",
-    "detail": "",
     "groups": [],
     "user_permissions": []
   }
@@ -22,7 +21,7 @@
   "model": "blog.user",
   "pk": 2,
   "fields": {
-    "password": "pbkdf2_sha256$216000$TQ5RugMhTvST$UvtURc84vPmNCo3RqK3rtA/6L2OEDa8ynPH9NiGI2BA=",
+    "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
     "is_superuser": false,
     "uuid": "09ab8a1c-ef84-4681-93c9-a7fb1e97f94a",
     "email": "jason.reinhar@bloggernator.com",
@@ -32,7 +31,6 @@
     "last_login": "2021-03-07T22:47:47.813Z",
     "date_joined": "2021-03-07T22:47:08.746Z",
     "photo": "",
-    "detail": "",
     "groups": [],
     "user_permissions": []
   }
@@ -41,7 +39,7 @@
   "model": "blog.user",
   "pk": 3,
   "fields": {
-    "password": "pbkdf2_sha256$216000$TQ5RugMhTvST$UvtURc84vPmNCo3RqK3rtA/6L2OEDa8ynPH9NiGI2BA=",
+    "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
     "is_superuser": false,
     "uuid": "4d7cd81f-c413-41e7-99db-e5e04ae089b2",
     "email": "karen.lowman@bloggernator.com",
@@ -51,16 +49,15 @@
     "last_login": "2021-03-07T22:47:47.813Z",
     "date_joined": "2021-03-07T22:47:08.746Z",
     "photo": "",
-    "detail": "",
     "groups": [],
     "user_permissions": []
   }
 },
 {
   "model": "blog.user",
-  "pk": 3,
+  "pk": 4,
   "fields": {
-    "password": "pbkdf2_sha256$216000$TQ5RugMhTvST$UvtURc84vPmNCo3RqK3rtA/6L2OEDa8ynPH9NiGI2BA=",
+    "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
     "is_superuser": false,
     "uuid": "5cff2f09-1d8a-4ad6-ab73-4b23a991861c",
     "email": "barbara.taylor@bloggernator.com",
@@ -70,7 +67,6 @@
     "last_login": "2021-03-07T22:47:47.813Z",
     "date_joined": "2021-03-07T22:47:08.746Z",
     "photo": "",
-    "detail": "",
     "groups": [],
     "user_permissions": []
   }
