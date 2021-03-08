@@ -15,7 +15,33 @@ Including another URLconf
 """
 from django.urls import include, path
 
+from blog.views.AccountView import SignupView
+
 urlpatterns = [
 
+
+    path('api/', include([
+
+        path('account/', include([
+            path('signup/', SignupView.as_view(), name='api.signup'),
+            # path('login/', LoginView.as_view(), name='api.login'),
+            # path('logout/', LogoutView.as_view(), name='api.logout'),
+        ])),
+
+        path('user/', include([
+        ])),
+
+        path('post/', include([
+        ])),
+
+        path('tag/', include([
+        ])),
+
+        path('category/', include([
+        ])),
+
+        path('language/', include([
+        ])),
+    ])),
 
 ]

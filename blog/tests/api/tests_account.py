@@ -1,0 +1,72 @@
+
+from PIL import Image
+import tempfile
+import json
+
+from django.test import TestCase
+
+from rest_framework.test import APIClient
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY
+
+from blog.models.User import User
+
+# signup
+# login
+# logout
+
+# get_user
+# set_user
+# update_user
+# delete_user
+
+# list_bloggers (authors, contributors)
+# detail_blogger (authors, contributors)
+# list_posts_by_blogger (authors, contributors)
+
+
+class AccountTests(TestCase):
+    """ Test module for User model """
+
+    # fixtures = [
+    #     'language',
+    #     'category',
+    #     'tag',
+    #     'user',
+    #     'post',
+    # ]
+
+    def test_signup_user(self):
+        """Create an user"""
+
+        image = Image.new('RGB', (100, 100))
+
+        tmp_file = tempfile.NamedTemporaryFile(suffix='.jpg')
+        image.save(tmp_file)
+        tmp_file.seek(0)
+
+        client = APIClient()
+
+        data = {
+            'email': 'user1@bloggernator.com',
+            'username': 'user1',
+            'password': '123456789',
+            'password_confirmation': '123456789',
+            'photo': tmp_file,
+        }
+
+        response = client.post('/api/account/signup/', data, format='multipart')
+        value = json.loads(response.content)
+
+        expected_value = {
+            'result': True,
+            'object': {
+                'email': data['email'],
+                'username': data['username'],
+            }
+        }
+
+        self.assertEqual(response.status_code, HTTP_200_OK)
+        self.assertEqual(value['result'], expected_value['result'])
+        self.assertEqual(value['object']['email'], expected_value['object']['email'])
+        self.assertEqual(value['object']['username'], expected_value['object']['username'])
+
