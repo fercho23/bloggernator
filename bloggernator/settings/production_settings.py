@@ -9,6 +9,10 @@ DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 

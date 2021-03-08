@@ -9,6 +9,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+MEDIA_URL = '/testing/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'testing/media')
+
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
