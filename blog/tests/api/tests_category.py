@@ -6,29 +6,29 @@ from django.test import TestCase
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY
 from rest_framework.test import APIClient
 
-from blog.models import Tag
+from blog.models.Category import Category
 
-from blog.serializers.TagSerializer import TagModelSerializer
+from blog.serializers.CategorySerializer import CategoryModelSerializer
 
-# list_tags (paginations)
-# list_tags (filters)
+# list_category (paginations)
+# list_category (filters)
 
-class TagTests(TestCase):
-    """ Test module for Tag model """
+class CategoryTests(TestCase):
+    """ Test module for Category model """
 
     fixtures = [
-        'tag',
+        'category',
     ]
 
-    def test_tag_list(self):
-        """ Get Tag List """
+    def test_category_list(self):
+        """ Get Category List """
 
         client = APIClient()
-        response = client.get('/api/tag/list/')
+        response = client.get('/api/category/list/')
         result = json.loads(response.content)
 
-        objects = Tag.objects.all()
-        serialization = TagModelSerializer(objects, many=True).data
+        objects = Category.objects.all()
+        serialization = CategoryModelSerializer(objects, many=True).data
 
         expected_value = {
             'result': True,

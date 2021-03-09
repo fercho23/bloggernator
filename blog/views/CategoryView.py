@@ -7,12 +7,12 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY
 from rest_framework.views import APIView
 
-from blog.models.Language import Language
+from blog.models.Category import Category
 
-from blog.serializers.LanguageSerializer import LanguageModelSerializer
+from blog.serializers.CategorySerializer import CategoryModelSerializer
 
 
-class LanguageListView(APIView):
+class CategoryListView(APIView):
 
     def get(self, request, *args, **kwargs):
         response_data = {}
@@ -20,8 +20,8 @@ class LanguageListView(APIView):
         serializer = None
 
         try:
-            objects = Language.objects.all()
-            serialization = LanguageModelSerializer(objects, many=True).data
+            objects = Category.objects.all()
+            serialization = CategoryModelSerializer(objects, many=True).data
 
             response_data['result'] = True
             response_data['objects'] = serialization

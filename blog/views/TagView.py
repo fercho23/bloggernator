@@ -17,6 +17,7 @@ class TagListView(APIView):
     def get(self, request, *args, **kwargs):
         response_data = {}
         status = HTTP_200_OK
+        serializer = None
 
         try:
             objects = Tag.objects.all()

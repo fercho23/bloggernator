@@ -17,6 +17,7 @@ class UserDetailView(APIView):
     def get(self, request, *args, **kwargs):
         response_data = {}
         status = HTTP_200_OK
+        serializer = None
 
         try:
             pk = kwargs.get('pk')

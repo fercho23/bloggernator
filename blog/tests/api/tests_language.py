@@ -10,8 +10,8 @@ from blog.models.Language import Language
 
 from blog.serializers.LanguageSerializer import LanguageModelSerializer
 
-
-# list_languages
+# list_language (paginations)
+# list_language (filters)
 
 class LanguageTests(TestCase):
     """ Test module for Language model """
@@ -20,7 +20,7 @@ class LanguageTests(TestCase):
         'language',
     ]
 
-    def test_list_languages(self):
+    def test_language_list(self):
         """ Get Language List """
 
         client = APIClient()

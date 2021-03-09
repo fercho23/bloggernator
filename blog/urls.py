@@ -16,12 +16,13 @@ Including another URLconf
 from django.urls import include, path
 
 from blog.views.AccountView import LoginView, SignupView
-from blog.views.UserView import UserDetailView, UserUpdateView
+from blog.views.CategoryView import CategoryListView
 from blog.views.LanguageView import LanguageListView
+
 from blog.views.TagView import TagListView
+from blog.views.UserView import UserDetailView, UserUpdateView
 
 urlpatterns = [
-
 
     path('api/', include([
 
@@ -31,9 +32,12 @@ urlpatterns = [
             # path('logout/', LogoutView.as_view(), name='api.account.logout'),
         ])),
 
-        path('user/', include([
-            path('<str:pk>/', UserDetailView.as_view(), name='api.user.detail'),
-            path('<str:pk>/update/', UserUpdateView.as_view(), name='api.user.update'),
+        path('category/', include([
+            path('list/', CategoryListView.as_view(), name='api.category.list'),
+        ])),
+
+        path('language/', include([
+            path('list/', LanguageListView.as_view(), name='api.language.list'),
         ])),
 
         path('post/', include([
@@ -43,11 +47,9 @@ urlpatterns = [
             path('list/', TagListView.as_view(), name='api.tag.list'),
         ])),
 
-        path('category/', include([
-        ])),
-
-        path('language/', include([
-            path('list/', LanguageListView.as_view(), name='api.language.list'),
+        path('user/', include([
+            path('<str:pk>/', UserDetailView.as_view(), name='api.user.detail'),
+            path('<str:pk>/update/', UserUpdateView.as_view(), name='api.user.update'),
         ])),
     ])),
 
