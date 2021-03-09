@@ -1,0 +1,20 @@
+[
+{
+  "model": "blog.language",
+  "pk": 1,
+  "fields": {
+    "uuid": "81f35841-edfd-45c4-a6cf-ebe34d7e26ac",
+    "name": "English",
+    "slug": "english"
+  }
+},
+{
+  "model": "blog.language",
+  "pk": 2,
+  "fields": {
+    "uuid": "c42baaf7-8b0c-4c2a-842f-0d84b6283c39",
+    "name": "Español",
+    "slug": "Espanol"
+  }
+}
+]

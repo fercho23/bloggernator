@@ -70,11 +70,11 @@ class AccountTests(TestCase):
         response = client.post('/api/account/login/', data, format='json')
         result = json.loads(response.content)
 
-        obj_serialized = UserModelSerializer(obj).data
+        serialization = UserModelSerializer(obj).data
 
         expected_value = {
             'result': True,
-            'object': obj_serialized
+            'object': serialization
         }
 
         self.assertEqual(response.status_code, HTTP_200_OK)
