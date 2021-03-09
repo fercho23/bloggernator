@@ -15,54 +15,54 @@ python -m virtualenv venv
 ```
 
 3. Activate virtual env:
-    * Windows:
+* Windows:
 ```bash
 venv\Scripts\activate
 ```
-    * Linux:
+* Linux:
 ```bash
 source venv/bin/activate
 ```
 
 4. Install: (On venv)
-    * Windows:
+* Windows:
 ```bash
 python -m pip install -r requirements.txt
 ```
-    * Linux:
+* Linux:
 ```bash
 python3 -m pip install -r requirements.txt
 ```
 
-    * Maybe you need:
-        * Windows:
+* Maybe you need:
+* Windows:
 ```bash
 python -m pip install --upgrade pip
 ```
-        * Linux:
+* Linux:
 ```bash
 python3 -m pip install --upgrade pip
 ```
 
 5. Create local_setting:
-    * Create "local_setting.py" file in "bloggernator/settings/" using "testing_setting.py" as example.
+* Create "local_setting.py" file in "bloggernator/settings/" using "testing_setting.py" as example.
 
 6. Migrate: apply migrations.
-    * Windows:
+* Windows:
 ```bash
 python manage.py migrate
 ```
-    * Linux:
+* Linux:
 ```bash
 python3 manage.py migrate
 ```
 
 7. Runserver:
-    * Windows:
+* Windows:
 ```bash
 python manage.py runserver
 ```
-    * Linux:
+* Linux:
 ```bash
 python3 manage.py runserver
 ```
