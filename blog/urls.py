@@ -16,6 +16,7 @@ Including another URLconf
 from django.urls import include, path
 
 from blog.views.AccountView import LoginView, SignupView
+from blog.views.UserView import UserDetailView, UserUpdateView
 
 urlpatterns = [
 
@@ -29,6 +30,8 @@ urlpatterns = [
         ])),
 
         path('user/', include([
+            path('<str:pk>/', UserDetailView.as_view(), name='api.user.detail'),
+            path('<str:pk>/update/', UserUpdateView.as_view(), name='api.user.update'),
         ])),
 
         path('post/', include([

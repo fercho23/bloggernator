@@ -1,6 +1,7 @@
 
 from django.contrib.auth import password_validation, authenticate
 from django.core.validators import FileExtensionValidator
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
@@ -58,10 +59,7 @@ class SignupSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'password': _('Password fields didn\'t match.')})
         password_validation.validate_password(password)
 
-        image = None
-        if 'photo' in data:
-            image = data['photo']
-
+        image = data.get('photo', None)
         if image:
             if image.size > (512 * 1024):
                 raise serializers.ValidationError(_('The image is too large, the maximum weight allowed is 512KB and the size sent is {} KB'.format(round (image.size / 1024))))
