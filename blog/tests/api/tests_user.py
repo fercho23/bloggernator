@@ -32,13 +32,6 @@ class UserTests(TestCase):
     #     'post',
     ]
 
-    # def setUp(self):
-    #     User.objects.create_user(email='jason.reinhart@bloggernator.com', password='12345', username='jason.reinhart')
-    #     User.objects.create_user(email='karen.lowman@bloggernator.com', password='12345', username='karen.lowman')
-    #     User.objects.create_superuser(email='barbara.taylor@bloggernator.com', password='12345', username='barbara.taylor')
-
-
-
     def test_get_user(self):
         """ Get user """
 
@@ -48,11 +41,11 @@ class UserTests(TestCase):
         response = client.get('/api/user/{}/'.format(obj.uuid))
         result = json.loads(response.content)
 
-        obj_serialized = UserModelSerializer(obj).data
+        serialization = UserModelSerializer(obj).data
 
         expected_value = {
             'result': True,
-            'object': obj_serialized
+            'object': serialization
         }
 
         self.assertEqual(response.status_code, HTTP_200_OK)
@@ -84,11 +77,11 @@ class UserTests(TestCase):
         result = json.loads(response.content)
 
         obj = User.objects.get(pk=2)
-        obj_serialized = UserModelSerializer(obj).data
+        serialization = UserModelSerializer(obj).data
 
         expected_value = {
             'result': True,
-            'object': obj_serialized
+            'object': serialization
         }
 
         self.assertEqual(response.status_code, HTTP_200_OK)

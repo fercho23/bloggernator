@@ -23,7 +23,6 @@ class UserModelSerializer(serializers.ModelSerializer):
         if obj.photo:
             photo_url = obj.photo.url
             return photo_url
-            return request.build_absolute_uri(photo_url)
         return ''
 
         # request = self.context.get('request', None)

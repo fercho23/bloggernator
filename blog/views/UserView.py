@@ -1,6 +1,4 @@
 
-from PIL import Image
-
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 
@@ -26,10 +24,10 @@ class UserDetailView(APIView):
             if not obj:
                 raise ObjectDoesNotExist(_("User do not exist."))
 
-            obj_serialized = UserModelSerializer(obj).data
+            serialization = UserModelSerializer(obj).data
 
             response_data['result'] = True
-            response_data['object'] = obj_serialized
+            response_data['object'] = serialization
         except Exception as e:
             status = HTTP_400_BAD_REQUEST
             response_data['error'] = True
@@ -68,10 +66,10 @@ class UserUpdateView(APIView):
             serializer.is_valid(raise_exception=True)
 
             obj = serializer.save()
-            obj_serialized = UserModelSerializer(obj).data
+            serialization = UserModelSerializer(obj).data
 
             response_data['result'] = True
-            response_data['object'] = obj_serialized
+            response_data['object'] = serialization
         except Exception as e:
             status = HTTP_400_BAD_REQUEST
             response_data['error'] = True
