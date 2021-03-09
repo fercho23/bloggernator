@@ -1,0 +1,20 @@
+[
+{
+  "model": "blog.tag",
+  "pk": 1,
+  "fields": {
+    "uuid": "a6e27e5a-4b8e-4a17-b454-2416f03f2624",
+    "name": "PHP",
+    "slug": "php"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 2,
+  "fields": {
+    "uuid": "55d354aa-e06a-42a7-bea5-6ac18721d1d8",
+    "name": "Dog",
+    "slug": "dog"
+  }
+}
+]

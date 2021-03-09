@@ -18,6 +18,7 @@ from django.urls import include, path
 from blog.views.AccountView import LoginView, SignupView
 from blog.views.UserView import UserDetailView, UserUpdateView
 from blog.views.LanguageView import LanguageListView
+from blog.views.TagView import TagListView
 
 urlpatterns = [
 
@@ -39,13 +40,14 @@ urlpatterns = [
         ])),
 
         path('tag/', include([
+            path('list/', TagListView.as_view(), name='api.tag.list'),
         ])),
 
         path('category/', include([
         ])),
 
         path('language/', include([
-            path('list/', LanguageListView.as_view(), name='api.user.list'),
+            path('list/', LanguageListView.as_view(), name='api.language.list'),
         ])),
     ])),
 

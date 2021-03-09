@@ -1,6 +1,4 @@
 
-from PIL import Image
-
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 
@@ -29,10 +27,10 @@ class SignupView(APIView):
             serializer.is_valid(raise_exception=True)
 
             obj, token = serializer.save()
-            obj_serialized = UserModelSerializer(obj).data
+            serialization = UserModelSerializer(obj).data
 
             response_data['result'] = True
-            response_data['object'] = obj_serialized
+            response_data['object'] = serialization
             response_data['access_token'] = token
         except Exception as e:
             status = HTTP_400_BAD_REQUEST
@@ -61,10 +59,10 @@ class LoginView(APIView):
             serializer.is_valid(raise_exception=True)
 
             obj, token = serializer.save()
-            obj_serialized = UserModelSerializer(obj).data
+            serialization = UserModelSerializer(obj).data
 
             response_data['result'] = True
-            response_data['object'] = obj_serialized
+            response_data['object'] = serialization
             response_data['access_token'] = token
         except Exception as e:
             status = HTTP_400_BAD_REQUEST
