@@ -12,8 +12,8 @@ class Language(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
 
     class Meta:
-        verbose_name = _('language')
-        verbose_name_plural = _('languages')
+        verbose_name = _('Language')
+        verbose_name_plural = _('Languages')
         ordering = ('name',)
 
     def __str__(self):

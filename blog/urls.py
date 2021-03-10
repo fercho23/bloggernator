@@ -16,7 +16,6 @@ Including another URLconf
 from django.urls import include, path
 
 from blog.views.AccountView import LoginView, SignupView
-from blog.views.CategoryView import CategoryListView
 from blog.views.LanguageView import LanguageListView
 from blog.views.PostView import PostListView
 from blog.views.TagView import TagListView
@@ -30,10 +29,6 @@ urlpatterns = [
             path('signup/', SignupView.as_view(), name='api.account.signup'),
             path('login/', LoginView.as_view(), name='api.account.login'),
             # path('logout/', LogoutView.as_view(), name='api.account.logout'),
-        ])),
-
-        path('category/', include([
-            path('list/', CategoryListView.as_view(), name='api.category.list'),
         ])),
 
         path('language/', include([

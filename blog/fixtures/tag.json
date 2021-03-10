@@ -3,18 +3,262 @@
   "model": "blog.tag",
   "pk": 1,
   "fields": {
-    "uuid": "a6e27e5a-4b8e-4a17-b454-2416f03f2624",
-    "name": "PHP",
-    "slug": "php"
+    "uuid": "4a408eff-7f22-44df-aa48-d3947321d6e8",
+    "name": "",
+    "slug": ""
   }
 },
 {
   "model": "blog.tag",
   "pk": 2,
   "fields": {
-    "uuid": "55d354aa-e06a-42a7-bea5-6ac18721d1d8",
-    "name": "Dog",
-    "slug": "dog"
+    "uuid": "3a613c48-dcb0-4b76-8362-af3cfce85141",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 3,
+  "fields": {
+    "uuid": "62f5a3b2-bf61-40ca-80f6-6eb433852b3b",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 4,
+  "fields": {
+    "uuid": "66203996-22dc-4cec-bcf8-5819a3faeec0",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 5,
+  "fields": {
+    "uuid": "e5ee38d1-6c3a-4e2b-9e03-a7ebc3e220ee",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 6,
+  "fields": {
+    "uuid": "a8a9a37a-ffc2-49e3-92d9-3b080d8ce030",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 7,
+  "fields": {
+    "uuid": "9e4ee823-314c-4119-a89a-2cb6b5459000",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 8,
+  "fields": {
+    "uuid": "f3408aa5-3b2b-4097-b4e8-b5939fff3944",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 9,
+  "fields": {
+    "uuid": "9494e296-ad93-4f6e-8ddb-2ce779bed415",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 10,
+  "fields": {
+    "uuid": "892600a5-51b4-45c3-8391-a33811d89a93",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 11,
+  "fields": {
+    "uuid": "644d6910-73a6-4fc5-b1c4-03f0b86aa283",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 12,
+  "fields": {
+    "uuid": "ae5c0ecb-4d20-4ca1-bb9e-c162ae86dd47",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 13,
+  "fields": {
+    "uuid": "1be57181-a11e-4014-a85e-3052e47fd9d6",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 14,
+  "fields": {
+    "uuid": "589c9fab-876b-4cf8-8c17-5b86211b1059",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 15,
+  "fields": {
+    "uuid": "c91ec152-a71e-410e-a114-e19ccdbf45db",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 16,
+  "fields": {
+    "uuid": "23f94c7c-1f67-4f9d-8e87-c6f44cb2aac8",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 17,
+  "fields": {
+    "uuid": "7d80ede6-afaf-4958-8a91-fd4c3d196168",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 18,
+  "fields": {
+    "uuid": "cc2e3886-7412-40b8-9d00-22a06e6c47bc",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 19,
+  "fields": {
+    "uuid": "c493300c-dfb3-4fc1-a884-6f24d8b30c71",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 20,
+  "fields": {
+    "uuid": "22578888-6d77-49e7-a057-e7390b033a9e",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 21,
+  "fields": {
+    "uuid": "31f91205-9f2c-4e14-a2b1-875b145b23a0",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 22,
+  "fields": {
+    "uuid": "bf3f2bf9-4f1f-48ec-badc-2d4b5438f053",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 23,
+  "fields": {
+    "uuid": "40bed8ac-9b0b-4ad3-bc18-afa4b793cb5f",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 24,
+  "fields": {
+    "uuid": "82d95ae3-5b9b-4b4b-b24c-e359a0cfc825",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 25,
+  "fields": {
+    "uuid": "eb8b1d21-60ce-4694-ba47-5913620e7dff",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 26,
+  "fields": {
+    "uuid": "17154535-c9e5-48a0-b87f-7a9a85193bb4",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 27,
+  "fields": {
+    "uuid": "0b425714-483d-4491-94f1-e52a52bf2343",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 28,
+  "fields": {
+    "uuid": "76ed9f57-351c-41e1-a75d-70f665fc8bfc",
+    "name": "",
+    "slug": ""
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 29,
+  "fields": {
+    "uuid": "d52c344d-15c4-438f-b42a-ef7227bee047",
+    "name": "",
+    "slug": ""
   }
 }
 ]
+

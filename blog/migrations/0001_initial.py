@@ -38,20 +38,6 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Category',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('uuid', models.CharField(blank=True, db_index=True, default=uuid.uuid4, editable=False, max_length=254, unique=True, verbose_name='uuid')),
-                ('name', models.CharField(max_length=50, unique=True)),
-                ('slug', models.SlugField(max_length=100, unique=True)),
-            ],
-            options={
-                'verbose_name': 'category',
-                'verbose_name_plural': 'categories',
-                'ordering': ('name',),
-            },
-        ),
-        migrations.CreateModel(
             name='Language',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -92,7 +78,6 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='created at')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='updated at')),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('categories', models.ManyToManyField(blank=True, related_name='categories', to='blog.Category', verbose_name='categories')),
                 ('contributors', models.ManyToManyField(blank=True, related_name='contributors', to=settings.AUTH_USER_MODEL, verbose_name='contributors')),
                 ('language', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='blog.language')),
                 ('tags', models.ManyToManyField(blank=True, related_name='tags', to='blog.Tag', verbose_name='tags')),

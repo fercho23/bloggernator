@@ -15,7 +15,6 @@ class Post(models.Model):
 
     author = models.ForeignKey('User', on_delete=models.CASCADE)
     language = models.ForeignKey('Language', on_delete=models.CASCADE, default=1)
-    categories = models.ManyToManyField('Category', verbose_name=_('categories'), blank=True, related_name='categories')
     tags = models.ManyToManyField('Tag', verbose_name=_('tags'), blank=True, related_name='tags')
     contributors = models.ManyToManyField('User', verbose_name=_('contributors'), blank=True, related_name='contributors')
 
@@ -26,8 +25,8 @@ class Post(models.Model):
     objects = models.Manager()
 
     class Meta:
-        verbose_name = _('post')
-        verbose_name_plural = _('posts')
+        verbose_name = _('Post')
+        verbose_name_plural = _('Posts')
         ordering = ('-created_at',)
 
     def __str__(self):
