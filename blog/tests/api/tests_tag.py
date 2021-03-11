@@ -27,14 +27,12 @@ class TagTests(TestCase):
         response = client.get('/api/tag/list/')
         result = json.loads(response.content)
 
-        objects = Tag.objects.all()
+        objects_count = Tag.objects.count()
+        objects = Tag.objects.all()[:10]
         serialization = TagModelSerializer(objects, many=True).data
 
-        expected_value = {
-            'result': True,
-            'objects': serialization
-        }
-
         self.assertEqual(response.status_code, HTTP_200_OK)
-        self.assertEqual(result.get('result', None), expected_value['result'])
-        self.assertEqual(result.get('objects', None), expected_value['objects'])
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None), serialization)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)

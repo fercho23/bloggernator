@@ -49,7 +49,6 @@ class PostTests(TestCase):
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
-
     def test_post_list_by_tag(self):
         """ Get Post List By Tag"""
         tag = Tag.objects.filter(slug='wellness').first()
