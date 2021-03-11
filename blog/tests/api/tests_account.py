@@ -5,6 +5,7 @@ import json
 
 from django.test import TestCase
 
+from rest_framework.authtoken.models import Token
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from rest_framework.test import APIClient
 
@@ -50,7 +51,6 @@ class AccountTests(TestCase):
         self.assertEqual(result.get('user', None), serialization)
         self.assertIn('token', result)
 
-
     def test_login_user(self):
         """ Login """
 
@@ -85,3 +85,19 @@ class AccountTests(TestCase):
 
         self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
         self.assertIn('non_field_errors', result)
+
+    def test_logout_user(self):
+        """ Logout """
+
+        obj = User.objects.get(pk=1)
+        token = Token.objects.create(user=obj)
+
+        client = APIClient()
+        # client.force_authenticate(obj)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = client.post('/api/account/logout/')
+
+        result = json.loads(response.content)
+
+        self.assertEqual(response.status_code, HTTP_200_OK)
+        self.assertIn('detail', result)

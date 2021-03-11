@@ -17,7 +17,7 @@ from django.urls import include, path
 
 from rest_framework.authtoken import views
 
-from blog.views.AccountView import LoginView, SignupView
+from blog.views.AccountView import LoginView, LogoutView, SignupView
 from blog.views.LanguageView import LanguageListView
 from blog.views.PostView import PostListView, PostListByLanguageView, PostListByTagView
 from blog.views.TagView import TagListView
@@ -27,12 +27,10 @@ urlpatterns = [
 
     path('api/', include([
 
-        # path('generate_token/', views.obtain_auth_token),
-
         path('account/', include([
             path('signup/', SignupView.as_view(), name='api.account.signup'),
             path('login/', LoginView.as_view(), name='api.account.login'),
-            # path('logout/', LogoutView.as_view(), name='api.account.logout'),
+            path('logout/', LogoutView.as_view(), name='api.account.logout'),
         ])),
 
         path('language/', include([

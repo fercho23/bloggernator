@@ -5,6 +5,7 @@ import json
 
 from django.test import TestCase
 
+from rest_framework.authtoken.models import Token
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY
 from rest_framework.test import APIClient
 
@@ -106,16 +107,14 @@ class UserTests(TestCase):
         }
 
         client = APIClient()
+        token = Token.objects.create(user=obj)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         # client.login(username='lauren', password='secret')
-        client.force_authenticate(obj)
+        # client.force_authenticate(obj)
 
         response = client.put('/api/user/{}/update/'.format(obj2.uuid), data, format='multipart')
         result = json.loads(response.content)
 
-        expected_value = {
-            'error': True,
-        }
-
         self.assertEqual(response.status_code, HTTP_422_UNPROCESSABLE_ENTITY)
-        self.assertEqual(result.get('error', None), expected_value['error'])
+        self.assertEqual(result.get('error', None), True)
         self.assertIn('validation_errors', result)
