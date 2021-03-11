@@ -15,7 +15,6 @@ from blog.serializers.PostSerializer import PostModelSerializer
 # list_posts (filters)
 # list_posts_by_tag
 # list_posts_by_language
-# list_posts_by_category
 # list_posts_by_blogger (authors, contributors)
 
 # detail_post

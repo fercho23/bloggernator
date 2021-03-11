@@ -26,7 +26,6 @@ class UserTests(TestCase):
 
     fixtures = [
     #     'language',
-    #     'category',
     #     'tag',
         'user',
     #     'post',
