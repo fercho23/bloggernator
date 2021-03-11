@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.urls import include, path
 
+from rest_framework.authtoken import views
+
 from blog.views.AccountView import LoginView, SignupView
 from blog.views.LanguageView import LanguageListView
 from blog.views.PostView import PostListView, PostListByLanguageView, PostListByTagView
@@ -24,6 +26,8 @@ from blog.views.UserView import UserDetailView, UserUpdateView
 urlpatterns = [
 
     path('api/', include([
+
+        # path('generate_token/', views.obtain_auth_token),
 
         path('account/', include([
             path('signup/', SignupView.as_view(), name='api.account.signup'),

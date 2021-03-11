@@ -10,10 +10,10 @@ from blog.models.Language import Language
 class LanguageModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
-        fields = [
+        fields = (
             'uuid',
             'name',
             'slug',
-        ]
+        )
 
 
