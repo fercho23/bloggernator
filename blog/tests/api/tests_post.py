@@ -43,14 +43,12 @@ class PostTests(TestCase):
         objects = Post.objects.all()
         serialization = PostModelSerializer(objects, many=True).data
 
-        expected_value = {
-            'result': True,
-            'objects': serialization
-        }
-
         self.assertEqual(response.status_code, HTTP_200_OK)
-        self.assertEqual(result.get('result', None), expected_value['result'])
-        self.assertEqual(result.get('objects', None), expected_value['objects'])
+        self.assertEqual(result.get('count', None), objects.count())
+        self.assertEqual(result.get('results', None), serialization)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
 
     def test_post_list_by_tag(self):
         """ Get Post List By Tag"""
@@ -64,14 +62,11 @@ class PostTests(TestCase):
         objects = Post.objects.filter(tags__slug=tag.slug).all()
         serialization = PostModelSerializer(objects, many=True).data
 
-        expected_value = {
-            'result': True,
-            'objects': serialization
-        }
-
         self.assertEqual(response.status_code, HTTP_200_OK)
-        self.assertEqual(result.get('result', None), expected_value['result'])
-        self.assertEqual(result.get('objects', None), expected_value['objects'])
+        self.assertEqual(result.get('count', None), objects.count())
+        self.assertEqual(result.get('results', None), serialization)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
 
     def test_post_list_by_language(self):
         """ Get Post List By Language"""
@@ -85,11 +80,8 @@ class PostTests(TestCase):
         objects = Post.objects.filter(language__slug=language.slug).all()
         serialization = PostModelSerializer(objects, many=True).data
 
-        expected_value = {
-            'result': True,
-            'objects': serialization
-        }
-
         self.assertEqual(response.status_code, HTTP_200_OK)
-        self.assertEqual(result.get('result', None), expected_value['result'])
-        self.assertEqual(result.get('objects', None), expected_value['objects'])
+        self.assertEqual(result.get('count', None), objects.count())
+        self.assertEqual(result.get('results', None), serialization)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
