@@ -40,10 +40,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
        return '{}'.format(self.email)
 
-    # def get_absolute_url(self):
-    #     from django.urls import reverse
-    #     return reverse('user.update', args=[str(self.id)])
-
     def clean(self):
         super().clean()
         self.email = self.__class__.objects.normalize_email(self.email)

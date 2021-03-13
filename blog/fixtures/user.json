@@ -3,6 +3,24 @@
   "model": "blog.user",
   "pk": 1,
   "fields": {
+    "password": "!HhGONXjkfRLTcRwbH7HWAmB1II4e9VGesE0tc49X",
+    "is_superuser": false,
+    "uuid": "dd85ac4b-ae86-4780-b10b-fe3bb728afdd",
+    "email": "AnonymousUser",
+    "username": "",
+    "is_staff": false,
+    "is_active": true,
+    "last_login": null,
+    "date_joined": "2021-03-13T13:48:23.278Z",
+    "photo": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "blog.user",
+  "pk": 2,
+  "fields": {
     "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
     "is_superuser": true,
     "uuid": "cce06edc-8636-4375-b61e-5959b5c6eac6",
@@ -19,7 +37,7 @@
 },
 {
   "model": "blog.user",
-  "pk": 2,
+  "pk": 3,
   "fields": {
     "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
     "is_superuser": false,
@@ -37,7 +55,7 @@
 },
 {
   "model": "blog.user",
-  "pk": 3,
+  "pk": 4,
   "fields": {
     "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
     "is_superuser": false,
@@ -55,7 +73,7 @@
 },
 {
   "model": "blog.user",
-  "pk": 4,
+  "pk": 5,
   "fields": {
     "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
     "is_superuser": false,
