@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Community(Group):
+    uuid = models.CharField(_('uuid'), editable=False, blank=True, max_length=254, default=uuid.uuid4, unique=True, db_index=True)
+
     slug = models.SlugField(_('slug'), max_length=255, unique=True)
     detail = models.CharField(_('detail'), max_length=180, blank=True)
 
