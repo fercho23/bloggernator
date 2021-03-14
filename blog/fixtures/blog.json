@@ -1,0 +1,344 @@
+[
+{
+  "model": "blog.user",
+  "pk": 1,
+  "fields": {
+    "password": "!HhGONXjkfRLTcRwbH7HWAmB1II4e9VGesE0tc49X",
+    "is_superuser": false,
+    "uuid": "dd85ac4b-ae86-4780-b10b-fe3bb728afdd",
+    "email": "AnonymousUser",
+    "username": "",
+    "is_staff": false,
+    "is_active": true,
+    "last_login": null,
+    "date_joined": "2021-03-13T13:48:23.278Z",
+    "photo": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "blog.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
+    "is_superuser": true,
+    "uuid": "cce06edc-8636-4375-b61e-5959b5c6eac6",
+    "email": "admin@bloggernator.com",
+    "username": "admin",
+    "is_staff": true,
+    "is_active": true,
+    "last_login": "2021-03-14T12:52:19.544Z",
+    "date_joined": "2021-03-07T22:47:08.746Z",
+    "photo": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "blog.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
+    "is_superuser": false,
+    "uuid": "09ab8a1c-ef84-4681-93c9-a7fb1e97f94a",
+    "email": "jason.reinhar@bloggernator.com",
+    "username": "jason.reinhar",
+    "is_staff": false,
+    "is_active": true,
+    "last_login": "2021-03-07T22:47:47.813Z",
+    "date_joined": "2021-03-07T22:47:08.746Z",
+    "photo": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "blog.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
+    "is_superuser": false,
+    "uuid": "4d7cd81f-c413-41e7-99db-e5e04ae089b2",
+    "email": "karen.lowman@bloggernator.com",
+    "username": "karen.lowman",
+    "is_staff": false,
+    "is_active": true,
+    "last_login": "2021-03-07T22:47:47.813Z",
+    "date_joined": "2021-03-07T22:47:08.746Z",
+    "photo": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "blog.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
+    "is_superuser": false,
+    "uuid": "5cff2f09-1d8a-4ad6-ab73-4b23a991861c",
+    "email": "barbara.taylor@bloggernator.com",
+    "username": "barbara.taylor",
+    "is_staff": false,
+    "is_active": true,
+    "last_login": "2021-03-07T22:47:47.813Z",
+    "date_joined": "2021-03-07T22:47:08.746Z",
+    "photo": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 1,
+  "fields": {
+    "slug": "super_community",
+    "detail": "Community",
+    "created_at": "2021-03-14T12:53:18.006Z"
+  }
+},
+{
+  "model": "blog.language",
+  "pk": 1,
+  "fields": {
+    "uuid": "81f35841-edfd-45c4-a6cf-ebe34d7e26ac",
+    "name": "English",
+    "slug": "english"
+  }
+},
+{
+  "model": "blog.language",
+  "pk": 2,
+  "fields": {
+    "uuid": "c42baaf7-8b0c-4c2a-842f-0d84b6283c39",
+    "name": "Español",
+    "slug": "Espanol"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 1,
+  "fields": {
+    "uuid": "4a408eff-7f22-44df-aa48-d3947321d6e8",
+    "name": "Animals",
+    "slug": "animals"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 2,
+  "fields": {
+    "uuid": "3a613c48-dcb0-4b76-8362-af3cfce85141",
+    "name": "Architecture",
+    "slug": "architecture"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 3,
+  "fields": {
+    "uuid": "62f5a3b2-bf61-40ca-80f6-6eb433852b3b",
+    "name": "Arts",
+    "slug": "arts"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 4,
+  "fields": {
+    "uuid": "66203996-22dc-4cec-bcf8-5819a3faeec0",
+    "name": "Books",
+    "slug": "books"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 5,
+  "fields": {
+    "uuid": "e5ee38d1-6c3a-4e2b-9e03-a7ebc3e220ee",
+    "name": "Computing",
+    "slug": "computing"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 6,
+  "fields": {
+    "uuid": "a8a9a37a-ffc2-49e3-92d9-3b080d8ce030",
+    "name": "Culture",
+    "slug": "culture"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 7,
+  "fields": {
+    "uuid": "9e4ee823-314c-4119-a89a-2cb6b5459000",
+    "name": "Economy",
+    "slug": "economy"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 8,
+  "fields": {
+    "uuid": "f3408aa5-3b2b-4097-b4e8-b5939fff3944",
+    "name": "Energy",
+    "slug": "energy"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 9,
+  "fields": {
+    "uuid": "9494e296-ad93-4f6e-8ddb-2ce779bed415",
+    "name": "Food",
+    "slug": "food"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 10,
+  "fields": {
+    "uuid": "892600a5-51b4-45c3-8391-a33811d89a93",
+    "name": "Games",
+    "slug": "games"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 11,
+  "fields": {
+    "uuid": "644d6910-73a6-4fc5-b1c4-03f0b86aa283",
+    "name": "Garden",
+    "slug": "garden"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 12,
+  "fields": {
+    "uuid": "ae5c0ecb-4d20-4ca1-bb9e-c162ae86dd47",
+    "name": "Health",
+    "slug": "health"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 13,
+  "fields": {
+    "uuid": "1be57181-a11e-4014-a85e-3052e47fd9d6",
+    "name": "Internet",
+    "slug": "internet"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 14,
+  "fields": {
+    "uuid": "589c9fab-876b-4cf8-8c17-5b86211b1059",
+    "name": "Languages",
+    "slug": "languages"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 15,
+  "fields": {
+    "uuid": "c91ec152-a71e-410e-a114-e19ccdbf45db",
+    "name": "Media",
+    "slug": "media"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 16,
+  "fields": {
+    "uuid": "23f94c7c-1f67-4f9d-8e87-c6f44cb2aac8",
+    "name": "Cinema",
+    "slug": "cinema"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 17,
+  "fields": {
+    "uuid": "7d80ede6-afaf-4958-8a91-fd4c3d196168",
+    "name": "Music",
+    "slug": "music"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 18,
+  "fields": {
+    "uuid": "cc2e3886-7412-40b8-9d00-22a06e6c47bc",
+    "name": "Plants",
+    "slug": "plants"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 19,
+  "fields": {
+    "uuid": "c493300c-dfb3-4fc1-a884-6f24d8b30c71",
+    "name": "Religion",
+    "slug": "religion"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 20,
+  "fields": {
+    "uuid": "22578888-6d77-49e7-a057-e7390b033a9e",
+    "name": "Sports",
+    "slug": "sports"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 21,
+  "fields": {
+    "uuid": "31f91205-9f2c-4e14-a2b1-875b145b23a0",
+    "name": "Technology",
+    "slug": "technology"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 22,
+  "fields": {
+    "uuid": "bf3f2bf9-4f1f-48ec-badc-2d4b5438f053",
+    "name": "Travel",
+    "slug": "travel"
+  }
+},
+{
+  "model": "blog.tag",
+  "pk": 23,
+  "fields": {
+    "uuid": "40bed8ac-9b0b-4ad3-bc18-afa4b793cb5f",
+    "name": "Wellness",
+    "slug": "wellness"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 1,
+  "fields": {
+    "uuid": "5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6",
+    "title": "Testing",
+    "slug": "testing",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut justo metus. Nunc eleifend, ipsum in molestie iaculis, enim diam aliquet justo, vel tincidunt enim velit non est. Praesent non sodales nisi. Sed eget velit lorem. Aliquam facilisis odio id dolor suscipit elementum. Donec erat diam, convallis ac neque at, euismod aliquet urna. Nulla a ipsum eu eros pulvinar mattis ac facilisis lacus. In orci nulla, dictum vel tempus nec, accumsan id nisl. Aliquam augue quam, iaculis in rhoncus non, scelerisque pulvinar est. Quisque euismod aliquet dapibus. Integer mollis risus sem, in faucibus augue tristique eget. In mauris erat, sodales sit amet justo vitae, commodo maximus velit. Sed laoreet blandit lorem dictum pulvinar. Vestibulum condimentum sapien nunc, nec ultrices ipsum condimentum tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.\r\n\r\nSuspendisse pharetra viverra risus, eget ultrices nisl ornare vitae. Morbi rutrum tellus ex, eget rhoncus lectus blandit a. Integer vel condimentum massa. Nulla porttitor urna et magna iaculis, nec iaculis nunc efficitur. Etiam ac mauris vel mauris ornare iaculis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer ut maximus odio, at pulvinar enim. Aliquam finibus sapien at tortor tincidunt, ac posuere ex sodales. In condimentum, mauris vitae pharetra malesuada, dui ex luctus odio, non suscipit neque arcu vel quam. Pellentesque pretium mollis pellentesque. Vivamus in commodo ipsum. Nunc dignissim gravida nisl, nec pellentesque enim rutrum a. Phasellus ut est nec metus ornare iaculis iaculis eget ante. Sed dignissim malesuada ex mollis vestibulum. Duis sed elementum enim.\r\n\r\nDuis ut dapibus ante. Etiam sed lacinia lorem, vitae commodo velit. Fusce at convallis mauris. Nunc pellentesque et tortor sit amet vulputate. Nulla massa metus, dignissim ut mi nec, egestas iaculis nibh. Ut aliquet non eros id varius. Nulla congue justo arcu, at viverra libero vulputate a. Ut eu nisl ut nibh finibus dictum. Sed sit amet fringilla orci, id consequat lacus. Vivamus laoreet facilisis tempus. Vestibulum imperdiet, justo ut auctor auctor, erat ante ultricies lacus, sit amet ornare justo velit a ipsum. Nulla fringilla venenatis augue.\r\n\r\nAliquam hendrerit venenatis erat, a ultrices augue malesuada eu. Praesent ullamcorper sapien nulla, et sodales justo vestibulum eu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In varius tincidunt quam, nec gravida nisi commodo id. Suspendisse ultricies tempus diam, eu volutpat tellus lacinia ac. Cras feugiat dui ut magna egestas blandit. Phasellus lacinia non magna ut consequat. Nam a velit felis. Mauris nisi tellus, maximus et risus at, accumsan auctor est. Aliquam semper velit nisi, a dapibus libero convallis ac. Mauris purus dolor, venenatis id iaculis id, rhoncus et ligula. Quisque volutpat libero in purus ornare, quis euismod ex tristique. Nunc id volutpat tellus.\r\n\r\nFusce tincidunt pretium interdum. Nullam urna sapien, sagittis ac nisl eu, posuere viverra lorem. Morbi sed ante non massa faucibus mattis ac id velit. Praesent tempor rutrum turpis nec ornare. Aliquam leo leo, consectetur ut sem ac, varius maximus leo. Praesent vel leo at massa posuere tincidunt. Pellentesque pellentesque, velit sit amet sodales fringilla, augue urna facilisis ipsum, a fringilla dui diam id sapien. In accumsan magna ante. Donec tempus dolor sed arcu accumsan, ut commodo dui congue. Aliquam fermentum porta justo, sed consectetur neque aliquet ut.",
+    "abstract": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut justo metus.",
+    "language": 1,
+    "is_public": true,
+    "created_at": "2021-03-11T13:21:32.560Z",
+    "updated_at": "2021-03-11T13:21:32.560Z",
+    "tags": [
+      23
+    ]
+  }
+}
+]
