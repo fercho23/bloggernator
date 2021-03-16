@@ -28,7 +28,7 @@
     "username": "admin",
     "is_staff": true,
     "is_active": true,
-    "last_login": "2021-03-14T13:51:17.542Z",
+    "last_login": "2021-03-16T18:48:42.987Z",
     "date_joined": "2021-03-07T22:47:08.746Z",
     "photo": "",
     "groups": [],
@@ -97,6 +97,296 @@
     "slug": "bloggernator",
     "detail": "Bloggernator Group",
     "created_at": "2021-03-14T13:52:03.293Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 2,
+  "fields": {
+    "uuid": "8b547291-8c69-49ca-8501-2a4e3e127a99",
+    "slug": "acme-corporation",
+    "detail": "This diabolical Looney Tunes mega-corp responsible for falling anvils and other humorous disasters has created some of our best memories of cartoon mischief. In the show, Acme Corp",
+    "created_at": "2021-03-16T18:53:55.382Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 3,
+  "fields": {
+    "uuid": "42f28997-cc8c-4d3f-9782-1b2cbc671e8e",
+    "slug": "globex-corporation",
+    "detail": "Nothing says, \"nonspecific international company serving the needs of consumers through service and synergy\" like Globex. According to the official Simpsons Wikipedia, the mission",
+    "created_at": "2021-03-16T18:54:48.635Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 4,
+  "fields": {
+    "uuid": "4c6eb217-2ac6-4c8c-ae5a-8c5769e742d8",
+    "slug": "soylent-corp",
+    "detail": "Had Soylent Corp not inspired a real-life brand name of nutritional supplement and viral sensation, it wouldn't have made this list. But the genius of fictitious names often lies i",
+    "created_at": "2021-03-16T18:55:02.525Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 5,
+  "fields": {
+    "uuid": "6fcb4484-915e-4f7a-98e6-8e2ddec0867e",
+    "slug": "initech",
+    "detail": "A veteran namer could break this down upon first sight: \"ini\" - innovation, \"tech\" - technology. And then suddenly, Initech reveals itself as a redundant and meaningless moniker, d",
+    "created_at": "2021-03-16T18:55:10.166Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 6,
+  "fields": {
+    "uuid": "e343bfc4-79a5-434d-ba33-62644030a624",
+    "slug": "umbrella-corporation",
+    "detail": "In the Resident Evil Universe, there's Umbrella Corporation. This bioengineering pharmaceutical company and laboratory is equal parts science fiction and grim reality. Its slogan p",
+    "created_at": "2021-03-16T18:55:23.690Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 7,
+  "fields": {
+    "uuid": "df8f0054-465c-4a6a-a825-02bda8457111",
+    "slug": "hooli",
+    "detail": "The HBO hit series Silicon Valley's Hooli coyly smacks of the signature sound and feel we can't quite put our fingers on: that goofy yet apt naming convention of mega-tech companie",
+    "created_at": "2021-03-16T18:55:33.637Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 8,
+  "fields": {
+    "uuid": "e4198cd1-543d-4656-9d92-a42d806d0729",
+    "slug": "vehement-capital-partners",
+    "detail": "Vehement says intense, passionate, insistent; it's a word for describing an argument or an artistic platform. It's not what we'd typically associate with a New York hedge fund, and",
+    "created_at": "2021-03-16T18:55:42.999Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 9,
+  "fields": {
+    "uuid": "8490fb02-8e17-4670-8bc1-7eba1b8d7553",
+    "slug": "massive-dynamic",
+    "detail": "This is a name so good we wish we'd come up with it first. But alas, the science fiction TV drama Fringe beat us to it and created Massive Dynamic, the ultimate conglomerate. Massi",
+    "created_at": "2021-03-16T18:55:55.569Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 10,
+  "fields": {
+    "uuid": "7fa386e4-2782-40d4-a349-fcca6eff85b0",
+    "slug": "ollivanders-wand-shop",
+    "detail": "Found in the secretive magic marketplace of Diagon Alley in London, Ollivanders has been providing quality magic wands to young witches and wizards for centuries. A young Harry Pot",
+    "created_at": "2021-03-16T18:56:47.979Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 11,
+  "fields": {
+    "uuid": "7cd3ce2b-a32e-4562-a2e6-28bbdf88bd89",
+    "slug": "gekko-and-co",
+    "detail": "That was one of the catchphrases of Gordon Gekko, the founder and CEO of the fictional Gekko and Co. financial investment company from the movie Wall Street. The company hires youn",
+    "created_at": "2021-03-16T18:56:58.308Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 12,
+  "fields": {
+    "uuid": "fa8723e9-09f9-4163-af6e-d6bc76ba2434",
+    "slug": "wonka-candy-company",
+    "detail": "Willy Wonka and his mysterious candy factory are the source of much intrigue. Who wouldn't be curious about an eccentric genius candy manufacturer who never leaves the factory, but",
+    "created_at": "2021-03-16T18:57:10.349Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 13,
+  "fields": {
+    "uuid": "79d88504-42a6-49c2-9796-60bb481ec2f5",
+    "slug": "cheers",
+    "detail": "Cheers ran for 11 seasons and 275 total episodes. Not bad for a simple sitcom about a bunch of bar regulars from Boston. The show helped launch the careers of Ted Danson, Rhea Perl",
+    "created_at": "2021-03-16T18:57:21.412Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 14,
+  "fields": {
+    "uuid": "0cafdf9f-4a58-4c3a-ba2a-ada3b97a5fc8",
+    "slug": "callister-inc",
+    "detail": "There's plenty of interesting fictional companies in Black Mirror, from the people who designed the killer robodogs in \"Metalhead\" to those who make the personal PVR called a Grain",
+    "created_at": "2021-03-16T18:57:33.063Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 15,
+  "fields": {
+    "uuid": "0710858c-a757-45e2-8777-a9bf9eedc7de",
+    "slug": "the-krusty-krab",
+    "detail": "Although it may seem like just another fast food joint at the bottom of the sea, the Krusty Krab is actually one of the crown jewels of Bikini Bottom. Founded and owned by Eugene H",
+    "created_at": "2021-03-16T18:57:42.935Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 16,
+  "fields": {
+    "uuid": "07d84abc-e0b3-48e3-a5f6-56ab3f0b0ba1",
+    "slug": "good-burger",
+    "detail": "\"Welcome to Good Burger, home of the Good Burger. Can I take your order?\"  The titular restaurant of the 1997 Nickelodeon comedy film is nothing more than a standard fast food join",
+    "created_at": "2021-03-16T18:57:52.001Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 17,
+  "fields": {
+    "uuid": "b961e47a-a294-429b-a6c0-9a2aa91f9cc2",
+    "slug": "weyland-yutani-corporation",
+    "detail": "If you've ever wondered who keeps funding all those missions to space to track down Xenomorphs in the Alien franchise, it's the Weyland-Yutani Corporation. As the name implies, it'",
+    "created_at": "2021-03-16T18:58:01.809Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 18,
+  "fields": {
+    "uuid": "213aba65-4daa-4f46-b351-be7bb8e7b97e",
+    "slug": "burns-industries",
+    "detail": "Charles Montgomery Burns is the richest man in Springfield, owing his large fortune to the vast array of companies he owns. Obviously the Springfield Nuclear Plant is his main busi",
+    "created_at": "2021-03-16T18:58:11.879Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 19,
+  "fields": {
+    "uuid": "6e293908-deaa-4665-b7ba-ec963e684bdf",
+    "slug": "buy-n-large",
+    "detail": "Buy n Large started as a retail giant in the Pixar universe, similar to WalMart. In the futuristic film Wall-E, set in the year 2805, Earth's obsession with consumerism, combined w",
+    "created_at": "2021-03-16T18:58:20.848Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 20,
+  "fields": {
+    "uuid": "d0bea151-dd52-4767-9376-8e2bcf218ac3",
+    "slug": "paper-street-soap-company",
+    "detail": "Luxury department store soap sellers by day, social vigilantes and agents of chaos by night. The company owned and operated by Tyler Durden in Fight Club specializes in recipes for",
+    "created_at": "2021-03-16T18:58:33.943Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 21,
+  "fields": {
+    "uuid": "0b67c522-91ec-4440-b585-c2d7237a9cc9",
+    "slug": "men-in-black",
+    "detail": "Much like the very real FBI or CIA, the organization known as MiB has far reaching powers. They are in charge of approving and monitoring all extra-terrestrial life on Earth. Notab",
+    "created_at": "2021-03-16T18:58:41.308Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 22,
+  "fields": {
+    "uuid": "01492cf4-393e-4b87-bdbf-8bf3a6e3aef0",
+    "slug": "brawndo",
+    "detail": "In the movie , a U.S. Army librarian is sent 500 years into the future during an accidental test of suspended animation. When he awakens, he finds himself the smartest man on the p",
+    "created_at": "2021-03-16T18:58:53.107Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 23,
+  "fields": {
+    "uuid": "2d83bcdb-c41e-4ee2-9a1b-04984418ca35",
+    "slug": "aperture-science-inc",
+    "detail": "The experimental physics research facility exists in the Valve video game universes of Half-Life and Portal. The company was founded by charismatic visionary Cave Johnson and went",
+    "created_at": "2021-03-16T18:59:01.359Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 24,
+  "fields": {
+    "uuid": "e740f419-b26a-4b11-8a29-e6227dcaae1a",
+    "slug": "monsters-inc",
+    "detail": "Another Pixar company makes our list, and this one had a whole movie made about it. In the world that exists on the other side of the closet doors of children, monsters have their",
+    "created_at": "2021-03-16T18:59:11.994Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 25,
+  "fields": {
+    "uuid": "0b04a432-4908-4d8a-843a-145ecec2faf1",
+    "slug": "cyberdyne-systems",
+    "detail": "Cyberdyne develops advanced technologies to be used by the United States Defense Department in the Terminator franchise. However, they were also accidentally responsible for releas",
+    "created_at": "2021-03-16T18:59:21.116Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 26,
+  "fields": {
+    "uuid": "b2655540-19d5-4292-a518-16c88fa780c6",
+    "slug": "los-pollos-hermanos",
+    "detail": "Los Pollos Hermanos is a fried chicken fast-food place owned by Gustavo Fring in the  and Better Call Saul universes. While it is sometimes used to launder money from illegal meth",
+    "created_at": "2021-03-16T18:59:31.593Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 27,
+  "fields": {
+    "uuid": "3427bf7b-0851-45e1-904e-18056f2a93c8",
+    "slug": "planet-express-inc",
+    "detail": "Most of the time, Planet Express is a simple delivery company. Founded by 's Professor Hubert J. Farnsworth so it could help fund his wacky scientific research projects, Planet Exp",
+    "created_at": "2021-03-16T18:59:56.620Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 28,
+  "fields": {
+    "uuid": "75bb8b1c-640a-431c-b865-f73c29ba43c5",
+    "slug": "ingen",
+    "detail": "International Genetics Incorporated is a bioengineering firm that made a scientific breakthrough in the genetic cloning of extinct animals. That is a truly remarkable achievement!",
+    "created_at": "2021-03-16T19:00:05.008Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 29,
+  "fields": {
+    "uuid": "0e9131a2-634e-4ce7-a423-65c5b75e1cda",
+    "slug": "stark-industries",
+    "detail": "These two are almost the same company in completely different universes. Stark Industries is headed up by billionaire playboy Tony Stark (aka Iron Man), while Wayne Enterprises is",
+    "created_at": "2021-03-16T19:00:18.219Z"
+  }
+},
+{
+  "model": "blog.community",
+  "pk": 30,
+  "fields": {
+    "uuid": "1abd257b-6da9-4f8e-985d-b3d12792d3dc",
+    "slug": "wayne-enterprises",
+    "detail": "These two are almost the same company in completely different universes. Stark Industries is headed up by billionaire playboy Tony Stark (aka Iron Man), while Wayne Enterprises is",
+    "created_at": "2021-03-16T19:00:22.977Z"
   }
 },
 {
@@ -333,13 +623,16 @@
     "slug": "testing",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut justo metus. Nunc eleifend, ipsum in molestie iaculis, enim diam aliquet justo, vel tincidunt enim velit non est. Praesent non sodales nisi. Sed eget velit lorem. Aliquam facilisis odio id dolor suscipit elementum. Donec erat diam, convallis ac neque at, euismod aliquet urna. Nulla a ipsum eu eros pulvinar mattis ac facilisis lacus. In orci nulla, dictum vel tempus nec, accumsan id nisl. Aliquam augue quam, iaculis in rhoncus non, scelerisque pulvinar est. Quisque euismod aliquet dapibus. Integer mollis risus sem, in faucibus augue tristique eget. In mauris erat, sodales sit amet justo vitae, commodo maximus velit. Sed laoreet blandit lorem dictum pulvinar. Vestibulum condimentum sapien nunc, nec ultrices ipsum condimentum tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.\r\n\r\nSuspendisse pharetra viverra risus, eget ultrices nisl ornare vitae. Morbi rutrum tellus ex, eget rhoncus lectus blandit a. Integer vel condimentum massa. Nulla porttitor urna et magna iaculis, nec iaculis nunc efficitur. Etiam ac mauris vel mauris ornare iaculis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer ut maximus odio, at pulvinar enim. Aliquam finibus sapien at tortor tincidunt, ac posuere ex sodales. In condimentum, mauris vitae pharetra malesuada, dui ex luctus odio, non suscipit neque arcu vel quam. Pellentesque pretium mollis pellentesque. Vivamus in commodo ipsum. Nunc dignissim gravida nisl, nec pellentesque enim rutrum a. Phasellus ut est nec metus ornare iaculis iaculis eget ante. Sed dignissim malesuada ex mollis vestibulum. Duis sed elementum enim.\r\n\r\nDuis ut dapibus ante. Etiam sed lacinia lorem, vitae commodo velit. Fusce at convallis mauris. Nunc pellentesque et tortor sit amet vulputate. Nulla massa metus, dignissim ut mi nec, egestas iaculis nibh. Ut aliquet non eros id varius. Nulla congue justo arcu, at viverra libero vulputate a. Ut eu nisl ut nibh finibus dictum. Sed sit amet fringilla orci, id consequat lacus. Vivamus laoreet facilisis tempus. Vestibulum imperdiet, justo ut auctor auctor, erat ante ultricies lacus, sit amet ornare justo velit a ipsum. Nulla fringilla venenatis augue.\r\n\r\nAliquam hendrerit venenatis erat, a ultrices augue malesuada eu. Praesent ullamcorper sapien nulla, et sodales justo vestibulum eu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In varius tincidunt quam, nec gravida nisi commodo id. Suspendisse ultricies tempus diam, eu volutpat tellus lacinia ac. Cras feugiat dui ut magna egestas blandit. Phasellus lacinia non magna ut consequat. Nam a velit felis. Mauris nisi tellus, maximus et risus at, accumsan auctor est. Aliquam semper velit nisi, a dapibus libero convallis ac. Mauris purus dolor, venenatis id iaculis id, rhoncus et ligula. Quisque volutpat libero in purus ornare, quis euismod ex tristique. Nunc id volutpat tellus.\r\n\r\nFusce tincidunt pretium interdum. Nullam urna sapien, sagittis ac nisl eu, posuere viverra lorem. Morbi sed ante non massa faucibus mattis ac id velit. Praesent tempor rutrum turpis nec ornare. Aliquam leo leo, consectetur ut sem ac, varius maximus leo. Praesent vel leo at massa posuere tincidunt. Pellentesque pellentesque, velit sit amet sodales fringilla, augue urna facilisis ipsum, a fringilla dui diam id sapien. In accumsan magna ante. Donec tempus dolor sed arcu accumsan, ut commodo dui congue. Aliquam fermentum porta justo, sed consectetur neque aliquet ut.",
     "abstract": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut justo metus.",
+    "author": 3,
+    "community": 1,
     "language": 1,
     "is_public": true,
     "created_at": "2021-03-11T13:21:32.560Z",
     "updated_at": "2021-03-11T13:21:32.560Z",
     "tags": [
       23
-    ]
+    ],
+    "contributors": []
   }
 }
 ]

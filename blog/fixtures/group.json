@@ -6,5 +6,237 @@
     "name": "Bloggernator",
     "permissions": []
   }
+},
+{
+  "model": "auth.group",
+  "pk": 2,
+  "fields": {
+    "name": "Acme Corporation",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 3,
+  "fields": {
+    "name": "Globex Corporation",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 4,
+  "fields": {
+    "name": "Soylent Corp",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 5,
+  "fields": {
+    "name": "Initech",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 6,
+  "fields": {
+    "name": "Umbrella Corporation",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 7,
+  "fields": {
+    "name": "Hooli",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 8,
+  "fields": {
+    "name": "Vehement Capital Partners",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 9,
+  "fields": {
+    "name": "Massive Dynamic",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 10,
+  "fields": {
+    "name": "Ollivander's Wand Shop",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 11,
+  "fields": {
+    "name": "Gekko and Co.",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 12,
+  "fields": {
+    "name": "Wonka Candy Company",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 13,
+  "fields": {
+    "name": "Cheers",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 14,
+  "fields": {
+    "name": "Callister Inc",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 15,
+  "fields": {
+    "name": "The Krusty Krab",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 16,
+  "fields": {
+    "name": "Good Burger",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 17,
+  "fields": {
+    "name": "Weyland-Yutani Corporation",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 18,
+  "fields": {
+    "name": "Burns Industries",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 19,
+  "fields": {
+    "name": "Buy n Large",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 20,
+  "fields": {
+    "name": "Paper Street Soap Company",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 21,
+  "fields": {
+    "name": "Men In Black",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 22,
+  "fields": {
+    "name": "Brawndo",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 23,
+  "fields": {
+    "name": "Aperture Science, Inc.",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 24,
+  "fields": {
+    "name": "Monsters, Inc.",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 25,
+  "fields": {
+    "name": "Cyberdyne Systems",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 26,
+  "fields": {
+    "name": "Los Pollos Hermanos",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 27,
+  "fields": {
+    "name": "Planet Express, Inc.",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 28,
+  "fields": {
+    "name": "InGen",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 29,
+  "fields": {
+    "name": "Stark Industries",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 30,
+  "fields": {
+    "name": "Wayne Enterprises",
+    "permissions": []
+  }
 }
 ]
