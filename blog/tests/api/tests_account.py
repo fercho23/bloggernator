@@ -6,7 +6,7 @@ import json
 from django.test import TestCase
 
 from rest_framework.authtoken.models import Token
-from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
+from rest_framework import status
 from rest_framework.test import APIClient
 
 from blog.models.User import User
@@ -47,7 +47,7 @@ class AccountTests(TestCase):
         obj = User.objects.filter(email=data['email']).first()
         serialization = UserModelSerializer(obj).data
 
-        self.assertEqual(response.status_code, HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(result.get('user', None), serialization)
         self.assertIn('token', result)
 
@@ -66,7 +66,7 @@ class AccountTests(TestCase):
 
         serialization = UserModelSerializer(obj).data
 
-        self.assertEqual(response.status_code, HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('user', None), serialization)
         self.assertIn('token', result)
 
@@ -83,7 +83,7 @@ class AccountTests(TestCase):
         response = client.post('/api/account/login/', data, format='json')
         result = json.loads(response.content)
 
-        self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('non_field_errors', result)
 
     def test_logout_user(self):
@@ -99,5 +99,5 @@ class AccountTests(TestCase):
 
         result = json.loads(response.content)
 
-        self.assertEqual(response.status_code, HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('detail', result)

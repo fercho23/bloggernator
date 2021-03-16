@@ -3,7 +3,7 @@ import json
 
 from django.test import TestCase
 
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY
+from rest_framework import status
 from rest_framework.test import APIClient
 
 from blog.models.Language import Language
@@ -36,7 +36,7 @@ class PostTests(TestCase):
     ]
 
     def test_post_list(self):
-        """ Get Post List """
+        """ Post List """
 
         client = APIClient()
         response = client.get('/api/post/list/')
@@ -47,14 +47,14 @@ class PostTests(TestCase):
         objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
 
-        self.assertEqual(response.status_code, HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
         self.assertEqual(result.get('results', None), serialization)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
     def test_post_list_by_tag(self):
-        """ Get Post List By Tag"""
+        """ Post List By Tag"""
         tag = Tag.objects.filter(slug='wellness').first()
 
         client = APIClient()
@@ -71,14 +71,14 @@ class PostTests(TestCase):
         objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
 
-        self.assertEqual(response.status_code, HTTP_200_OK)
-        self.assertEqual(result.get('count', None), objects.count())
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
         self.assertEqual(result.get('results', None), serialization)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
     def test_post_list_by_language(self):
-        """ Get Post List By Language"""
+        """ Post List By Language"""
         language = Language.objects.filter(slug='english').first()
 
         client = APIClient()
@@ -86,14 +86,13 @@ class PostTests(TestCase):
 
         result = json.loads(response.content)
 
-
         objects_query = Post.objects.filter(language__slug=language.slug)
         objects_count = objects_query.count()
         objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
 
-        self.assertEqual(response.status_code, HTTP_200_OK)
-        self.assertEqual(result.get('count', None), objects.count())
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
         self.assertEqual(result.get('results', None), serialization)
         self.assertIn('next', result)
         self.assertIn('previous', result)

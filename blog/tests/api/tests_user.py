@@ -5,8 +5,8 @@ import json
 
 from django.test import TestCase
 
+from rest_framework import status
 from rest_framework.authtoken.models import Token
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY
 from rest_framework.test import APIClient
 
 from blog.models.User import User
@@ -33,7 +33,7 @@ class UserTests(TestCase):
     ]
 
     def test_get_user(self):
-        """ Get user """
+        """ Get User """
 
         obj = User.objects.get(pk=2)
 
@@ -48,7 +48,7 @@ class UserTests(TestCase):
             'object': serialization
         }
 
-        self.assertEqual(response.status_code, HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('result', None), expected_value['result'])
         self.assertEqual(result.get('object', None), expected_value['object'])
 
@@ -84,7 +84,7 @@ class UserTests(TestCase):
             'object': serialization
         }
 
-        self.assertEqual(response.status_code, HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('result', None), expected_value['result'])
         self.assertEqual(result.get('object', None), expected_value['object'])
 
@@ -115,6 +115,6 @@ class UserTests(TestCase):
         response = client.put('/api/user/{}/update/'.format(obj2.uuid), data, format='multipart')
         result = json.loads(response.content)
 
-        self.assertEqual(response.status_code, HTTP_422_UNPROCESSABLE_ENTITY)
+        self.assertEqual(response.status_code, status.HTTP_422_UNPROCESSABLE_ENTITY)
         self.assertEqual(result.get('error', None), True)
         self.assertIn('validation_errors', result)

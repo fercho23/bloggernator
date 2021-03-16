@@ -94,9 +94,14 @@
   "pk": 1,
   "fields": {
     "uuid": "41834ea0-e06d-4ae2-8aa6-445736edf823",
-    "owner": 1,
+    "owner": 2,
     "slug": "bloggernator",
     "detail": "Bloggernator Group",
+    "members": [
+      3,
+      4,
+      5
+    ],
     "created_at": "2021-03-14T13:52:03.293Z"
   }
 },

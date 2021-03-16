@@ -21,8 +21,8 @@ class UserDetailView(APIView):
         serializer = None
 
         try:
-            pk = kwargs.get('pk')
-            obj = User.objects.filter(uuid=pk).first()
+            uuid = kwargs.get('uuid')
+            obj = User.objects.filter(uuid=uuid).first()
             if not obj:
                 raise ObjectDoesNotExist(_("User do not exist."))
 
@@ -55,13 +55,13 @@ class UserUpdateView(APIView):
         serializer = None
 
         try:
-            pk = kwargs.get('pk', '')
+            uuid = kwargs.get('uuid', '')
 
-            if request.user.uuid != pk:
-                raise ValidationError({'pk': _("User is not correct.")})
+            if request.user.uuid != uuid:
+                raise ValidationError({'uuid': _("User is not correct.")})
 
             obj_to_serialize = request.user
-            # obj_to_serialize = User.objects.filter(uuid=pk).first()
+            # obj_to_serialize = User.objects.filter(uuid=uuid).first()
             # if not obj_to_serialize:
             #     raise ObjectDoesNotExist(_("User do not exist."))
 

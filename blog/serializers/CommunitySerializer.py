@@ -1,13 +1,13 @@
 
-from django.core.validators import FileExtensionValidator
-from django.utils.translation import gettext_lazy as _
-
 from rest_framework import serializers
 
 from blog.models.Community import Community
 
 
 class CommunityModelSerializer(serializers.ModelSerializer):
+    owner_username = serializers.ReadOnlyField(source='owner.username')
+    owner_uuid = serializers.ReadOnlyField(source='owner.uuid')
+
     class Meta:
         model = Community
         fields = (
@@ -16,6 +16,17 @@ class CommunityModelSerializer(serializers.ModelSerializer):
             'slug',
             'detail',
             'created_at',
+            'owner_username',
+            'owner_uuid',
         )
 
+
+class CommunityCreateUpdateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Community
+        fields = (
+            'name',
+            'detail',
+        )
 
