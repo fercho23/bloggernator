@@ -15,8 +15,8 @@ class Community(Group):
     created_at = models.DateTimeField(_('created at'), auto_now_add=True, blank=True)
 
     class Meta:
-        verbose_name = _('Community')
-        verbose_name_plural = _('Communities')
+        verbose_name = _('community')
+        verbose_name_plural = _('communities')
         ordering = ('-created_at',)
         permissions = [
             ('community_owner', 'Community owner'),

@@ -12,8 +12,8 @@ class Tag(models.Model):
     slug = models.SlugField(_('slug'), max_length=100, unique=True)
 
     class Meta:
-        verbose_name = _('Tag')
-        verbose_name_plural = _('Tags')
+        verbose_name = _('tag')
+        verbose_name_plural = _('tags')
         ordering = ('name',)
 
     def __str__(self):

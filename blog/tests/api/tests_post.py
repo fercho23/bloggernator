@@ -27,9 +27,11 @@ class PostTests(TestCase):
     """ Test module for Post model """
 
     fixtures = [
+        'group',
+        'community',
+        'user',
         'language',
         'tag',
-        'user',
         'post',
     ]
 
