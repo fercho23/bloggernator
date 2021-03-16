@@ -1,6 +1,7 @@
 
 import uuid
 
+from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
 from django.utils.text import slugify
@@ -10,6 +11,7 @@ from django.utils.translation import gettext_lazy as _
 class Community(Group):
     uuid = models.CharField(_('uuid'), editable=False, blank=True, max_length=254, default=uuid.uuid4, unique=True, db_index=True)
 
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_('owner'))
     slug = models.SlugField(_('slug'), max_length=255, unique=True, blank=True)
     detail = models.CharField(_('detail'), max_length=180, blank=True)
 

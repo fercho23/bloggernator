@@ -17,6 +17,7 @@ class CommunityTests(TestCase):
     """ Test module for Community model """
 
     fixtures = [
+        'user',
         'group',
         'community',
     ]
@@ -28,8 +29,9 @@ class CommunityTests(TestCase):
         response = client.get('/api/community/list/')
         result = json.loads(response.content)
 
-        objects_count = Community.objects.count()
-        objects = Community.objects.all()
+        objects_query = Community.objects
+        objects_count = objects_query.count()
+        objects = objects_query.all()[:10]
         serialization = CommunityModelSerializer(objects, many=True).data
 
         self.assertEqual(response.status_code, HTTP_200_OK)

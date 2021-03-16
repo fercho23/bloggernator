@@ -27,9 +27,9 @@ class PostTests(TestCase):
     """ Test module for Post model """
 
     fixtures = [
+        'user',
         'group',
         'community',
-        'user',
         'language',
         'tag',
         'post',
@@ -42,11 +42,13 @@ class PostTests(TestCase):
         response = client.get('/api/post/list/')
         result = json.loads(response.content)
 
-        objects = Post.objects.all()
+        objects_query = Post.objects
+        objects_count = objects_query.count()
+        objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
 
         self.assertEqual(response.status_code, HTTP_200_OK)
-        self.assertEqual(result.get('count', None), objects.count())
+        self.assertEqual(result.get('count', None), objects_count)
         self.assertEqual(result.get('results', None), serialization)
         self.assertIn('next', result)
         self.assertIn('previous', result)
@@ -60,7 +62,13 @@ class PostTests(TestCase):
 
         result = json.loads(response.content)
 
-        objects = Post.objects.filter(tags__slug=tag.slug).all()
+        filters = {
+            'tags__slug': tag.slug
+        }
+
+        objects_query = Post.objects.filter(tags__slug=tag.slug)
+        objects_count = objects_query.count()
+        objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
 
         self.assertEqual(response.status_code, HTTP_200_OK)
@@ -78,7 +86,10 @@ class PostTests(TestCase):
 
         result = json.loads(response.content)
 
-        objects = Post.objects.filter(language__slug=language.slug).all()
+
+        objects_query = Post.objects.filter(language__slug=language.slug)
+        objects_count = objects_query.count()
+        objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
 
         self.assertEqual(response.status_code, HTTP_200_OK)

@@ -27,8 +27,9 @@ class LanguageTests(TestCase):
         response = client.get('/api/language/list/')
         result = json.loads(response.content)
 
-        objects_count = Language.objects.count()
-        objects = Language.objects.all()
+        objects_query = Language.objects
+        objects_count = objects_query.count()
+        objects = objects_query.all()[:10]
         serialization = LanguageModelSerializer(objects, many=True).data
 
         self.assertEqual(response.status_code, HTTP_200_OK)
