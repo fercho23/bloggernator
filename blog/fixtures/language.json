@@ -13,7 +13,7 @@
   "pk": 2,
   "fields": {
     "uuid": "c42baaf7-8b0c-4c2a-842f-0d84b6283c39",
-    "name": "Español",
+    "name": "EspaÃ±ol",
     "slug": "spanish"
   }
 },
@@ -22,7 +22,7 @@
   "pk": 3,
   "fields": {
     "uuid": "ef0568cd-5e32-4d8a-a6fa-7dbfc761dbe6",
-    "name": "Português",
+    "name": "PortuguÃªs",
     "slug": "portuguese"
   }
 },
@@ -40,7 +40,7 @@
   "pk": 5,
   "fields": {
     "uuid": "cc98441c-9c6b-48ba-a3df-e4e32529323e",
-    "name": "Français",
+    "name": "FranÃ§ais",
     "slug": "french"
   }
 },
