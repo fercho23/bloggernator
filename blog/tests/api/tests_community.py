@@ -82,7 +82,6 @@ class CommunityTests(TestCase):
 
         community = Community.objects.get(pk=community.id)
 
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsNotNone(community)
         self.assertEqual(community.name, data['name'])
