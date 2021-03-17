@@ -13,8 +13,44 @@
   "pk": 2,
   "fields": {
     "uuid": "c42baaf7-8b0c-4c2a-842f-0d84b6283c39",
-    "name": "EspaÃ±ol",
-    "slug": "Espanol"
+    "name": "Español",
+    "slug": "spanish"
+  }
+},
+{
+  "model": "blog.language",
+  "pk": 3,
+  "fields": {
+    "uuid": "ef0568cd-5e32-4d8a-a6fa-7dbfc761dbe6",
+    "name": "Português",
+    "slug": "portuguese"
+  }
+},
+{
+  "model": "blog.language",
+  "pk": 4,
+  "fields": {
+    "uuid": "65b70eae-313b-47c0-8839-756659d4fc18",
+    "name": "Deutsch",
+    "slug": "german"
+  }
+},
+{
+  "model": "blog.language",
+  "pk": 5,
+  "fields": {
+    "uuid": "cc98441c-9c6b-48ba-a3df-e4e32529323e",
+    "name": "Français",
+    "slug": "french"
+  }
+},
+{
+  "model": "blog.language",
+  "pk": 6,
+  "fields": {
+    "uuid": "94f71439-b01e-4de1-bee7-862db1a8d297",
+    "name": "Italiano",
+    "slug": "italian"
   }
 }
 ]
