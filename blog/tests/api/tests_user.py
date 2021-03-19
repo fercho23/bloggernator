@@ -34,7 +34,7 @@ class UserTests(TestCase):
     ]
 
     def test_get_user(self):
-        """ Get User """
+        """ test_get_user - Get User """
 
         user = User.objects.get(pk=3)
 
@@ -58,7 +58,7 @@ class UserTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_update_user(self):
-        """ Update user """
+        """ test_update_user - Update user """
 
         user = User.objects.get(pk=3)
 
@@ -87,9 +87,8 @@ class UserTests(TestCase):
         self.assertEqual(user.username, data['username'])
         self.assertIn('photo', result)
 
-
     def test_update_another_user_get_validation_error(self):
-        """ Update another user get Validation Error """
+        """ test_update_another_user_get_validation_error - Update another user get Validation Error """
 
         user = User.objects.get(pk=3)
         user2 = User.objects.get(pk=4)

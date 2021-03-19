@@ -13,29 +13,35 @@ from blog.serializers.PostSerializer import PostModelSerializer
 
 
 class PostListView(ListAPIView):
-    queryset = Post.objects.all().select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
+    queryset = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
     serializer_class = PostModelSerializer
 
 
 class PostListByLanguageView(ListAPIView):
+    queryset = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
     serializer_class = PostModelSerializer
+    lookup_field = 'language__slug'
+    lookup_url_kwarg = 'slug'
 
-    def get_queryset(self):
-        """
-        This view should return a list of all the post filter by the language
-        """
-        slug = self.kwargs['slug']
-        return Post.objects.filter(language__slug=slug).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
+    # def get_queryset(self):
+    #     """
+    #     This view should return a list of all the post filter by the language
+    #     """
+    #     slug = self.kwargs['slug']
+    #     return Post.objects.filter(language__slug=slug).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
 
 
 class PostListByTagView(ListAPIView):
+    queryset = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
     serializer_class = PostModelSerializer
+    lookup_field = 'tags__slug'
+    lookup_url_kwarg = 'slug'
 
-    def get_queryset(self):
-        """
-        This view should return a list of all the post filter by the tag
-        """
-        slug = self.kwargs['slug']
-        return Post.objects.filter(tags__slug=slug).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
+    # # def get_queryset(self):
+    #     """
+    #     This view should return a list of all the post filter by the tag
+    #     """
+    #     # slug = self.kwargs['slug']
+    #     # return Post.objects.filter(tags__slug=slug).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
 
 

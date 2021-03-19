@@ -22,7 +22,7 @@ class AccountTests(TestCase):
     ]
 
     def test_signup_user(self):
-        """ Create an user """
+        """ test_signup_user - Create an user """
 
         image = Image.new('RGB', (100, 100))
 
@@ -50,7 +50,7 @@ class AccountTests(TestCase):
         self.assertIn('token', result)
 
     def test_login_user(self):
-        """ Login """
+        """ test_login_user - Login """
 
         obj = User.objects.get(pk=2)
         data = {
@@ -69,7 +69,7 @@ class AccountTests(TestCase):
         self.assertIn('token', result)
 
     def test_login_user_get_validation_error(self):
-        """ Login with an incorrect password get Validation Error """
+        """ test_login_user_get_validation_error - Login with an incorrect password get Validation Error """
 
         obj = User.objects.get(pk=2)
         data = {
@@ -85,7 +85,7 @@ class AccountTests(TestCase):
         self.assertIn('non_field_errors', result)
 
     def test_logout_user(self):
-        """ Logout """
+        """ test_logout_user - Logout """
 
         obj = User.objects.get(pk=1)
         token = Token.objects.create(user=obj)

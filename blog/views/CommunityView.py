@@ -19,7 +19,7 @@ class CommunityCreateView(CreateAPIView):
 
 
 class CommunityDeleteView(DestroyAPIView):
-    queryset = Community.objects.all()
+    queryset = Community.objects
     permission_classes = [IsAuthenticated]
     lookup_field = 'uuid'
 
@@ -34,18 +34,18 @@ class CommunityDeleteView(DestroyAPIView):
 
 
 class CommunityListView(ListAPIView):
-    queryset = Community.objects.all().select_related('owner').prefetch_related('members')
+    queryset = Community.objects.select_related('owner').prefetch_related('members')
     serializer_class = CommunityModelSerializer
 
 
 class CommunityReadView(RetrieveAPIView):
-    queryset = Community.objects.all().select_related('owner').prefetch_related('members')
+    queryset = Community.objects.select_related('owner').prefetch_related('members')
     serializer_class = CommunityModelSerializer
     lookup_field = 'uuid'
 
 
 class CommunityUpdateView(UpdateAPIView):
-    queryset = Community.objects.all()
+    queryset = Community.objects
     serializer_class = CommunityCreateUpdateSerializer
     permission_classes = [IsAuthenticated]
     lookup_field = 'uuid'

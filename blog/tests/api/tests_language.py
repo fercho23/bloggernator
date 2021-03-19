@@ -20,7 +20,7 @@ class LanguageTests(TestCase):
     ]
 
     def test_language_list(self):
-        """ Language List """
+        """ test_language_list - Language List """
 
         client = APIClient()
         response = client.get('/api/language/list/')

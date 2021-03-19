@@ -21,7 +21,7 @@ class TagTests(TestCase):
     ]
 
     def test_tag_list(self):
-        """ Tag List """
+        """ test_tag_list - Tag List """
 
         client = APIClient()
         response = client.get('/api/tag/list/')

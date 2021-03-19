@@ -36,7 +36,7 @@ class PostTests(TestCase):
     ]
 
     def test_post_list(self):
-        """ Post List """
+        """ test_post_list - Post List """
 
         client = APIClient()
         response = client.get('/api/post/list/')
@@ -54,7 +54,7 @@ class PostTests(TestCase):
         self.assertIn('previous', result)
 
     def test_post_list_by_tag(self):
-        """ Post List By Tag"""
+        """ test_post_list_by_tag - Post List By Tag"""
         tag = Tag.objects.filter(slug='wellness').first()
 
         client = APIClient()
@@ -78,7 +78,7 @@ class PostTests(TestCase):
         self.assertIn('previous', result)
 
     def test_post_list_by_language(self):
-        """ Post List By Language"""
+        """ test_post_list_by_language - Post List By Language"""
         language = Language.objects.filter(slug='english').first()
 
         client = APIClient()

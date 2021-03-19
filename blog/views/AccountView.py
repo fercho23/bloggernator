@@ -1,12 +1,9 @@
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
-# from rest_framework.generics import CreateAPIView
-# from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
+from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
@@ -28,8 +25,8 @@ class LoginView(APIView):
             response['user'] = UserModelSerializer(obj).data
             response['token'] = token
 
-            return Response(response, status=HTTP_200_OK)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+            return Response(response, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LogoutView(APIView):
@@ -40,9 +37,9 @@ class LogoutView(APIView):
             invalidate_token = Token.objects.filter(key=token, user=request.user)
             invalidate_token.delete()
 
-            return Response({'detail': _('Logged out')}, status=HTTP_200_OK)
+            return Response({'detail': _('Logged out')}, status=status.HTTP_200_OK)
         except:
-            return Response({'error': [_('Token does not exist!')]}, status=HTTP_400_BAD_REQUEST)
+            return Response({'error': [_('Token does not exist!')]}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class SignupView(APIView):
@@ -60,5 +57,5 @@ class SignupView(APIView):
             response['user'] = UserModelSerializer(obj).data
             response['token'] = token
 
-            return Response(response, status=HTTP_201_CREATED)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+            return Response(response, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
