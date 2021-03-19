@@ -2,7 +2,7 @@
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from blog.models.Community import Community
@@ -36,6 +36,12 @@ class CommunityDeleteView(DestroyAPIView):
 class CommunityListView(ListAPIView):
     queryset = Community.objects.all().select_related('owner').prefetch_related('members')
     serializer_class = CommunityModelSerializer
+
+
+class CommunityReadView(RetrieveAPIView):
+    queryset = Community.objects.all().select_related('owner').prefetch_related('members')
+    serializer_class = CommunityModelSerializer
+    lookup_field = 'uuid'
 
 
 class CommunityUpdateView(UpdateAPIView):

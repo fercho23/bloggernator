@@ -23,7 +23,7 @@ class CommunityTests(TestCase):
     ]
 
     def test_community_list(self):
-        """ Community List """
+        """ test_community_list - Community List """
 
         client = APIClient()
         response = client.get('/api/community/list/')
@@ -41,7 +41,7 @@ class CommunityTests(TestCase):
         self.assertIn('previous', result)
 
     def test_community_list_second_page(self):
-        """ Community List second Page"""
+        """ test_community_list_second_page - Community List second Page"""
 
         data = {
             'page': 2,
@@ -63,7 +63,7 @@ class CommunityTests(TestCase):
         self.assertIn('previous', result)
 
     def test_community_create(self):
-        """ Community Create """
+        """ test_community_create - Community Create """
 
         user = User.objects.get(pk=3)
         data = {
@@ -86,7 +86,7 @@ class CommunityTests(TestCase):
         self.assertEqual(community.detail, data['detail'])
 
     def test_community_update(self):
-        """ Community Update """
+        """ test_community_update - Community Update """
 
         community = Community.objects.get(pk=2)
         user = community.owner
@@ -110,7 +110,7 @@ class CommunityTests(TestCase):
         self.assertEqual(community.detail, data['detail'])
 
     def test_community_update_only_owner(self):
-        """ Community Update only by Owner"""
+        """ test_community_update_only_owner - Community Update only by Owner"""
 
         community = Community.objects.get(pk=2)
         user = User.objects.get(pk=4)
@@ -133,7 +133,7 @@ class CommunityTests(TestCase):
         self.assertIn('detail', result)
 
     def test_community_delete(self):
-        """ Community Delete """
+        """ test_community_delete - Community Delete """
 
         community = Community.objects.get(pk=2)
         user = community.owner
@@ -149,7 +149,7 @@ class CommunityTests(TestCase):
         self.assertIsNone(community)
 
     def test_community_delete_only_owner(self):
-        """ Community Delete only by Owner"""
+        """ test_community_delete_only_owner - Community Delete only by Owner"""
 
         community = Community.objects.get(pk=2)
         user = User.objects.get(pk=4)
@@ -164,7 +164,7 @@ class CommunityTests(TestCase):
         self.assertIn('detail', result)
 
     def test_community_can_not_be_deleted_if_has_members(self):
-        """ Community can not be deleted if it has members """
+        """ test_community_can_not_be_deleted_if_has_members - Community can not be deleted if it has members """
 
         community = Community.objects.get(pk=1)
         user = community.owner
@@ -177,3 +177,17 @@ class CommunityTests(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('detail', result)
+
+    def test_community_get(self):
+        """ test_community_get -Community Get """
+
+        community = Community.objects.select_related('owner').prefetch_related('members').first()
+        serialization = CommunityModelSerializer(community).data
+
+        client = APIClient()
+
+        response = client.get('/api/community/{}/'.format(community.uuid))
+        result = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(serialization, result)

@@ -18,7 +18,7 @@ from django.urls import include, path
 from rest_framework.authtoken import views
 
 from blog.views.AccountView import LoginView, LogoutView, SignupView
-from blog.views.CommunityView import CommunityCreateView, CommunityDeleteView, CommunityListView, CommunityUpdateView
+from blog.views.CommunityView import CommunityCreateView, CommunityDeleteView, CommunityListView, CommunityReadView, CommunityUpdateView
 from blog.views.LanguageView import LanguageListView
 from blog.views.PostView import PostListView, PostListByLanguageView, PostListByTagView
 from blog.views.TagView import TagListView
@@ -37,6 +37,7 @@ urlpatterns = [
         path('community/', include([
             path('create/', CommunityCreateView.as_view(), name='api.community.create'),
             path('list/', CommunityListView.as_view(), name='api.community.list'),
+            path('<str:uuid>/', CommunityReadView.as_view(), name='api.community.read'),
             path('<str:uuid>/update/', CommunityUpdateView.as_view(), name='api.community.update'),
             path('<str:uuid>/delete/', CommunityDeleteView.as_view(), name='api.community.delete'),
         ])),
