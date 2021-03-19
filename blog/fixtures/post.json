@@ -19,5 +19,26 @@
     ],
     "contributors": []
   }
+},
+{
+  "model": "blog.post",
+  "pk": 2,
+  "fields": {
+    "uuid": "546978e7-10bb-4d01-8669-2019287c93e0",
+    "title": "Testing 2 ",
+    "slug": "testing-2",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    "abstract": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut justo metus.",
+    "author": 3,
+    "language": 1,
+    "community": 1,
+    "is_public": true,
+    "created_at": "2021-03-11T13:21:32.560Z",
+    "updated_at": "2021-03-11T13:21:32.560Z",
+    "tags": [
+      3
+    ],
+    "contributors": []
+  }
 }
 ]

@@ -49,8 +49,8 @@ urlpatterns = [
         path('post/', include([
             path('list/', include([
                 path('', PostListView.as_view(), name='api.post.list'),
-                path('by_tag/<slug:slug>', PostListByTagView.as_view(), name='api.post.list.by_tag'),
-                path('by_language/<slug:slug>', PostListByLanguageView.as_view(), name='api.post.list.by_language'),
+                path('by_tag/<str:slug>/', PostListByTagView.as_view(), name='api.post.list.by_tag'),
+                path('by_language/<str:slug>/', PostListByLanguageView.as_view(), name='api.post.list.by_language'),
             ])),
         ])),
 

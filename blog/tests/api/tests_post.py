@@ -58,7 +58,7 @@ class PostTests(TestCase):
         tag = Tag.objects.filter(slug='wellness').first()
 
         client = APIClient()
-        response = client.get('/api/post/list/by_tag/{}'.format(tag.slug))
+        response = client.get('/api/post/list/by_tag/{}/'.format(tag.slug))
 
         result = json.loads(response.content)
 
@@ -66,7 +66,7 @@ class PostTests(TestCase):
             'tags__slug': tag.slug
         }
 
-        objects_query = Post.objects.filter(tags__slug=tag.slug).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
+        objects_query = Post.objects.filter(**filters).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
         objects_count = objects_query.count()
         objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
@@ -82,11 +82,15 @@ class PostTests(TestCase):
         language = Language.objects.filter(slug='english').first()
 
         client = APIClient()
-        response = client.get('/api/post/list/by_language/{}'.format(language.slug))
+        response = client.get('/api/post/list/by_language/{}/'.format(language.slug))
 
         result = json.loads(response.content)
 
-        objects_query = Post.objects.filter(language__slug=language.slug).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
+        filters = {
+            'language__slug': language.slug
+        }
+
+        objects_query = Post.objects.filter(**filters).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
         objects_count = objects_query.count()
         objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
