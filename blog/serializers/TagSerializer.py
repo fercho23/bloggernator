@@ -8,6 +8,7 @@ from blog.models.Tag import Tag
 
 
 class TagModelSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Tag
         fields = (

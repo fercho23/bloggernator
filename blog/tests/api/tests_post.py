@@ -42,7 +42,7 @@ class PostTests(TestCase):
         response = client.get('/api/post/list/')
         result = json.loads(response.content)
 
-        objects_query = Post.objects
+        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
         objects_count = objects_query.count()
         objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
@@ -66,7 +66,7 @@ class PostTests(TestCase):
             'tags__slug': tag.slug
         }
 
-        objects_query = Post.objects.filter(tags__slug=tag.slug)
+        objects_query = Post.objects.filter(tags__slug=tag.slug).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
         objects_count = objects_query.count()
         objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
@@ -86,7 +86,7 @@ class PostTests(TestCase):
 
         result = json.loads(response.content)
 
-        objects_query = Post.objects.filter(language__slug=language.slug)
+        objects_query = Post.objects.filter(language__slug=language.slug).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
         objects_count = objects_query.count()
         objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data

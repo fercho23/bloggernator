@@ -13,7 +13,7 @@ from blog.serializers.PostSerializer import PostModelSerializer
 
 
 class PostListView(ListAPIView):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
     serializer_class = PostModelSerializer
 
 
@@ -25,7 +25,7 @@ class PostListByLanguageView(ListAPIView):
         This view should return a list of all the post filter by the language
         """
         slug = self.kwargs['slug']
-        return Post.objects.filter(language__slug=slug)
+        return Post.objects.filter(language__slug=slug).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
 
 
 class PostListByTagView(ListAPIView):
@@ -36,6 +36,6 @@ class PostListByTagView(ListAPIView):
         This view should return a list of all the post filter by the tag
         """
         slug = self.kwargs['slug']
-        return Post.objects.filter(tags__slug=slug)
+        return Post.objects.filter(tags__slug=slug).select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
 
 

@@ -7,7 +7,6 @@ from rest_framework import serializers
 
 
 class UserModelSerializer(serializers.ModelSerializer):
-    # photo_url = serializers.SerializerMethodField()
 
     class Meta:
         model = get_user_model()
@@ -17,12 +16,6 @@ class UserModelSerializer(serializers.ModelSerializer):
             'username',
             'photo',
         )
-
-    # def get_photo_url(self, obj):
-    #     if obj.photo:
-    #         photo_url = obj.photo.url
-    #         return photo_url
-    #     return ''
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):

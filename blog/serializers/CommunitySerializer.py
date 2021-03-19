@@ -3,10 +3,12 @@ from rest_framework import serializers
 
 from blog.models.Community import Community
 
+from blog.serializers.UserSerializer import UserModelSerializer
+
 
 class CommunityModelSerializer(serializers.ModelSerializer):
-    owner_username = serializers.ReadOnlyField(source='owner.username')
-    owner_uuid = serializers.ReadOnlyField(source='owner.uuid')
+    owner = UserModelSerializer()
+    members = UserModelSerializer(many=True)
 
     class Meta:
         model = Community
@@ -16,8 +18,8 @@ class CommunityModelSerializer(serializers.ModelSerializer):
             'slug',
             'detail',
             'created_at',
-            'owner_username',
-            'owner_uuid',
+            'owner',
+            'members',
         )
 
 

@@ -29,7 +29,7 @@ class CommunityTests(TestCase):
         response = client.get('/api/community/list/')
         result = json.loads(response.content)
 
-        objects_query = Community.objects
+        objects_query = Community.objects.select_related('owner').prefetch_related('members')
         objects_count = objects_query.count()
         objects = objects_query.all()[:10]
         serialization = CommunityModelSerializer(objects, many=True).data
@@ -51,7 +51,7 @@ class CommunityTests(TestCase):
         response = client.get('/api/community/list/', data)
         result = json.loads(response.content)
 
-        objects_query = Community.objects
+        objects_query = Community.objects.select_related('owner').prefetch_related('members')
         objects_count = objects_query.count()
         objects = objects_query.all()[10:20]
         serialization = CommunityModelSerializer(objects, many=True).data
@@ -81,6 +81,7 @@ class CommunityTests(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIsNotNone(community)
+        self.assertEqual(community.owner, user)
         self.assertEqual(community.name, data['name'])
         self.assertEqual(community.detail, data['detail'])
 

@@ -10,7 +10,7 @@ from blog.models import Tag
 
 from blog.serializers.TagSerializer import TagModelSerializer
 
-# list_tags (paginations)
+
 # list_tags (filters)
 
 class TagTests(TestCase):

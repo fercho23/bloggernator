@@ -6,8 +6,19 @@ from rest_framework import serializers
 
 from blog.models.Post import Post
 
+from blog.serializers.UserSerializer import UserModelSerializer
+from blog.serializers.LanguageSerializer import LanguageModelSerializer
+from blog.serializers.CommunitySerializer import CommunityModelSerializer
+from blog.serializers.TagSerializer import TagModelSerializer
+
 
 class PostModelSerializer(serializers.ModelSerializer):
+    author = UserModelSerializer()
+    community = CommunityModelSerializer()
+    language = LanguageModelSerializer()
+    tags = TagModelSerializer(many=True)
+    contributors = UserModelSerializer(many=True)
+
     class Meta:
         model = Post
         fields = (
@@ -16,6 +27,12 @@ class PostModelSerializer(serializers.ModelSerializer):
             'slug',
             'body',
             'abstract',
+
+            'author',
+            'community',
+            'language',
+            'tags',
+            'contributors',
         )
 
 

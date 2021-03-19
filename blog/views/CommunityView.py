@@ -34,7 +34,7 @@ class CommunityDeleteView(DestroyAPIView):
 
 
 class CommunityListView(ListAPIView):
-    queryset = Community.objects.all()
+    queryset = Community.objects.all().select_related('owner').prefetch_related('members')
     serializer_class = CommunityModelSerializer
 
 
