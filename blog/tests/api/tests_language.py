@@ -10,7 +10,6 @@ from blog.models.Language import Language
 
 from blog.serializers.LanguageSerializer import LanguageModelSerializer
 
-# list_language (paginations)
 # list_language (filters)
 
 class LanguageTests(TestCase):
@@ -29,11 +28,8 @@ class LanguageTests(TestCase):
 
         objects_query = Language.objects
         objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
+        objects = objects_query.all()
         serialization = LanguageModelSerializer(objects, many=True).data
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
-        self.assertIn('next', result)
-        self.assertIn('previous', result)
+        self.assertEqual(result, serialization)

@@ -15,5 +15,6 @@ from blog.serializers.LanguageSerializer import LanguageModelSerializer
 class LanguageListView(ListAPIView):
     queryset = Language.objects.all()
     serializer_class = LanguageModelSerializer
+    pagination_class = None
 
 

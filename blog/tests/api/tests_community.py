@@ -11,7 +11,6 @@ from blog.models.User import User
 
 from blog.serializers.CommunitySerializer import CommunityModelSerializer
 
-# list_community (paginations)
 # list_community (filters)
 
 class CommunityTests(TestCase):
@@ -33,6 +32,28 @@ class CommunityTests(TestCase):
         objects_query = Community.objects
         objects_count = objects_query.count()
         objects = objects_query.all()[:10]
+        serialization = CommunityModelSerializer(objects, many=True).data
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None), serialization)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
+    def test_community_list_second_page(self):
+        """ Community List second Page"""
+
+        data = {
+            'page': 2,
+        }
+
+        client = APIClient()
+        response = client.get('/api/community/list/', data)
+        result = json.loads(response.content)
+
+        objects_query = Community.objects
+        objects_count = objects_query.count()
+        objects = objects_query.all()[10:20]
         serialization = CommunityModelSerializer(objects, many=True).data
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)

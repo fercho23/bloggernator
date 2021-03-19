@@ -13,8 +13,6 @@ from blog.models.User import User
 
 from blog.serializers.UserSerializer import UserModelSerializer
 
-# logout
-
 
 class AccountTests(TestCase):
     """ Test module for Account actions """
