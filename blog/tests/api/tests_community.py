@@ -62,6 +62,54 @@ class CommunityTests(TestCase):
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
+    def test_community_filtered_list(self):
+        """ test_community_filtered_list - Community filtered List """
+
+        first_obj = Community.objects.first()
+
+        data = {
+            'name': first_obj.name[:-1],
+        }
+
+        client = APIClient()
+        response = client.get('/api/community/list/', data)
+        result = json.loads(response.content)
+
+        objects_query = Community.objects.select_related('owner').prefetch_related('members')
+        objects_query = objects_query.filter(name__icontains=data['name'])
+        objects_count = objects_query.count()
+        objects = objects_query.all()[:10]
+        serialization = CommunityModelSerializer(objects, many=True).data
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None), serialization)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
+    def test_community_ordered_list(self):
+        """ test_community_ordered_list - Community ordered List """
+
+        data = {
+            'ordering': '-name',
+        }
+
+        client = APIClient()
+        response = client.get('/api/community/list/', data)
+        result = json.loads(response.content)
+
+        objects_query = Community.objects.select_related('owner').prefetch_related('members')
+        objects_query = objects_query.order_by(data['ordering'])
+        objects_count = objects_query.count()
+        objects = objects_query.all()[:10]
+        serialization = CommunityModelSerializer(objects, many=True).data
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None), serialization)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
     def test_community_create(self):
         """ test_community_create - Community Create """
 

@@ -2,6 +2,7 @@
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.exceptions import ValidationError
+from rest_framework.filters import OrderingFilter
 from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 
@@ -19,7 +20,7 @@ class CommunityCreateView(CreateAPIView):
 
 
 class CommunityDeleteView(DestroyAPIView):
-    queryset = Community.objects
+    queryset = Community.objects.all()
     permission_classes = [IsAuthenticated]
     lookup_field = 'uuid'
 
@@ -34,18 +35,28 @@ class CommunityDeleteView(DestroyAPIView):
 
 
 class CommunityListView(ListAPIView):
-    queryset = Community.objects.select_related('owner').prefetch_related('members')
     serializer_class = CommunityModelSerializer
+    filter_backends = (OrderingFilter, )
+    ordering_fields = ['name']
+
+    def get_queryset(self):
+        queryset = Community.objects.select_related('owner').prefetch_related('members').all()
+
+        name = self.request.query_params.get('name')
+        if name is not None:
+            queryset = queryset.filter(name__icontains=name)
+
+        return queryset
 
 
 class CommunityReadView(RetrieveAPIView):
-    queryset = Community.objects.select_related('owner').prefetch_related('members')
+    queryset = Community.objects.select_related('owner').prefetch_related('members').all()
     serializer_class = CommunityModelSerializer
     lookup_field = 'uuid'
 
 
 class CommunityUpdateView(UpdateAPIView):
-    queryset = Community.objects
+    queryset = Community.objects.all()
     serializer_class = CommunityCreateUpdateSerializer
     permission_classes = [IsAuthenticated]
     lookup_field = 'uuid'
