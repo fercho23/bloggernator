@@ -10,7 +10,6 @@ from blog.models.Language import Language
 
 from blog.serializers.LanguageSerializer import LanguageModelSerializer
 
-# list_language (filters)
 
 class LanguageTests(TestCase):
     """ Test module for Language model """
@@ -27,6 +26,48 @@ class LanguageTests(TestCase):
         result = json.loads(response.content)
 
         objects_query = Language.objects
+        objects_count = objects_query.count()
+        objects = objects_query.all()
+        serialization = LanguageModelSerializer(objects, many=True).data
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result, serialization)
+
+    def test_language_filtered_list(self):
+        """ test_language_filtered_list - Language filtered List """
+
+        first_obj = Language.objects.first()
+
+        data = {
+            'name': first_obj.name[:-1],
+        }
+
+        client = APIClient()
+        response = client.get('/api/language/list/', data)
+        result = json.loads(response.content)
+
+        objects_query = Language.objects
+        objects_query = objects_query.filter(name__icontains=data['name'])
+        objects_count = objects_query.count()
+        objects = objects_query.all()
+        serialization = LanguageModelSerializer(objects, many=True).data
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result, serialization)
+
+    def test_language_ordered_list(self):
+        """ test_language_ordered_list - Language ordered List """
+
+        data = {
+            'ordering': '-name',
+        }
+
+        client = APIClient()
+        response = client.get('/api/language/list/', data)
+        result = json.loads(response.content)
+
+        objects_query = Language.objects
+        objects_query = objects_query.order_by(data['ordering'])
         objects_count = objects_query.count()
         objects = objects_query.all()
         serialization = LanguageModelSerializer(objects, many=True).data
