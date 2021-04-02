@@ -33,8 +33,8 @@ class LanguageTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result, serialization)
 
-    def test_language_filtered_list(self):
-        """ test_language_filtered_list - Language filtered List """
+    def test_language_list_filtered_by_name(self):
+        """ test_language_list_filtered_by_name - Language List filtered by name """
 
         first_obj = Language.objects.first()
 

@@ -36,8 +36,8 @@ class TagTests(TestCase):
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
-    def test_tag_filtered_list(self):
-        """ test_tag_list - Tag filtered List """
+    def test_tag_list_filtered_by_name(self):
+        """ test_tag_list_filtered_by_name - Tag List filtered by name """
 
         first_obj = Tag.objects.first()
 

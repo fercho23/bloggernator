@@ -62,8 +62,8 @@ class CommunityTests(TestCase):
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
-    def test_community_filtered_list(self):
-        """ test_community_filtered_list - Community filtered List """
+    def test_community_list_filtered_by_name(self):
+        """ test_community_list_filtered_by_name - Community List filtered by name """
 
         first_obj = Community.objects.first()
 
