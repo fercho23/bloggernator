@@ -3,15 +3,16 @@ from PIL import Image
 import tempfile
 import json
 
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from blog.models.User import User
-
 from blog.serializers.UserSerializer import UserModelSerializer
+
+User = get_user_model()
 
 
 class AccountTests(TestCase):

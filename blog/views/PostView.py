@@ -1,4 +1,5 @@
 
+# from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.exceptions import ValidationError
@@ -6,10 +7,27 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 
+# from blog.models.Community import Community
+# from blog.models.Language import Language
 from blog.models.Post import Post
+# from blog.models.Tag import Tag
+from blog.serializers.PostSerializer import PostCreateUpdateSerializer, PostModelSerializer
 
-from blog.serializers.PostSerializer import PostModelSerializer
+# User = get_user_model()
 
+
+class PostCreateView(CreateAPIView):
+    serializer_class = PostCreateUpdateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        community = serializer.validated_data.get('community')
+        user = self.request.user
+
+        if user != community.owner and user not in  community.members.all():
+            raise ValidationError({'detail': _('Only post owner or member can perform this action.')})
+
+        serializer.save(author=self.request.user)
 
 class PostListView(ListAPIView):
     serializer_class = PostModelSerializer

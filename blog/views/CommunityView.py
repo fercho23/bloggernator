@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from blog.models.Community import Community
 
-from blog.serializers.CommunitySerializer import CommunityModelSerializer, CommunityCreateUpdateSerializer
+from blog.serializers.CommunitySerializer import CommunityCreateUpdateSerializer, CommunityModelSerializer
 
 
 class CommunityCreateView(CreateAPIView):
@@ -24,14 +24,14 @@ class CommunityDeleteView(DestroyAPIView):
     permission_classes = [IsAuthenticated]
     lookup_field = 'uuid'
 
-    def perform_destroy(self, instance):
-        if self.request.user != instance.owner:
+    def perform_destroy(self, serializer):
+        if self.request.user != serializer.owner:
             raise ValidationError({'detail': _('Only the community owner can perform this action.')})
 
-        if instance.members.count() > 0:
+        if serializer.members.count() > 0:
             raise ValidationError({'detail': _('Only the communities without members can be deleted.')})
 
-        instance.delete()
+        serializer.delete()
 
 
 class CommunityListView(ListAPIView):

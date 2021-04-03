@@ -4,16 +4,16 @@ import tempfile
 import json
 import uuid
 
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
-from blog.models.User import User
-
 # from blog.serializers.UserSerializer import UserModelSerializer
 
+User = get_user_model()
 
 # delete_user
 

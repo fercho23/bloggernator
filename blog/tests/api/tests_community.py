@@ -1,17 +1,18 @@
 
 import json
 
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from rest_framework import status
 from rest_framework.test import APIClient
 
 from blog.models.Community import Community
-from blog.models.User import User
 
 from blog.serializers.CommunitySerializer import CommunityModelSerializer
 
-# list_community (filters)
+User = get_user_model()
+
 
 class CommunityTests(TestCase):
     """ Test module for Community model """

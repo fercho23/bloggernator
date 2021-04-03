@@ -1,6 +1,7 @@
 
 import json
 
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from rest_framework import status
@@ -9,6 +10,8 @@ from rest_framework.test import APIClient
 from blog.models import Tag
 
 from blog.serializers.TagSerializer import TagModelSerializer
+
+User = get_user_model()
 
 
 class TagTests(TestCase):
