@@ -194,10 +194,6 @@ class PostTests(TestCase):
 
         post = Post.objects.filter(title=data['title']).first()
 
-        # print()
-        # print(result)
-        # print()
-
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIsNotNone(post)
         self.assertEqual(post.author, user)
@@ -206,3 +202,34 @@ class PostTests(TestCase):
         self.assertEqual(post.abstract, data['abstract'])
         self.assertEqual(post.language, language)
         self.assertEqual(post.community, community)
+
+    def test_post_update(self):
+        """ test_post_update - Post Update """
+
+        post = Post.objects.get(pk=1)
+        user = post.author
+
+        data = {
+            'title': 'Testing Post Creation',
+            'body': 'Detail Testing Post Creation',
+            'abstract': 'Abstract Testing Post Creation',
+            # 'community': '7cd3ce2b-a32e-4562-a2e6-28bbdf88bd89',
+        }
+
+        client = APIClient()
+        client.force_authenticate(user)
+
+        response = client.patch('/api/post/{}/update/'.format(post.uuid), data)
+        result = json.loads(response.content)
+
+        post = Post.objects.get(pk=post.id)
+
+        # print()
+        # print(result)
+        # print()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsNotNone(post)
+        self.assertEqual(post.title, data['title'])
+        self.assertEqual(post.body, data['body'])
+        self.assertEqual(post.abstract, data['abstract'])

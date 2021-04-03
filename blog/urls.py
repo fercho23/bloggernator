@@ -20,7 +20,7 @@ from rest_framework.authtoken import views
 from blog.views.AccountView import LoginView, LogoutView, SignupView
 from blog.views.CommunityView import CommunityCreateView, CommunityDeleteView, CommunityListView, CommunityReadView, CommunityUpdateView
 from blog.views.LanguageView import LanguageListView
-from blog.views.PostView import PostCreateView, PostListView, PostReadView
+from blog.views.PostView import PostCreateView, PostListView, PostReadView, PostUpdateView
 from blog.views.TagView import TagListView
 from blog.views.UserView import UserDetailView, UserUpdateView
 
@@ -50,6 +50,7 @@ urlpatterns = [
             path('create/', PostCreateView.as_view(), name='api.post.create'),
             path('list/', PostListView.as_view(), name='api.post.list'),
             path('<str:uuid>/', PostReadView.as_view(), name='api.post.read'),
+            path('<str:uuid>/update/', PostUpdateView.as_view(), name='api.post.update'),
         ])),
 
         path('tag/', include([

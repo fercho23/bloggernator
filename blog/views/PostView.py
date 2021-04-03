@@ -21,13 +21,14 @@ class PostCreateView(CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        community = serializer.validated_data.get('community')
         user = self.request.user
+        community = serializer.validated_data.get('community')
 
-        if user != community.owner and user not in  community.members.all():
-            raise ValidationError({'detail': _('Only post owner or member can perform this action.')})
+        if user != community.owner and user not in community.members.all():
+            raise ValidationError({'detail': _('Only post owner or member of {} can perform this action.').format(community.name)})
 
         serializer.save(author=self.request.user)
+
 
 class PostListView(ListAPIView):
     serializer_class = PostModelSerializer
@@ -56,3 +57,24 @@ class PostReadView(RetrieveAPIView):
     queryset = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors').all()
     serializer_class = PostModelSerializer
     lookup_field = 'uuid'
+
+
+class PostUpdateView(UpdateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostCreateUpdateSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'uuid'
+
+    def perform_update(self, serializer):
+        obj = self.get_object()
+        user = self.request.user
+
+        if user != obj.author and user not in obj.contributors.all():
+            raise ValidationError({'detail': _('Only post author or contributors can perform this action.')})
+
+        community = serializer.validated_data.get('community')
+        if community is not None and obj.community != community:
+            if user != community.owner and user not in community.members.all():
+                raise ValidationError({'detail': _('Only post owner or member of {} can perform this action.').format(community.name)})
+
+        serializer.save()
