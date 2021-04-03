@@ -30,6 +30,23 @@ class PostCreateView(CreateAPIView):
         serializer.save(author=self.request.user)
 
 
+class PostDeleteView(DestroyAPIView):
+    queryset = Post.objects.all()
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'uuid'
+
+    def perform_destroy(self, serializer):
+        obj = self.get_object()
+
+        if self.request.user != obj.author:
+            raise ValidationError({'detail': _('Only the post author can perform this action.')})
+
+        if obj.contributors.count() > 0:
+            raise ValidationError({'detail': _('Only posts without contributors can be deleted.')})
+
+        serializer.delete()
+
+
 class PostListView(ListAPIView):
     serializer_class = PostModelSerializer
     filter_backends = (OrderingFilter, )
@@ -78,3 +95,4 @@ class PostUpdateView(UpdateAPIView):
                 raise ValidationError({'detail': _('Only post owner or member of {} can perform this action.').format(community.name)})
 
         serializer.save()
+

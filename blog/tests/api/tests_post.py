@@ -224,10 +224,6 @@ class PostTests(TestCase):
 
         post = Post.objects.get(pk=post.id)
 
-        # print()
-        # print(result)
-        # print()
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsNotNone(post)
         self.assertEqual(post.title, data['title'])
@@ -238,7 +234,7 @@ class PostTests(TestCase):
         """ test_post_update_only_author_or_contributors - Post Update only by author or contributors """
 
         post = Post.objects.get(pk=1)
-        user = User.objects.get(pk=4)
+        user = User.objects.get(pk=5)
 
         data = {
             'title': 'Testing Post Creation',
@@ -250,6 +246,52 @@ class PostTests(TestCase):
         client.force_authenticate(user)
 
         response = client.patch('/api/post/{}/update/'.format(post.uuid), data)
+        result = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('detail', result)
+
+    def test_post_delete(self):
+        """ test_post_delete - Post Delete """
+
+        post = Post.objects.get(pk=2)
+        user = post.author
+
+        client = APIClient()
+        client.force_authenticate(user)
+
+        response = client.delete('/api/post/{}/delete/'.format(post.uuid))
+
+        post = Post.objects.filter(id=post.id).first()
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertIsNone(post)
+
+    def test_post_delete_only_author(self):
+        """ test_post_delete_only_author - Post Delete only by author"""
+
+        post = Post.objects.get(pk=2)
+        user = User.objects.get(pk=4)
+
+        client = APIClient()
+        client.force_authenticate(user)
+
+        response = client.delete('/api/post/{}/delete/'.format(post.uuid))
+        result = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('detail', result)
+
+    def test_post_can_not_be_deleted_if_has_contributors(self):
+        """ test_post_can_not_be_deleted_if_has_contributors - Post can not be deleted if it has contributors """
+
+        post = Post.objects.get(pk=1)
+        user = post.author
+
+        client = APIClient()
+        client.force_authenticate(user)
+
+        response = client.delete('/api/post/{}/delete/'.format(post.uuid))
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

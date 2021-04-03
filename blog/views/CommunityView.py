@@ -25,11 +25,13 @@ class CommunityDeleteView(DestroyAPIView):
     lookup_field = 'uuid'
 
     def perform_destroy(self, serializer):
-        if self.request.user != serializer.owner:
+        obj = self.get_object()
+
+        if self.request.user != obj.owner:
             raise ValidationError({'detail': _('Only the community owner can perform this action.')})
 
-        if serializer.members.count() > 0:
-            raise ValidationError({'detail': _('Only the communities without members can be deleted.')})
+        if obj.members.count() > 0:
+            raise ValidationError({'detail': _('Only communities without members can be deleted.')})
 
         serializer.delete()
 
