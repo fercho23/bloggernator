@@ -12,9 +12,6 @@ from blog.models.Tag import Tag
 
 from blog.serializers.PostSerializer import PostModelSerializer
 
-# post_list
-# post_list (pagination)
-# post_list (filters)
 # post_list_by_blogger (authors, contributors)
 
 # detail_post
@@ -154,3 +151,17 @@ class PostTests(TestCase):
         self.assertEqual(result.get('results', None), serialization)
         self.assertIn('next', result)
         self.assertIn('previous', result)
+
+    def test_post_get(self):
+        """ test_post_get -Post Get """
+
+        post = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors').first()
+        serialization = PostModelSerializer(post).data
+
+        client = APIClient()
+
+        response = client.get('/api/post/{}/'.format(post.uuid))
+        result = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(serialization, result)

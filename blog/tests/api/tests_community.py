@@ -110,6 +110,20 @@ class CommunityTests(TestCase):
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
+    def test_community_get(self):
+        """ test_community_get -Community Get """
+
+        community = Community.objects.select_related('owner').prefetch_related('members').first()
+        serialization = CommunityModelSerializer(community).data
+
+        client = APIClient()
+
+        response = client.get('/api/community/{}/'.format(community.uuid))
+        result = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(serialization, result)
+
     def test_community_create(self):
         """ test_community_create - Community Create """
 
@@ -225,17 +239,3 @@ class CommunityTests(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('detail', result)
-
-    def test_community_get(self):
-        """ test_community_get -Community Get """
-
-        community = Community.objects.select_related('owner').prefetch_related('members').first()
-        serialization = CommunityModelSerializer(community).data
-
-        client = APIClient()
-
-        response = client.get('/api/community/{}/'.format(community.uuid))
-        result = json.loads(response.content)
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(serialization, result)

@@ -1,12 +1,10 @@
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.exceptions import ValidationError
 from rest_framework.filters import OrderingFilter
-from rest_framework.generics import ListAPIView
-from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY
+from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView
+from rest_framework.permissions import IsAuthenticated
 
 from blog.models.Post import Post
 
@@ -34,3 +32,9 @@ class PostListView(ListAPIView):
             queryset = queryset.filter(language__slug=language)
 
         return queryset
+
+
+class PostReadView(RetrieveAPIView):
+    queryset = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors').all()
+    serializer_class = PostModelSerializer
+    lookup_field = 'uuid'
