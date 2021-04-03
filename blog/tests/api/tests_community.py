@@ -189,9 +189,6 @@ class CommunityTests(TestCase):
         response = client.patch('/api/community/{}/update/'.format(community.uuid), data)
         result = json.loads(response.content)
 
-        community = Community.objects.filter(name=data['name']).first()
-        result = json.loads(response.content)
-
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('detail', result)
 

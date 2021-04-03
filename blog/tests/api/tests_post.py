@@ -233,3 +233,24 @@ class PostTests(TestCase):
         self.assertEqual(post.title, data['title'])
         self.assertEqual(post.body, data['body'])
         self.assertEqual(post.abstract, data['abstract'])
+
+    def test_post_update_only_author_or_contributors(self):
+        """ test_post_update_only_author_or_contributors - Post Update only by author or contributors """
+
+        post = Post.objects.get(pk=1)
+        user = User.objects.get(pk=4)
+
+        data = {
+            'title': 'Testing Post Creation',
+            'body': 'Detail Testing Post Creation',
+            'abstract': 'Abstract Testing Post Creation',
+        }
+
+        client = APIClient()
+        client.force_authenticate(user)
+
+        response = client.patch('/api/post/{}/update/'.format(post.uuid), data)
+        result = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('detail', result)
