@@ -66,20 +66,14 @@ class PostListView(ListAPIView):
         if language is not None:
             queryset = queryset.filter(language__slug=language)
 
-        author = query_params.get('author')
-        if author is not None:
-            queryset = queryset.filter(author__uuid=author)
+        authors = query_params.get('authors')
+        if authors is not None:
+            authors = query_params.getlist('authors')
+            queryset = queryset.filter(author__uuid__in=authors)
 
         contributors = query_params.get('contributors')
         if contributors is not None:
-            # print('------Start------------')
-            # print()
-            # print(contributors)
             contributors = query_params.getlist('contributors')
-            # print()
-            # print(contributors)
-            # print()
-            # print('--------End------------------')
             queryset = queryset.filter(contributors__uuid__in=contributors)
 
         queryset = queryset.distinct()

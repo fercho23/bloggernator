@@ -15,7 +15,6 @@ from blog.serializers.PostSerializer import PostModelSerializer
 
 User = get_user_model()
 
-# post_list_by_blogger ( contributors)
 
 class PostTests(TestCase):
     """ Test module for Post model """
@@ -97,12 +96,12 @@ class PostTests(TestCase):
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
-    def test_post_list_filtered_by_author(self):
-        """ test_post_list_filtered_by_author - Post List filtered by author """
+    def test_post_list_filtered_by_authors(self):
+        """ test_post_list_filtered_by_authors - Post List filtered by authors """
         post = Post.objects.select_related('author').first()
 
         data = {
-            'author': post.author.uuid,
+            'authors': post.author.uuid,
         }
 
         client = APIClient()
@@ -111,7 +110,33 @@ class PostTests(TestCase):
         result = json.loads(response.content)
 
         objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
-        objects_query = objects_query.filter(author__uuid=data['author'])
+        objects_query = objects_query.filter(author__uuid=data['authors'])
+        objects_count = objects_query.count()
+        objects = objects_query.all()[:10]
+        serialization = PostModelSerializer(objects, many=True).data
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None), serialization)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
+    def test_post_list_filtered_by_many_authors(self):
+        """ test_post_list_filtered_by_many_authors - Post List filtered by many authors """
+        post = Post.objects.prefetch_related('contributors').first()
+
+        data = {
+            'authors': [contributor.uuid for contributor in post.contributors.all()],
+        }
+
+        client = APIClient()
+        response = client.get('/api/post/list/', data)
+
+        result = json.loads(response.content)
+
+        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
+        objects_query = objects_query.filter(author__uuid__in=data['authors'])
+        objects_query = objects_query.distinct()
         objects_count = objects_query.count()
         objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data

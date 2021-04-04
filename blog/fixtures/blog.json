@@ -804,5 +804,26 @@
       4
     ]
   }
+},
+{
+  "model": "blog.post",
+  "pk": 5,
+  "fields": {
+    "uuid": "ffa0c48a-1d30-41ba-90d6-91412bdaf04c",
+    "title": "Testing 5 ",
+    "slug": "testing-5",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+    "abstract": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut justo metus.",
+    "author": 5,
+    "language": 2,
+    "community": 1,
+    "is_public": true,
+    "created_at": "2021-03-11T13:21:32.560Z",
+    "updated_at": "2021-03-11T13:21:32.560Z",
+    "tags": [
+      4
+    ],
+    "contributors": []
+  }
 }
 ]
