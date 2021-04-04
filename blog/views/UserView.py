@@ -25,6 +25,7 @@ class UserUpdateView(UpdateAPIView):
 
     def perform_update(self, serializer):
         obj = self.get_object()
+
         if self.request.user != obj:
             raise ValidationError({'detail': _('You can perform this action only on yourself.')})
 

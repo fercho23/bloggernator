@@ -44,7 +44,9 @@ class CommunityListView(ListAPIView):
     def get_queryset(self):
         queryset = Community.objects.select_related('owner').prefetch_related('members').all()
 
-        name = self.request.query_params.get('name')
+        query_params = self.request.query_params
+
+        name = query_params.get('name')
         if name is not None:
             queryset = queryset.filter(name__icontains=name)
 
