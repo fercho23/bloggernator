@@ -7,10 +7,7 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 
-# from blog.models.Community import Community
-# from blog.models.Language import Language
 from blog.models.Post import Post
-# from blog.models.Tag import Tag
 from blog.serializers.PostSerializer import PostCreateUpdateSerializer, PostModelSerializer
 
 # User = get_user_model()
@@ -66,6 +63,10 @@ class PostListView(ListAPIView):
         language = self.request.query_params.get('language')
         if language is not None:
             queryset = queryset.filter(language__slug=language)
+
+        author = self.request.query_params.get('author')
+        if author is not None:
+            queryset = queryset.filter(author__uuid=author)
 
         return queryset
 
