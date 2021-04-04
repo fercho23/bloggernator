@@ -65,6 +65,7 @@ class CommunityUpdateView(UpdateAPIView):
 
     def perform_update(self, serializer):
         obj = self.get_object()
+
         if self.request.user != obj.owner:
             raise ValidationError({'detail': _('Only the community owner can perform this action.')})
 

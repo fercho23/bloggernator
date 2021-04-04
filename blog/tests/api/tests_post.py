@@ -123,7 +123,7 @@ class PostTests(TestCase):
         self.assertIn('previous', result)
 
     def test_post_list_filtered_by_contributors(self):
-        """ test_post_list_filtered_by_contributor - Post List filtered by contributors """
+        """ test_post_list_filtered_by_contributors - Post List filtered by contributors """
         post = Post.objects.prefetch_related('contributors').first()
 
         data = {
@@ -137,6 +137,32 @@ class PostTests(TestCase):
 
         objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
         objects_query = objects_query.filter(contributors__uuid=data['contributors'])
+        objects_count = objects_query.count()
+        objects = objects_query.all()[:10]
+        serialization = PostModelSerializer(objects, many=True).data
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None), serialization)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
+    def test_post_list_filtered_by_many_contributors(self):
+        """ test_post_list_filtered_by_many_contributors - Post List filtered by many contributors """
+        post = Post.objects.prefetch_related('contributors').first()
+
+        data = {
+            'contributors': [contributor.uuid for contributor in post.contributors.all()],
+        }
+
+        client = APIClient()
+        response = client.get('/api/post/list/', data)
+
+        result = json.loads(response.content)
+
+        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
+        objects_query = objects_query.filter(contributors__uuid__in=data['contributors'])
+        objects_query = objects_query.distinct()
         objects_count = objects_query.count()
         objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
@@ -278,7 +304,7 @@ class PostTests(TestCase):
         """ test_post_update_only_author_or_contributors - Post Update only by author or contributors """
 
         post = Post.objects.get(pk=1)
-        user = User.objects.get(pk=5)
+        user = User.objects.get(pk=6)
 
         data = {
             'title': 'Testing Post Creation',
@@ -298,7 +324,7 @@ class PostTests(TestCase):
     def test_post_delete(self):
         """ test_post_delete - Post Delete """
 
-        post = Post.objects.get(pk=2)
+        post = Post.objects.get(pk=3)
         user = post.author
 
         client = APIClient()

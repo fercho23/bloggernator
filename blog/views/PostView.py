@@ -52,25 +52,37 @@ class PostListView(ListAPIView):
     def get_queryset(self):
         queryset = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors').all()
 
-        title = self.request.query_params.get('title')
+        query_params = self.request.query_params
+
+        title = query_params.get('title')
         if title is not None:
             queryset = queryset.filter(title__icontains=title)
 
-        tags = self.request.query_params.get('tags')
+        tags = query_params.get('tags')
         if tags is not None:
             queryset = queryset.filter(tags__slug=tags)
 
-        language = self.request.query_params.get('language')
+        language = query_params.get('language')
         if language is not None:
             queryset = queryset.filter(language__slug=language)
 
-        author = self.request.query_params.get('author')
+        author = query_params.get('author')
         if author is not None:
             queryset = queryset.filter(author__uuid=author)
 
-        contributors = self.request.query_params.get('contributors')
+        contributors = query_params.get('contributors')
         if contributors is not None:
-            queryset = queryset.filter(contributors__uuid=contributors)
+            # print('------Start------------')
+            # print()
+            # print(contributors)
+            contributors = query_params.getlist('contributors')
+            # print()
+            # print(contributors)
+            # print()
+            # print('--------End------------------')
+            queryset = queryset.filter(contributors__uuid__in=contributors)
+
+        queryset = queryset.distinct()
 
         return queryset
 

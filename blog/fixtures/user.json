@@ -88,5 +88,23 @@
     "groups": [],
     "user_permissions": []
   }
+},
+{
+  "model": "blog.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$CJEGmyHanSSL$LwQKvWda4l8+bHhoORORVO3Sb4r7OZa5iC8pPJcoOqo=",
+    "is_superuser": false,
+    "uuid": "09ee0828-8fd7-41ca-9c13-6a2b480187df",
+    "email": "dave.williams@bloggernator.com",
+    "username": "dave.williams",
+    "is_staff": false,
+    "is_active": true,
+    "last_login": "2021-03-07T22:47:47.813Z",
+    "date_joined": "2021-03-07T22:47:08.746Z",
+    "photo": "",
+    "groups": [],
+    "user_permissions": []
+  }
 }
 ]
