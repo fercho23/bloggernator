@@ -68,6 +68,10 @@ class PostListView(ListAPIView):
         if author is not None:
             queryset = queryset.filter(author__uuid=author)
 
+        contributors = self.request.query_params.get('contributors')
+        if contributors is not None:
+            queryset = queryset.filter(contributors__uuid=contributors)
+
         return queryset
 
 

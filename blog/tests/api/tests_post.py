@@ -15,7 +15,7 @@ from blog.serializers.PostSerializer import PostModelSerializer
 
 User = get_user_model()
 
-# post_list_by_blogger (authors, contributors)
+# post_list_by_blogger ( contributors)
 
 class PostTests(TestCase):
     """ Test module for Post model """
@@ -112,6 +112,31 @@ class PostTests(TestCase):
 
         objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
         objects_query = objects_query.filter(author__uuid=data['author'])
+        objects_count = objects_query.count()
+        objects = objects_query.all()[:10]
+        serialization = PostModelSerializer(objects, many=True).data
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None), serialization)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
+    def test_post_list_filtered_by_contributors(self):
+        """ test_post_list_filtered_by_contributor - Post List filtered by contributors """
+        post = Post.objects.prefetch_related('contributors').first()
+
+        data = {
+            'contributors': post.contributors.first().uuid,
+        }
+
+        client = APIClient()
+        response = client.get('/api/post/list/', data)
+
+        result = json.loads(response.content)
+
+        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
+        objects_query = objects_query.filter(contributors__uuid=data['contributors'])
         objects_count = objects_query.count()
         objects = objects_query.all()[:10]
         serialization = PostModelSerializer(objects, many=True).data
