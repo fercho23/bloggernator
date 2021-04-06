@@ -26,8 +26,7 @@ from blog.views.UserView import UserDetailView, UserUpdateView
 
 urlpatterns = [
 
-    path('api/', include([
-
+    # path('api/', include([
         path('account/', include([
             path('signup/', SignupView.as_view(), name='api.account.signup'),
             path('login/', LoginView.as_view(), name='api.account.login'),
@@ -62,6 +61,6 @@ urlpatterns = [
             path('<str:uuid>/', UserDetailView.as_view(), name='api.user.detail'),
             path('<str:uuid>/update/', UserUpdateView.as_view(), name='api.user.update'),
         ])),
-    ])),
+    # ])),
 
 ]
