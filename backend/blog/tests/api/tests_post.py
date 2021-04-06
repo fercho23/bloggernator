@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
 from blog.models.Language import Language
@@ -268,6 +269,7 @@ class PostTests(TestCase):
         """ test_post_create - Post Create """
 
         user = User.objects.get(pk=3)
+        token = Token.objects.create(user=user)
         community = user.community_set.first()
         language = Language.objects.filter(slug='english').first()
 
@@ -282,7 +284,7 @@ class PostTests(TestCase):
         }
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.post('/api/post/create/', data)
         result = json.loads(response.content)
@@ -303,6 +305,7 @@ class PostTests(TestCase):
 
         post = Post.objects.get(pk=1)
         user = post.author
+        token = Token.objects.create(user=user)
 
         data = {
             'title': 'Testing Post Creation',
@@ -312,7 +315,7 @@ class PostTests(TestCase):
         }
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.patch('/api/post/{}/update/'.format(post.uuid), data)
         result = json.loads(response.content)
@@ -330,6 +333,7 @@ class PostTests(TestCase):
 
         post = Post.objects.get(pk=1)
         user = User.objects.get(pk=6)
+        token = Token.objects.create(user=user)
 
         data = {
             'title': 'Testing Post Creation',
@@ -338,7 +342,7 @@ class PostTests(TestCase):
         }
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.patch('/api/post/{}/update/'.format(post.uuid), data)
         result = json.loads(response.content)
@@ -351,9 +355,10 @@ class PostTests(TestCase):
 
         post = Post.objects.get(pk=3)
         user = post.author
+        token = Token.objects.create(user=user)
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.delete('/api/post/{}/delete/'.format(post.uuid))
 
@@ -367,9 +372,10 @@ class PostTests(TestCase):
 
         post = Post.objects.get(pk=2)
         user = User.objects.get(pk=4)
+        token = Token.objects.create(user=user)
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.delete('/api/post/{}/delete/'.format(post.uuid))
         result = json.loads(response.content)
@@ -382,9 +388,10 @@ class PostTests(TestCase):
 
         post = Post.objects.get(pk=1)
         user = post.author
+        token = Token.objects.create(user=user)
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.delete('/api/post/{}/delete/'.format(post.uuid))
         result = json.loads(response.content)

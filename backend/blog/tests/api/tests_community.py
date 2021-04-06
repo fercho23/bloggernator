@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
 from blog.models.Community import Community
@@ -129,13 +130,15 @@ class CommunityTests(TestCase):
         """ test_community_create - Community Create """
 
         user = User.objects.get(pk=3)
+        token = Token.objects.create(user=user)
+
         data = {
             'name': 'Testing Company',
             'detail': 'Detail Testing Company',
         }
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.post('/api/community/create/', data)
         result = json.loads(response.content)
@@ -153,6 +156,7 @@ class CommunityTests(TestCase):
 
         community = Community.objects.get(pk=2)
         user = community.owner
+        token = Token.objects.create(user=user)
 
         data = {
             'name': community.name + ' 2',
@@ -160,7 +164,7 @@ class CommunityTests(TestCase):
         }
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.patch('/api/community/{}/update/'.format(community.uuid), data)
         result = json.loads(response.content)
@@ -177,6 +181,7 @@ class CommunityTests(TestCase):
 
         community = Community.objects.get(pk=2)
         user = User.objects.get(pk=4)
+        token = Token.objects.create(user=user)
 
         data = {
             'name': 'Testing Company 2',
@@ -184,7 +189,7 @@ class CommunityTests(TestCase):
         }
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.patch('/api/community/{}/update/'.format(community.uuid), data)
         result = json.loads(response.content)
@@ -197,9 +202,10 @@ class CommunityTests(TestCase):
 
         community = Community.objects.get(pk=2)
         user = community.owner
+        token = Token.objects.create(user=user)
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.delete('/api/community/{}/delete/'.format(community.uuid))
 
@@ -213,9 +219,10 @@ class CommunityTests(TestCase):
 
         community = Community.objects.get(pk=2)
         user = User.objects.get(pk=4)
+        token = Token.objects.create(user=user)
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.delete('/api/community/{}/delete/'.format(community.uuid))
         result = json.loads(response.content)
@@ -228,9 +235,10 @@ class CommunityTests(TestCase):
 
         community = Community.objects.get(pk=1)
         user = community.owner
+        token = Token.objects.create(user=user)
 
         client = APIClient()
-        client.force_authenticate(user)
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
         response = client.delete('/api/community/{}/delete/'.format(community.uuid))
         result = json.loads(response.content)
