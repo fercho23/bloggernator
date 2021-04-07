@@ -3,16 +3,16 @@
         <div class="col-12">
             <h4>Post List</h4>
 
-            <ul>
-                <li v-for="(post, index) in posts" :key="index">
+            <div class="row">
+                <div class="col-6" v-for="(post, index) in posts" :key="index">
                     <router-link :to="{
                             name: 'post-details',
                             params: { post: post, uuid: post.uuid }
                         }">
                             {{post.title}}
                     </router-link>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -33,8 +33,7 @@ export default {
       http
         .get("/post/list/")
         .then(response => {
-          this.posts = response.data.results; // JSON are parsed automatically.
-          console.log(response.data);
+          this.posts = response.data.results;
         })
         .catch(e => {
           console.log(e);

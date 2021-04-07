@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Hola</h1>
+    <h1>Hello</h1>
   </div>
 </template>
 
@@ -9,3 +9,6 @@ export default {
   name: 'home'
 }
 </script>
+
+<style>
+</style>
