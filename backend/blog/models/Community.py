@@ -21,7 +21,7 @@ class Community(Group):
     class Meta:
         verbose_name = _('community')
         verbose_name_plural = _('communities')
-        ordering = ('-created_at',)
+        ordering = ('name',)
         permissions = [
             ('community_owner', 'Community owner'),
             ('community_member', 'Community member'),

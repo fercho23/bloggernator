@@ -10,8 +10,6 @@ from rest_framework.test import APIClient
 
 from blog.models.Community import Community
 
-from blog.serializers.CommunitySerializer import CommunityModelSerializer
-
 User = get_user_model()
 
 
@@ -31,14 +29,12 @@ class CommunityTests(TestCase):
         response = client.get('/api/community/list/')
         result = json.loads(response.content)
 
-        objects_query = Community.objects.select_related('owner').prefetch_related('members')
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = CommunityModelSerializer(objects, many=True).data
+        objects_count = 30
+        first_uuid = '8b547291-8c69-49ca-8501-2a4e3e127a99'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
@@ -53,21 +49,20 @@ class CommunityTests(TestCase):
         response = client.get('/api/community/list/', data)
         result = json.loads(response.content)
 
-        objects_query = Community.objects.select_related('owner').prefetch_related('members')
-        objects_count = objects_query.count()
-        objects = objects_query.all()[10:20]
-        serialization = CommunityModelSerializer(objects, many=True).data
+        objects_count = 30
+        first_uuid = '42f28997-cc8c-4d3f-9782-1b2cbc671e8e'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
+
 
     def test_community_list_filtered_by_name(self):
         """ test_community_list_filtered_by_name - Community List filtered by name """
 
-        first_obj = Community.objects.first()
+        first_obj = Community.objects.get(pk=2)
 
         data = {
             'name': first_obj.name[:-1],
@@ -77,15 +72,12 @@ class CommunityTests(TestCase):
         response = client.get('/api/community/list/', data)
         result = json.loads(response.content)
 
-        objects_query = Community.objects.select_related('owner').prefetch_related('members')
-        objects_query = objects_query.filter(name__icontains=data['name'])
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = CommunityModelSerializer(objects, many=True).data
+        objects_count = 1
+        first_uuid = '8b547291-8c69-49ca-8501-2a4e3e127a99'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
@@ -100,15 +92,12 @@ class CommunityTests(TestCase):
         response = client.get('/api/community/list/', data)
         result = json.loads(response.content)
 
-        objects_query = Community.objects.select_related('owner').prefetch_related('members')
-        objects_query = objects_query.order_by(data['ordering'])
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = CommunityModelSerializer(objects, many=True).data
+        objects_count = 30
+        first_uuid = 'fa8723e9-09f9-4163-af6e-d6bc76ba2434'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
@@ -116,15 +105,13 @@ class CommunityTests(TestCase):
         """ test_community_get -Community Get """
 
         community = Community.objects.select_related('owner').prefetch_related('members').first()
-        serialization = CommunityModelSerializer(community).data
 
         client = APIClient()
-
         response = client.get('/api/community/{}/'.format(community.uuid))
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(serialization, result)
+        self.assertEqual(result['uuid'], community.uuid)
 
     def test_community_create(self):
         """ test_community_create - Community Create """
@@ -139,7 +126,6 @@ class CommunityTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.post('/api/community/create/', data)
         result = json.loads(response.content)
 
@@ -165,7 +151,6 @@ class CommunityTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.patch('/api/community/{}/update/'.format(community.uuid), data)
         result = json.loads(response.content)
 
@@ -190,7 +175,6 @@ class CommunityTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.patch('/api/community/{}/update/'.format(community.uuid), data)
         result = json.loads(response.content)
 
@@ -206,7 +190,6 @@ class CommunityTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.delete('/api/community/{}/delete/'.format(community.uuid))
 
         community = Community.objects.filter(id=community.id).first()
@@ -223,7 +206,6 @@ class CommunityTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.delete('/api/community/{}/delete/'.format(community.uuid))
         result = json.loads(response.content)
 
@@ -239,7 +221,6 @@ class CommunityTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.delete('/api/community/{}/delete/'.format(community.uuid))
         result = json.loads(response.content)
 
