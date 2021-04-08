@@ -10,8 +10,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from blog.serializers.UserSerializer import UserModelSerializer
-
 User = get_user_model()
 
 
@@ -32,7 +30,7 @@ class AccountTests(TestCase):
         tmp_file.seek(0)
 
         data = {
-            'email': 'user1@bloggernator.com',
+            'email': '894e1f419dd7422486d571fff98aaac5@bloggernator.com',
             'username': 'user1',
             'password': 'Blog12345',
             'password_confirmation': 'Blog12345',
@@ -44,11 +42,11 @@ class AccountTests(TestCase):
         result = json.loads(response.content)
 
         obj = User.objects.filter(email=data['email']).first()
-        serialization = UserModelSerializer(obj).data
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(result.get('user', None), serialization)
         self.assertIn('token', result)
+        self.assertIn('user', result)
+        self.assertIsNotNone(obj)
 
     def test_login_user(self):
         """ test_login_user - Login """
@@ -63,10 +61,10 @@ class AccountTests(TestCase):
         response = client.post('/api/account/login/', data, format='json')
         result = json.loads(response.content)
 
-        serialization = UserModelSerializer(obj).data
+        first_uuid = obj.uuid
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(result.get('user', None), serialization)
+        self.assertEqual(result.get('user', None)['uuid'], first_uuid)
         self.assertIn('token', result)
 
     def test_login_user_get_validation_error(self):
@@ -74,8 +72,8 @@ class AccountTests(TestCase):
 
         obj = User.objects.get(pk=2)
         data = {
-            'email': obj.email,
-            'password': obj.email,
+            'email': '9b38b896-3996-4716-baae-276bd8edae73@bloggernator.com',
+            'password': '9b38b896-3996-4716-baae-276bd8edae73',
         }
 
         client = APIClient()
@@ -92,7 +90,6 @@ class AccountTests(TestCase):
         token = Token.objects.create(user=obj)
 
         client = APIClient()
-        # client.force_authenticate(obj)
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = client.post('/api/account/logout/')
 
