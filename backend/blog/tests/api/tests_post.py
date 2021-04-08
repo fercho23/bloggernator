@@ -12,8 +12,6 @@ from blog.models.Language import Language
 from blog.models.Post import Post
 from blog.models.Tag import Tag
 
-from blog.serializers.PostSerializer import PostModelSerializer
-
 User = get_user_model()
 
 
@@ -36,19 +34,18 @@ class PostTests(TestCase):
         response = client.get('/api/post/list/')
         result = json.loads(response.content)
 
-        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = PostModelSerializer(objects, many=True).data
+        objects_count = 5
+        first_uuid = '5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
     def test_post_list_filtered_by_tag(self):
         """ test_post_list_filtered_by_tag - Post List filtered by tag """
+
         tag = Tag.objects.filter(slug='wellness').first()
 
         data = {
@@ -57,23 +54,20 @@ class PostTests(TestCase):
 
         client = APIClient()
         response = client.get('/api/post/list/', data)
-
         result = json.loads(response.content)
 
-        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
-        objects_query = objects_query.filter(tags__slug=data['tags'])
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = PostModelSerializer(objects, many=True).data
+        objects_count = 2
+        first_uuid = '5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
     def test_post_list_filtered_by_language(self):
         """ test_post_list_filtered_by_language - Post List filtered by language """
+
         language = Language.objects.filter(slug='english').first()
 
         data = {
@@ -82,24 +76,21 @@ class PostTests(TestCase):
 
         client = APIClient()
         response = client.get('/api/post/list/', data)
-
         result = json.loads(response.content)
 
-        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
-        objects_query = objects_query.filter(language__slug=data['language'])
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = PostModelSerializer(objects, many=True).data
+        objects_count = 4
+        first_uuid = '5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
     def test_post_list_filtered_by_authors(self):
         """ test_post_list_filtered_by_authors - Post List filtered by authors """
-        post = Post.objects.select_related('author').first()
+
+        post = Post.objects.select_related('author').get(pk=1)
 
         data = {
             'authors': post.author.uuid,
@@ -107,24 +98,21 @@ class PostTests(TestCase):
 
         client = APIClient()
         response = client.get('/api/post/list/', data)
-
         result = json.loads(response.content)
 
-        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
-        objects_query = objects_query.filter(author__uuid=data['authors'])
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = PostModelSerializer(objects, many=True).data
+        objects_count = 3
+        first_uuid = '5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
     def test_post_list_filtered_by_many_authors(self):
         """ test_post_list_filtered_by_many_authors - Post List filtered by many authors """
-        post = Post.objects.prefetch_related('contributors').first()
+
+        post = Post.objects.prefetch_related('contributors').get(pk=1)
 
         data = {
             'authors': [contributor.uuid for contributor in post.contributors.all()],
@@ -132,25 +120,21 @@ class PostTests(TestCase):
 
         client = APIClient()
         response = client.get('/api/post/list/', data)
-
         result = json.loads(response.content)
 
-        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
-        objects_query = objects_query.filter(author__uuid__in=data['authors'])
-        objects_query = objects_query.distinct()
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = PostModelSerializer(objects, many=True).data
+        objects_count = 2
+        first_uuid = '847b44b5-e76c-4209-a116-2988f6b1a628'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
     def test_post_list_filtered_by_contributors(self):
         """ test_post_list_filtered_by_contributors - Post List filtered by contributors """
-        post = Post.objects.prefetch_related('contributors').first()
+
+        post = Post.objects.prefetch_related('contributors').get(pk=1)
 
         data = {
             'contributors': post.contributors.first().uuid,
@@ -158,24 +142,21 @@ class PostTests(TestCase):
 
         client = APIClient()
         response = client.get('/api/post/list/', data)
-
         result = json.loads(response.content)
 
-        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
-        objects_query = objects_query.filter(contributors__uuid=data['contributors'])
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = PostModelSerializer(objects, many=True).data
+        objects_count = 2
+        first_uuid = '5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
     def test_post_list_filtered_by_many_contributors(self):
         """ test_post_list_filtered_by_many_contributors - Post List filtered by many contributors """
-        post = Post.objects.prefetch_related('contributors').first()
+
+        post = Post.objects.prefetch_related('contributors').get(pk=1)
 
         data = {
             'contributors': [contributor.uuid for contributor in post.contributors.all()],
@@ -183,26 +164,21 @@ class PostTests(TestCase):
 
         client = APIClient()
         response = client.get('/api/post/list/', data)
-
         result = json.loads(response.content)
 
-        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
-        objects_query = objects_query.filter(contributors__uuid__in=data['contributors'])
-        objects_query = objects_query.distinct()
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = PostModelSerializer(objects, many=True).data
+        objects_count = 3
+        first_uuid = '5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
     def test_post_list_filtered_by_title(self):
         """ test_post_list_filtered_by_title - Post List filtered by title """
 
-        first_obj = Post.objects.first()
+        first_obj = Post.objects.get(pk=1)
 
         data = {
             'title': first_obj.title[:-1],
@@ -210,25 +186,21 @@ class PostTests(TestCase):
 
         client = APIClient()
         response = client.get('/api/post/list/', data)
-
         result = json.loads(response.content)
 
-        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
-        objects_query = objects_query.filter(title__icontains=data['title'])
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = PostModelSerializer(objects, many=True).data
+        objects_count = 1
+        first_uuid = '5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
     def test_post_ordered_list(self):
         """ test_post_ordered_list - Post ordered List """
 
-        first_obj = Post.objects.first()
+        first_obj = Post.objects.get(pk=1)
 
         data = {
             'ordering': '-title',
@@ -236,34 +208,30 @@ class PostTests(TestCase):
 
         client = APIClient()
         response = client.get('/api/post/list/', data)
-
         result = json.loads(response.content)
 
-        objects_query = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors')
-        objects_query = objects_query.order_by(data['ordering'])
-        objects_count = objects_query.count()
-        objects = objects_query.all()[:10]
-        serialization = PostModelSerializer(objects, many=True).data
+        objects_count = 5
+        first_uuid = 'ffa0c48a-1d30-41ba-90d6-91412bdaf04c'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
-        self.assertEqual(result.get('results', None), serialization)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
     def test_post_get(self):
         """ test_post_get -Post Get """
 
-        post = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors').first()
-        serialization = PostModelSerializer(post).data
+        post = Post.objects.get(pk=1)
 
         client = APIClient()
-
         response = client.get('/api/post/{}/'.format(post.uuid))
         result = json.loads(response.content)
 
+        first_uuid = post.uuid
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(serialization, result)
+        self.assertEqual(result['uuid'], first_uuid)
 
     def test_post_create(self):
         """ test_post_create - Post Create """
@@ -285,7 +253,6 @@ class PostTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.post('/api/post/create/', data)
         result = json.loads(response.content)
 
@@ -316,7 +283,6 @@ class PostTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.patch('/api/post/{}/update/'.format(post.uuid), data)
         result = json.loads(response.content)
 
@@ -343,7 +309,6 @@ class PostTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.patch('/api/post/{}/update/'.format(post.uuid), data)
         result = json.loads(response.content)
 
@@ -359,7 +324,6 @@ class PostTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.delete('/api/post/{}/delete/'.format(post.uuid))
 
         post = Post.objects.filter(id=post.id).first()
@@ -376,7 +340,6 @@ class PostTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.delete('/api/post/{}/delete/'.format(post.uuid))
         result = json.loads(response.content)
 
@@ -392,7 +355,6 @@ class PostTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-
         response = client.delete('/api/post/{}/delete/'.format(post.uuid))
         result = json.loads(response.content)
 

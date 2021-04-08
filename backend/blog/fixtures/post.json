@@ -4,8 +4,8 @@
   "pk": 1,
   "fields": {
     "uuid": "5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6",
-    "title": "Testing",
-    "slug": "testing",
+    "title": "Testing First",
+    "slug": "testing-first",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
     "abstract": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut justo metus.",
     "author": 3,
@@ -95,8 +95,8 @@
   "pk": 5,
   "fields": {
     "uuid": "ffa0c48a-1d30-41ba-90d6-91412bdaf04c",
-    "title": "Testing 5 ",
-    "slug": "testing-5",
+    "title": "zzzz Testing 5 ",
+    "slug": "zzzz-testing-5",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
     "abstract": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut justo metus.",
     "author": 5,
