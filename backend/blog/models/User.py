@@ -36,6 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
+        ordering = ('username',)
 
     def __str__(self):
        return '{}'.format(self.email)
