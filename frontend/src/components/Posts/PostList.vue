@@ -1,15 +1,14 @@
 <template>
     <div class="row">
         <div class="col-12">
-            <h4>Post List</h4>
-
+            <h3>Post List</h3>
             <div class="row">
                 <div class="col-6" v-for="(post, index) in posts" :key="index">
                     <router-link :to="{
-                            name: 'post-details',
-                            params: { post: post, uuid: post.uuid }
-                        }">
-                            {{post.title}}
+                        name: 'post-details',
+                        params: { post: post, slug: post.slug }
+                      }">
+                      {{post.title}}
                     </router-link>
                 </div>
             </div>
@@ -38,9 +37,6 @@ export default {
         .catch(e => {
           console.log(e);
         });
-    },
-    refreshList() {
-      this.retrievePostList();
     }
     /* eslint-enable no-console */
   },

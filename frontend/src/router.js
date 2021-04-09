@@ -18,9 +18,10 @@ export default new Router({
       component: () => import("./components/Posts/PostList.vue"),
     },
     {
-      path: "/post/:uuid",
+      path: "/post/:slug",
       name: "post-details",
       component: () => import("./components/Posts/PostDetail.vue"),
+      props: true
     },
   ]
 });
