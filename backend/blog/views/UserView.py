@@ -13,7 +13,7 @@ from blog.serializers.UserSerializer import UserModelSerializer, UserUpdateSeria
 class UserDeleteView(DestroyAPIView):
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
-    lookup_field = 'uuid'
+    lookup_field = 'username'
 
     def perform_destroy(self, serializer):
         obj = self.get_object()
@@ -27,7 +27,7 @@ class UserDeleteView(DestroyAPIView):
 class UserReadView(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
-    lookup_field = 'uuid'
+    lookup_field = 'username'
 
 
 class UserUpdateView(UpdateAPIView):
@@ -35,7 +35,7 @@ class UserUpdateView(UpdateAPIView):
     serializer_class = UserUpdateSerializer
     parser_classes = (MultiPartParser, FormParser, JSONParser)
     permission_classes = [IsAuthenticated]
-    lookup_field = 'uuid'
+    lookup_field = 'username'
 
     def perform_update(self, serializer):
         obj = self.get_object()

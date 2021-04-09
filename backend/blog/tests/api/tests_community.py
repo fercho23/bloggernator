@@ -58,7 +58,6 @@ class CommunityTests(TestCase):
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
-
     def test_community_list_filtered_by_name(self):
         """ test_community_list_filtered_by_name - Community List filtered by name """
 
@@ -107,7 +106,7 @@ class CommunityTests(TestCase):
         community = Community.objects.select_related('owner').prefetch_related('members').first()
 
         client = APIClient()
-        response = client.get('/api/community/{}/'.format(community.uuid))
+        response = client.get('/api/community/{}/'.format(community.slug))
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -151,7 +150,7 @@ class CommunityTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.patch('/api/community/{}/update/'.format(community.uuid), data)
+        response = client.patch('/api/community/{}/update/'.format(community.slug), data)
         result = json.loads(response.content)
 
         community = Community.objects.get(pk=community.id)
@@ -175,7 +174,7 @@ class CommunityTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.patch('/api/community/{}/update/'.format(community.uuid), data)
+        response = client.patch('/api/community/{}/update/'.format(community.slug), data)
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -190,7 +189,7 @@ class CommunityTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.delete('/api/community/{}/delete/'.format(community.uuid))
+        response = client.delete('/api/community/{}/delete/'.format(community.slug))
 
         community = Community.objects.filter(id=community.id).first()
 
@@ -206,7 +205,7 @@ class CommunityTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.delete('/api/community/{}/delete/'.format(community.uuid))
+        response = client.delete('/api/community/{}/delete/'.format(community.slug))
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -221,7 +220,7 @@ class CommunityTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.delete('/api/community/{}/delete/'.format(community.uuid))
+        response = client.delete('/api/community/{}/delete/'.format(community.slug))
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

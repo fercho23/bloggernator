@@ -14,19 +14,19 @@ python -m pip install --upgrade pip wheel setuptools virtualenv
 
 #### 2. Create virtualenv:
 ```bash
-python -m virtualenv venv
+python -m virtualenv <env_name>
 ```
 
 #### 3. Activate virtual env:
 
 * Windows:
 ```bash
-venv\Scripts\activate
+<env_name>\Scripts\activate
 ```
 
 * Linux:
 ```bash
-source venv/bin/activate
+source <env_name>/bin/activate
 ```
 
 #### 4. Install: (On venv)

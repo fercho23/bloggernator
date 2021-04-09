@@ -93,7 +93,7 @@ class PostTests(TestCase):
         post = Post.objects.select_related('author').get(pk=1)
 
         data = {
-            'authors': post.author.uuid,
+            'authors': post.author.username,
         }
 
         client = APIClient()
@@ -115,7 +115,7 @@ class PostTests(TestCase):
         post = Post.objects.prefetch_related('contributors').get(pk=1)
 
         data = {
-            'authors': [contributor.uuid for contributor in post.contributors.all()],
+            'authors': [contributor.username for contributor in post.contributors.all()],
         }
 
         client = APIClient()
@@ -123,7 +123,7 @@ class PostTests(TestCase):
         result = json.loads(response.content)
 
         objects_count = 2
-        first_uuid = '847b44b5-e76c-4209-a116-2988f6b1a628'
+        first_uuid = 'ffa0c48a-1d30-41ba-90d6-91412bdaf04c'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get('count', None), objects_count)
@@ -137,7 +137,7 @@ class PostTests(TestCase):
         post = Post.objects.prefetch_related('contributors').get(pk=1)
 
         data = {
-            'contributors': post.contributors.first().uuid,
+            'contributors': post.contributors.first().username,
         }
 
         client = APIClient()
@@ -159,7 +159,7 @@ class PostTests(TestCase):
         post = Post.objects.prefetch_related('contributors').get(pk=1)
 
         data = {
-            'contributors': [contributor.uuid for contributor in post.contributors.all()],
+            'contributors': [contributor.username for contributor in post.contributors.all()],
         }
 
         client = APIClient()
@@ -225,7 +225,7 @@ class PostTests(TestCase):
         post = Post.objects.get(pk=1)
 
         client = APIClient()
-        response = client.get('/api/post/{}/'.format(post.uuid))
+        response = client.get('/api/post/{}/'.format(post.slug))
         result = json.loads(response.content)
 
         first_uuid = post.uuid
@@ -283,7 +283,7 @@ class PostTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.patch('/api/post/{}/update/'.format(post.uuid), data)
+        response = client.patch('/api/post/{}/update/'.format(post.slug), data)
         result = json.loads(response.content)
 
         post = Post.objects.get(pk=post.id)
@@ -309,7 +309,7 @@ class PostTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.patch('/api/post/{}/update/'.format(post.uuid), data)
+        response = client.patch('/api/post/{}/update/'.format(post.slug), data)
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -324,7 +324,7 @@ class PostTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.delete('/api/post/{}/delete/'.format(post.uuid))
+        response = client.delete('/api/post/{}/delete/'.format(post.slug))
 
         post = Post.objects.filter(id=post.id).first()
 
@@ -340,7 +340,7 @@ class PostTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.delete('/api/post/{}/delete/'.format(post.uuid))
+        response = client.delete('/api/post/{}/delete/'.format(post.slug))
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -355,7 +355,7 @@ class PostTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.delete('/api/post/{}/delete/'.format(post.uuid))
+        response = client.delete('/api/post/{}/delete/'.format(post.slug))
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

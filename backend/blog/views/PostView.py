@@ -30,7 +30,7 @@ class PostCreateView(CreateAPIView):
 class PostDeleteView(DestroyAPIView):
     queryset = Post.objects.all()
     permission_classes = [IsAuthenticated]
-    lookup_field = 'uuid'
+    lookup_field = 'slug'
 
     def perform_destroy(self, serializer):
         obj = self.get_object()
@@ -69,12 +69,12 @@ class PostListView(ListAPIView):
         authors = query_params.get('authors')
         if authors is not None:
             authors = query_params.getlist('authors')
-            queryset = queryset.filter(author__uuid__in=authors)
+            queryset = queryset.filter(author__username__in=authors)
 
         contributors = query_params.get('contributors')
         if contributors is not None:
             contributors = query_params.getlist('contributors')
-            queryset = queryset.filter(contributors__uuid__in=contributors)
+            queryset = queryset.filter(contributors__username__in=contributors)
 
         queryset = queryset.distinct()
 
@@ -84,14 +84,14 @@ class PostListView(ListAPIView):
 class PostReadView(RetrieveAPIView):
     queryset = Post.objects.select_related('language', 'community', 'author').prefetch_related('tags', 'contributors').all()
     serializer_class = PostModelSerializer
-    lookup_field = 'uuid'
+    lookup_field = 'slug'
 
 
 class PostUpdateView(UpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostCreateUpdateSerializer
     permission_classes = [IsAuthenticated]
-    lookup_field = 'uuid'
+    lookup_field = 'slug'
 
     def perform_update(self, serializer):
         obj = self.get_object()

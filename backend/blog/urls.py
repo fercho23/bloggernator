@@ -16,6 +16,7 @@ Including another URLconf
 from django.urls import include, path
 
 from rest_framework.authtoken import views
+from rest_framework.authtoken.views import obtain_auth_token
 
 from blog.views.AccountView import LoginView, LogoutView, SignupView
 from blog.views.CommunityView import CommunityCreateView, CommunityDeleteView, CommunityListView, CommunityReadView, CommunityUpdateView
@@ -26,42 +27,43 @@ from blog.views.UserView import UserDeleteView, UserReadView, UserUpdateView
 
 urlpatterns = [
 
-    # path('api/', include([
-        path('account/', include([
-            path('signup/', SignupView.as_view(), name='api.account.signup'),
-            path('login/', LoginView.as_view(), name='api.account.login'),
-            path('logout/', LogoutView.as_view(), name='api.account.logout'),
-        ])),
 
-        path('community/', include([
-            path('create/', CommunityCreateView.as_view(), name='api.community.create'),
-            path('list/', CommunityListView.as_view(), name='api.community.list'),
-            path('<str:uuid>/', CommunityReadView.as_view(), name='api.community.read'),
-            path('<str:uuid>/delete/', CommunityDeleteView.as_view(), name='api.community.delete'),
-            path('<str:uuid>/update/', CommunityUpdateView.as_view(), name='api.community.update'),
-        ])),
+    path('account/', include([
+        path('signup/', SignupView.as_view(), name='api.account.signup'),
+        path('login/', LoginView.as_view(), name='api.account.login'),
+        path('logout/', LogoutView.as_view(), name='api.account.logout'),
 
-        path('language/', include([
-            path('list/', LanguageListView.as_view(), name='api.language.list'),
-        ])),
+        path('token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
+    ])),
 
-        path('post/', include([
-            path('create/', PostCreateView.as_view(), name='api.post.create'),
-            path('list/', PostListView.as_view(), name='api.post.list'),
-            path('<str:uuid>/', PostReadView.as_view(), name='api.post.read'),
-            path('<str:uuid>/delete/', PostDeleteView.as_view(), name='api.post.delete'),
-            path('<str:uuid>/update/', PostUpdateView.as_view(), name='api.post.update'),
-        ])),
+    path('community/', include([
+        path('create/', CommunityCreateView.as_view(), name='api.community.create'),
+        path('list/', CommunityListView.as_view(), name='api.community.list'),
+        path('<str:slug>/', CommunityReadView.as_view(), name='api.community.read'),
+        path('<str:slug>/delete/', CommunityDeleteView.as_view(), name='api.community.delete'),
+        path('<str:slug>/update/', CommunityUpdateView.as_view(), name='api.community.update'),
+    ])),
 
-        path('tag/', include([
-            path('list/', TagListView.as_view(), name='api.tag.list'),
-        ])),
+    path('language/', include([
+        path('list/', LanguageListView.as_view(), name='api.language.list'),
+    ])),
 
-        path('user/', include([
-            path('<str:uuid>/', UserReadView.as_view(), name='api.user.read'),
-            path('<str:uuid>/update/', UserUpdateView.as_view(), name='api.user.update'),
-            path('<str:uuid>/delete/', UserDeleteView.as_view(), name='api.user.delete'),
-        ])),
-    # ])),
+    path('post/', include([
+        path('create/', PostCreateView.as_view(), name='api.post.create'),
+        path('list/', PostListView.as_view(), name='api.post.list'),
+        path('<str:slug>/', PostReadView.as_view(), name='api.post.read'),
+        path('<str:slug>/delete/', PostDeleteView.as_view(), name='api.post.delete'),
+        path('<str:slug>/update/', PostUpdateView.as_view(), name='api.post.update'),
+    ])),
+
+    path('tag/', include([
+        path('list/', TagListView.as_view(), name='api.tag.list'),
+    ])),
+
+    path('user/', include([
+        path('<str:username>/', UserReadView.as_view(), name='api.user.read'),
+        path('<str:username>/update/', UserUpdateView.as_view(), name='api.user.update'),
+        path('<str:username>/delete/', UserDeleteView.as_view(), name='api.user.delete'),
+    ])),
 
 ]

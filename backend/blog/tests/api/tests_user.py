@@ -37,7 +37,7 @@ class UserTests(TestCase):
         user = User.objects.get(pk=3)
 
         client = APIClient()
-        response = client.get('/api/user/{}/'.format(user.uuid))
+        response = client.get('/api/user/{}/'.format(user.username))
         result = json.loads(response.content)
 
         first_uuid = user.uuid
@@ -48,8 +48,10 @@ class UserTests(TestCase):
     def test_get_user_that_not_exist(self):
         """ Get User that not exist """
 
+        username = 'username_that_does_not_exist_in_the_database'
+
         client = APIClient()
-        response = client.get('/api/user/{}/'.format(uuid.uuid4))
+        response = client.get('/api/user/{}/'.format(username))
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
@@ -73,7 +75,7 @@ class UserTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.put('/api/user/{}/update/'.format(user.uuid), data, format='multipart')
+        response = client.put('/api/user/{}/update/'.format(user.username), data, format='multipart')
         result = json.loads(response.content)
 
         user = User.objects.get(pk=user.id)
@@ -104,7 +106,7 @@ class UserTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.put('/api/user/{}/update/'.format(user2.uuid), data, format='multipart')
+        response = client.put('/api/user/{}/update/'.format(user2.username), data, format='multipart')
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -124,7 +126,7 @@ class UserTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.delete('/api/user/{}/delete/'.format(user.uuid))
+        response = client.delete('/api/user/{}/delete/'.format(user.username))
 
         user = User.objects.filter(id=user.id).first()
 
@@ -147,7 +149,7 @@ class UserTests(TestCase):
 
         client = APIClient()
         client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-        response = client.delete('/api/user/{}/delete/'.format(user2.uuid))
+        response = client.delete('/api/user/{}/delete/'.format(user2.username))
         result = json.loads(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
