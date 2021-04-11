@@ -16,7 +16,8 @@
 </template>
 
 <script>
-import http from "../../http-common";
+import { getAPI } from '../../api/axios-base'
+import { URL_API_POST_READ } from '../../constants.js';
 
 export default {
   name: "post-details",
@@ -40,8 +41,8 @@ export default {
       console.log(post)
     },
     retrievePost(slug) {
-      http
-        .get("/post/" + slug + "/")
+      getAPI
+        .get(URL_API_POST_READ.replace(':slug', slug))
         .then(response => {
           this.post = response.data;
         })

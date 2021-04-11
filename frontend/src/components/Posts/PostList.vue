@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import http from "../../http-common";
+import { getAPI } from '../../api/axios-base'
+import { URL_API_POST_LIST } from '../../constants.js';
 
 export default {
   name: "post-list",
@@ -29,8 +30,8 @@ export default {
   methods: {
     /* eslint-disable no-console */
     retrievePostList() {
-      http
-        .get("/post/list/")
+      getAPI
+        .get(URL_API_POST_LIST)
         .then(response => {
           this.posts = response.data.results;
         })
