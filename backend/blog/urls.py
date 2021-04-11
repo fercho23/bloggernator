@@ -27,13 +27,12 @@ from blog.views.UserView import UserDeleteView, UserReadView, UserUpdateView
 
 urlpatterns = [
 
-
     path('account/', include([
         path('signup/', SignupView.as_view(), name='api.account.signup'),
         path('login/', LoginView.as_view(), name='api.account.login'),
         path('logout/', LogoutView.as_view(), name='api.account.logout'),
 
-        path('token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
+        path('token-auth/', obtain_auth_token, name='api_token_auth'),
     ])),
 
     path('community/', include([
