@@ -6,12 +6,39 @@ Vue.use(Router);
 
 export default new Router({
   mode: "history",
+  base: process.env.BASE_URL,
   routes: [
     {
       path: "/",
       name: "home",
       component: () => import("./components/Home.vue"),
     },
+
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import("./components/Account/Login.vue"),
+      meta: {
+        requiresLogged: true
+      }
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () => import("./components/Account/Signup.vue"),
+      meta: {
+        requiresLogged: true
+      }
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import("./components/Account/Logout.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+
     {
       path: "/post/list",
       name: "post-list",
