@@ -1,11 +1,20 @@
 <template>
   <div v-if="this.post">
-    <span v-if="isAuthorOrContributor(this.post)" v-on:click="updatePost(this.post)" class="btn btn-primary float-right">Update</span>
 
-    <h4>{{this.post.title}}</h4>
+    <router-link
+      v-if="isAuthorOrContributor(this.post)"
+      class="btn btn-primary float-right"
+      :to="{
+        name: 'post-update',
+        params: { post: post, slug: post.slug }
+      }">
+      Update
+    </router-link>
+
+    <h4>{{ this.post.title }}</h4>
 
     <div>
-      {{this.post.body}}
+      {{ this.post.body }}
     </div>
   </div>
   <div v-else="">
@@ -16,42 +25,42 @@
 </template>
 
 <script>
-import { getAPI } from '../../api/axios-base'
-import { URL_API_POST_READ } from '../../constants.js';
+  import { getAPI } from '../../api/axios-base'
+  import { URL_API_POST_READ } from '../../constants.js';
 
-export default {
-  name: "post-details",
-  props: ["post"],
-  data() {
-    return {
-      error: undefined,
-    }
-  },
-  beforeMount() {
-    if (this.post === undefined)
-      this.retrievePost(this.$route.params.slug)
-  },
-  methods: {
-    isAuthorOrContributor(post) {
-      if (post.author)
-        return true
-      return false
+  export default {
+    name: "post-details",
+    props: ["post"],
+    data() {
+      return {
+        error: undefined,
+      }
     },
-    updatePost(post) {
-      console.log(post)
+    beforeMount() {
+      if (this.post === undefined)
+        this.retrievePost(this.$route.params.slug)
     },
-    retrievePost(slug) {
-      getAPI
-        .get(URL_API_POST_READ.replace(':slug', slug))
-        .then(response => {
-          this.post = response.data;
-        })
-        .catch(e => {
-          this.error = e.response.data.detail;
-        });
+    methods: {
+      isAuthorOrContributor(post) {
+        if (post.author)
+          return true
+        return false
+      },
+      updatePost(post) {
+        console.log(post)
+      },
+      retrievePost(slug) {
+        getAPI
+          .get(URL_API_POST_READ.replace(':slug', slug))
+          .then(response => {
+            this.post = response.data;
+          })
+          .catch(e => {
+            this.error = e.response.data.detail;
+          });
+      }
     }
-  }
-};
+  };
 </script>
 
 <style>
