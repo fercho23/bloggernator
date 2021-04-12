@@ -36,7 +36,7 @@
         this.$store.dispatch('loginUser', this.form)
           .then(() => {
             this.wrongCred = false
-            // this.$router.push({ name: 'downloads' })
+            this.$router.push({ name: 'home' })
           })
         .catch(err => {
           console.log(err)
