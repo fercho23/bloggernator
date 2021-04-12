@@ -1,6 +1,8 @@
+
 import Vue from "vue"
 import Vuex from "vuex"
 import { axiosBase } from "./api/axios-base"
+import { URL_API_ACCOUNT_SIGNUP, URL_API_ACCOUNT_LOGOUT, URL_API_ACCOUNT_LOGIN } from './constants.js';
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -17,15 +19,15 @@ export default new Vuex.Store({
   },
   mutations: {
     // updateLocalStorage (state, { access, refresh }) {
-    updateLocalStorage (state, { access }) {
-      localStorage.setItem('access_token', access)
+    updateLocalStorage (state, { token }) {
+      localStorage.setItem('access_token', token)
       // localStorage.setItem('refresh_token', refresh)
-      state.accessToken = access
+      state.accessToken = token
       // state.refreshToken = refresh
     },
-    updateAccess (state, access) {
-      state.accessToken = access
-    },
+    // updateAccess (state, token) {
+    //   state.accessToken = token
+    // },
     destroyToken (state) {
       state.accessToken = null
       // state.refreshToken = null
@@ -51,7 +53,7 @@ export default new Vuex.Store({
     // },
     registerUser (context, data) {
       return new Promise((resolve, reject) => {
-        axiosBase.post('/account/signup/', {
+        axiosBase.post(URL_API_ACCOUNT_SIGNUP, {
           name: data.name,
           email: data.email,
           username: data.username,
@@ -69,16 +71,16 @@ export default new Vuex.Store({
     logoutUser (context) {
       if (context.getters.loggedIn) {
         return new Promise((resolve, reject) => {
-          axiosBase.post('/api/account/logout/')
+          axiosBase.post(URL_API_ACCOUNT_LOGOUT)
             .then(response => {
               localStorage.removeItem('access_token')
-              localStorage.removeItem('refresh_token')
+              // localStorage.removeItem('refresh_token')
               context.commit('destroyToken')
               resolve(response)
             })
             .catch(err => {
               localStorage.removeItem('access_token')
-              localStorage.removeItem('refresh_token')
+              // localStorage.removeItem('refresh_token')
               context.commit('destroyToken')
               reject(err)
             })
@@ -88,7 +90,7 @@ export default new Vuex.Store({
     loginUser (context, credentials) {
       return new Promise((resolve, reject) => {
         // send the email and password to the backend API:
-        axiosBase.post('/api/account/login/', {
+        axiosBase.post(URL_API_ACCOUNT_LOGIN, {
           email: credentials.email,
           password: credentials.password
         })

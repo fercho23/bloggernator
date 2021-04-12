@@ -5,7 +5,7 @@ import router from "./router"
 import store from "./store"
 
 import BootstrapVue from "bootstrap-vue";
-// import VeeValidate from "vee-validate";
+import { ValidationProvider } from 'vee-validate';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -18,7 +18,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue);
-// Vue.use(VeeValidate);
+Vue.component('ValidationProvider', ValidationProvider);
 Vue.component("font-awesome-icon", FontAwesomeIcon)
 library.add(fas);
 library.add(faFontAwesome)
