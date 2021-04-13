@@ -7,29 +7,36 @@ import { URL_API_ACCOUNT_SIGNUP, URL_API_ACCOUNT_LOGOUT, URL_API_ACCOUNT_LOGIN }
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-     accessToken: localStorage.getItem('access_token') || null, // makes sure the user is logged in even after
+     accessToken: localStorage.getItem("access_token") || null,
+     currentUser: localStorage.getItem("current_user") !== null ? JSON.parse(localStorage.getItem("current_user")) : null,
     // refreshing the page
      // refreshToken: localStorage.getItem('refresh_token') || null,
      APIData: '' // received data from the backend API is stored here.
   },
   getters: {
     loggedIn (state) {
-      return state.accessToken != null
+      return state.accessToken != null;
     }
   },
   mutations: {
     // updateLocalStorage (state, { access, refresh }) {
-    updateLocalStorage (state, { token }) {
-      localStorage.setItem('access_token', token)
-      // localStorage.setItem('refresh_token', refresh)
-      state.accessToken = token
+    updateLocalStorage (state, { token, current_user }) {
+      localStorage.setItem("access_token", token);
+      localStorage.setItem("current_user", JSON.stringify(current_user));
+      // localStorage.setItem("refresh_token", refresh);
+      state.accessToken = token;
+      state.currentUser = current_user;
       // state.refreshToken = refresh
     },
+    // updateCurrentuser (state, current_user) {
+    //   localStorage.setItem("current_user", JSON.stringify(current_user))
+    // },
     // updateAccess (state, token) {
     //   state.accessToken = token
     // },
     destroyToken (state) {
       state.accessToken = null
+      state.currentUser = null
       // state.refreshToken = null
     }
   },
@@ -37,7 +44,7 @@ export default new Vuex.Store({
     // run the below action to get a new access token on expiration
     // refreshToken (context) {
     //   return new Promise((resolve, reject) => {
-    //     axiosBase.post('/api/token/refresh/', {
+    //     axiosBase.post("/api/token/refresh/", {
     //       refresh: context.state.refreshToken
     //     }) // send the stored refresh token to the backend API
     //       .then(response => { // if API sends back new access and refresh token update the store
@@ -61,10 +68,10 @@ export default new Vuex.Store({
           confirm: data.confirm
         })
           .then(response => {
-            resolve(response)
+            resolve(response);
           })
           .catch(error => {
-            reject(error)
+            reject(error);
           })
       })
     },
@@ -73,16 +80,18 @@ export default new Vuex.Store({
         return new Promise((resolve, reject) => {
           axiosBase.post(URL_API_ACCOUNT_LOGOUT)
             .then(response => {
-              localStorage.removeItem('access_token')
-              // localStorage.removeItem('refresh_token')
-              context.commit('destroyToken')
-              resolve(response)
+              localStorage.removeItem("access_token");
+              localStorage.removeItem("current_user");
+              // localStorage.removeItem("refresh_token");
+              context.commit("destroyToken");
+              resolve(response);
             })
             .catch(err => {
-              localStorage.removeItem('access_token')
-              // localStorage.removeItem('refresh_token')
-              context.commit('destroyToken')
-              reject(err)
+              localStorage.removeItem("access_token");
+              localStorage.removeItem("current_user");
+              // localStorage.removeItem("refresh_token");
+              context.commit("destroyToken");
+              reject(err);
             })
         })
       }
@@ -96,12 +105,12 @@ export default new Vuex.Store({
         })
         // if successful update local storage:
           .then(response => {
-            context.commit('updateLocalStorage', { token: response.data.token }) // store the token in localstorage
-            // context.commit('updateLocalStorage', { access: response.data.access, refresh: response.data.refresh }) // store the access and refresh token in localstorage
-            resolve()
+            context.commit("updateLocalStorage", { token: response.data.token, current_user: response.data.user });
+            // context.commit("updateLocalStorage", { access: response.data.access, refresh: response.data.refresh }); // store the access and refresh token in localstorage
+            resolve();
           })
           .catch(err => {
-            reject(err)
+            reject(err);
           })
       })
     }
