@@ -34,7 +34,7 @@ class PostTests(TestCase):
         response = client.get('/api/post/list/')
         result = json.loads(response.content)
 
-        objects_count = 5
+        objects_count = 6
         first_uuid = '5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -56,7 +56,7 @@ class PostTests(TestCase):
         response = client.get('/api/post/list/', data)
         result = json.loads(response.content)
 
-        objects_count = 2
+        objects_count = 3
         first_uuid = '5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -78,7 +78,7 @@ class PostTests(TestCase):
         response = client.get('/api/post/list/', data)
         result = json.loads(response.content)
 
-        objects_count = 4
+        objects_count = 5
         first_uuid = '5fc757ba-e7ab-4ed0-8b6f-10e8eb2232e6'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -122,7 +122,7 @@ class PostTests(TestCase):
         response = client.get('/api/post/list/', data)
         result = json.loads(response.content)
 
-        objects_count = 2
+        objects_count = 3
         first_uuid = 'ffa0c48a-1d30-41ba-90d6-91412bdaf04c'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -210,7 +210,7 @@ class PostTests(TestCase):
         response = client.get('/api/post/list/', data)
         result = json.loads(response.content)
 
-        objects_count = 5
+        objects_count = 6
         first_uuid = 'ffa0c48a-1d30-41ba-90d6-91412bdaf04c'
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
