@@ -37,6 +37,22 @@ class CommunityDeleteView(DestroyAPIView):
         serializer.delete()
 
 
+class CommunityCurrentUserListView(ListAPIView):
+    serializer_class = CommunityModelSerializer
+    pagination_class = None
+    filter_backends = (OrderingFilter, )
+    ordering_fields = ['name']
+
+    def get_queryset(self):
+        queryset = Community.objects.select_related('owner').prefetch_related('members').all()
+
+        queryset = queryset.filter(Q(owner=self.request.user) | Q(members=self.request.user))
+
+        queryset = queryset.distinct()
+
+        return queryset
+
+
 class CommunityListView(ListAPIView):
     serializer_class = CommunityModelSerializer
     filter_backends = (OrderingFilter, )
@@ -51,9 +67,10 @@ class CommunityListView(ListAPIView):
         if name is not None:
             queryset = queryset.filter(name__icontains=name)
 
-        current_user = query_params.get('current_user')
-        if current_user is not None:
-            queryset = queryset.filter(Q(owner__uuid=current_user) | Q(members__uuid=current_user))
+        user_owner_or_member = query_params.get('user_owner_or_member')
+        if user_owner_or_member is not None:
+            user_owner_or_member = query_params.getlist('user_owner_or_member')
+            queryset = queryset.filter(Q(owner__uuid__in=user_owner_or_member) | Q(members__uuid__in=user_owner_or_member))
 
         queryset = queryset.distinct()
 

@@ -19,7 +19,7 @@ from rest_framework.authtoken import views
 from rest_framework.authtoken.views import obtain_auth_token
 
 from blog.views.AccountView import LoginView, LogoutView, SignupView
-from blog.views.CommunityView import CommunityCreateView, CommunityDeleteView, CommunityListView, CommunityReadView, CommunityUpdateView
+from blog.views.CommunityView import CommunityCreateView, CommunityDeleteView, CommunityCurrentUserListView, CommunityListView, CommunityReadView, CommunityUpdateView
 from blog.views.LanguageView import LanguageListView
 from blog.views.PostView import PostCreateView, PostDeleteView, PostListView, PostReadView, PostUpdateView
 from blog.views.TagView import TagListView
@@ -37,6 +37,7 @@ urlpatterns = [
 
     path('community/', include([
         path('create/', CommunityCreateView.as_view(), name='api.community.create'),
+        path('current_user/list/', CommunityCurrentUserListView.as_view(), name='api.community_current_user.list'),
         path('list/', CommunityListView.as_view(), name='api.community.list'),
         path('<str:slug>/', CommunityReadView.as_view(), name='api.community.read'),
         path('<str:slug>/delete/', CommunityDeleteView.as_view(), name='api.community.delete'),

@@ -80,18 +80,16 @@ class CommunityTests(TestCase):
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
-    def test_community_list_filtered_by_current_user(self):
-        """ test_community_list_filtered_by_current_user - Community List filtered by current user (Owner or Members) """
+    def test_community_list_filtered_by_user(self):
+        """ test_community_list_filtered_by_current_user - Community List filtered by user (Owner or Member) """
 
         user = User.objects.get(pk=3)
-        token = Token.objects.create(user=user)
 
         data = {
-            'current_user': user.uuid,
+            'user_owner_or_member': user.uuid,
         }
 
         client = APIClient()
-        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
         response = client.get('/api/community/list/', data)
         result = json.loads(response.content)
 
@@ -123,6 +121,24 @@ class CommunityTests(TestCase):
         self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
         self.assertIn('next', result)
         self.assertIn('previous', result)
+
+    def test_community_current_user_list(self):
+        """ test_community_current_user_list - Community List filtered by current user (Owner or Member) """
+
+        user = User.objects.get(pk=3)
+        token = Token.objects.create(user=user)
+
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = client.get('/api/community/current_user/list/')
+        result = json.loads(response.content)
+
+        objects_count = 10
+        first_uuid = '8b547291-8c69-49ca-8501-2a4e3e127a99'
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(result), objects_count)
+        self.assertEqual(result[0]['uuid'], first_uuid)
 
     def test_community_get(self):
         """ test_community_get -Community Get """
