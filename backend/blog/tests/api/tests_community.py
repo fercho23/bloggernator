@@ -80,6 +80,30 @@ class CommunityTests(TestCase):
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
+    def test_community_list_filtered_by_current_user(self):
+        """ test_community_list_filtered_by_current_user - Community List filtered by current user (Owner or Members) """
+
+        user = User.objects.get(pk=3)
+        token = Token.objects.create(user=user)
+
+        data = {
+            'current_user': user.uuid,
+        }
+
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = client.get('/api/community/list/', data)
+        result = json.loads(response.content)
+
+        objects_count = 10
+        first_uuid = '8b547291-8c69-49ca-8501-2a4e3e127a99'
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
     def test_community_ordered_list(self):
         """ test_community_ordered_list - Community ordered List """
 

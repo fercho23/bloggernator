@@ -1,4 +1,5 @@
 
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.exceptions import ValidationError
@@ -49,6 +50,12 @@ class CommunityListView(ListAPIView):
         name = query_params.get('name')
         if name is not None:
             queryset = queryset.filter(name__icontains=name)
+
+        current_user = query_params.get('current_user')
+        if current_user is not None:
+            queryset = queryset.filter(Q(owner__uuid=current_user) | Q(members__uuid=current_user))
+
+        queryset = queryset.distinct()
 
         return queryset
 
