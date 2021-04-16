@@ -10,14 +10,17 @@
 </template>
 
 <script>
-import NavBar from "./components/Layout/NavBar.vue"
+  import NavBar from "./components/Layout/NavBar.vue";
 
-export default {
-  name: "app",
+  export default {
+    name: "app",
     components: {
       NavBar
-    }
-};
+    },
+    mounted() {
+      this.$store.dispatch("getLanguages");
+    },
+  };
 </script>
 
 <style>

@@ -1,6 +1,6 @@
 
-import axios from "axios"
-import store from "../store"
+import axios from "axios";
+import store from "../store";
 import { URL_BACKEND } from '../constants.js';
 
 const axiosBase = axios.create({
