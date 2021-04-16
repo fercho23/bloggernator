@@ -1,14 +1,20 @@
 
 import Vue from "vue"
 import Vuex from "vuex"
-import { axiosBase } from "./api/axios-base"
-import { URL_API_ACCOUNT_SIGNUP, URL_API_ACCOUNT_LOGOUT, URL_API_ACCOUNT_LOGIN } from './constants.js';
+import { axiosBase, getAPI } from "./api/axios-base"
+import {
+  URL_API_ACCOUNT_SIGNUP,
+  URL_API_ACCOUNT_LOGOUT,
+  URL_API_ACCOUNT_LOGIN,
+  URL_API_LANGUAGE_LIST
+} from './constants.js';
 
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
      accessToken: localStorage.getItem("access_token") || null,
      currentUser: localStorage.getItem("current_user") !== null ? JSON.parse(localStorage.getItem("current_user")) : null,
+     languages: localStorage.getItem("languages") !== null ? JSON.parse(localStorage.getItem("languages")) : null,
     // refreshing the page
      // refreshToken: localStorage.getItem('refresh_token') || null,
      APIData: '' // received data from the backend API is stored here.
@@ -37,7 +43,13 @@ export default new Vuex.Store({
     destroyToken (state) {
       state.accessToken = null
       state.currentUser = null
+      state.languages = null
       // state.refreshToken = null
+
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("current_user");
+      localStorage.removeItem("languages");
+      // localStorage.removeItem("refresh_token");
     }
   },
   actions: {
@@ -80,16 +92,10 @@ export default new Vuex.Store({
         return new Promise((resolve, reject) => {
           axiosBase.post(URL_API_ACCOUNT_LOGOUT)
             .then(response => {
-              localStorage.removeItem("access_token");
-              localStorage.removeItem("current_user");
-              // localStorage.removeItem("refresh_token");
               context.commit("destroyToken");
               resolve(response);
             })
             .catch(err => {
-              localStorage.removeItem("access_token");
-              localStorage.removeItem("current_user");
-              // localStorage.removeItem("refresh_token");
               context.commit("destroyToken");
               reject(err);
             })
@@ -113,6 +119,13 @@ export default new Vuex.Store({
             reject(err);
           })
       })
+    },
+    getLanguages () {
+      getAPI.get(URL_API_LANGUAGE_LIST)
+        .then((response) => {
+          localStorage.setItem("languages", JSON.stringify(response.data));
+        });
     }
+
   }
 })
