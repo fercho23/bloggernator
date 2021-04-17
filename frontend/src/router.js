@@ -41,14 +41,14 @@ export default new Router({
       name: "post-list",
       component: () => import("./components/Posts/PostList.vue"),
     },
-    // {
-    //   path: "/post/create",
-    //   name: "post-create",
-    //   component: () => import("./components/Posts/PostCreate.vue"),
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    // },
+    {
+      path: "/post/create",
+      name: "post-create",
+      component: () => import("./components/Posts/PostCreate.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: "/post/:slug",
       name: "post-details",
@@ -68,9 +68,9 @@ export default new Router({
       path: "/post/:slug/update",
       name: "post-update",
       component: () => import("./components/Posts/PostUpdate.vue"),
-      // meta: {
-      //   requiresAuth: true
-      // },
+      meta: {
+        requiresAuth: true
+      },
       props: true
     }
   ]

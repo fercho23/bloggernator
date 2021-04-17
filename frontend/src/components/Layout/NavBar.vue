@@ -17,10 +17,10 @@
             <b-navbar-nav class="ml-auto">
 
               <b-nav-item-dropdown text="Lang" right>
-              <b-dropdown-item v-for="(language, index) in languages" 
-                :key="index" 
-                :value="language.slug">{{ language.name }}
-              </b-dropdown-item>
+                <b-dropdown-item v-for="(language, index) in languages" 
+                  :key="index" 
+                  :value="language.slug">{{ language.name }}
+                </b-dropdown-item>
               </b-nav-item-dropdown>
 
               <template v-if="accessToken==null">
