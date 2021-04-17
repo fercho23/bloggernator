@@ -118,6 +118,7 @@
         getAPI.patch(URL_API_POST_UPDATE.replace(':slug', this.post.slug), formData)
           .then((response) => {
             console.log(response);
+            this.$router.push({ name: "post-list" });
           })
           .catch(e => {
             this.error = e.response.data.detail;

@@ -40,6 +40,7 @@ export default new Router({
       path: "/post/list",
       name: "post-list",
       component: () => import("./components/Posts/PostList.vue"),
+      props: true
     },
     {
       path: "/post/create",

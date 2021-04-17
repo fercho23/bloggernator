@@ -40,7 +40,9 @@
     },
     methods: {
       retrievePostList() {
-        getAPI.get(URL_API_POST_LIST)
+        console.log(this.$route.query);
+
+        getAPI.get(URL_API_POST_LIST, this.$route.query)
           .then(response => {
             this.posts = response.data.results;
           })

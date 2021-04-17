@@ -58,8 +58,8 @@
 
 <script>
   import { mapState } from "vuex";
-  import { getAPI } from '../../api/axios-base';
-  import { URL_API_COMMUNITY_CURRENT_USER_LIST, URL_API_POST_CREATE } from '../../constants.js';
+  import { getAPI } from "../../api/axios-base";
+  import { URL_API_COMMUNITY_CURRENT_USER_LIST, URL_API_POST_CREATE } from "../../constants.js";
 
   export default {
     name: "post-create",
@@ -78,7 +78,7 @@
     methods: {
       getCommunities() {
         const params = new URLSearchParams();
-        params.append('current_user', this.$store.state.currentUser.uuid);
+        params.append("current_user", this.$store.state.currentUser.uuid);
 
         getAPI.get(URL_API_COMMUNITY_CURRENT_USER_LIST, {
           params: params
@@ -97,6 +97,7 @@
         getAPI.post(URL_API_POST_CREATE, formData)
           .then((response) => {
             console.log(response);
+            this.$router.push({ name: "post-list" });
           })
           .catch(e => {
             this.error = e.response.data.detail;
