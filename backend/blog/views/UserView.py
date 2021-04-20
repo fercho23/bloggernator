@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 from blog.models.User import User
-from blog.serializers.UserSerializer import UserModelSerializer, UserUpdateSerializer
+from blog.serializers.UserSerializer import UserModelCompleteSerializer, UserUpdateSerializer
 
 
 class UserDeleteView(DestroyAPIView):
@@ -26,7 +26,7 @@ class UserDeleteView(DestroyAPIView):
 
 class UserReadView(RetrieveAPIView):
     queryset = User.objects.all()
-    serializer_class = UserModelSerializer
+    serializer_class = UserModelCompleteSerializer
     lookup_field = 'username'
 
 

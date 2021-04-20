@@ -6,13 +6,26 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 
-class UserModelSerializer(serializers.ModelSerializer):
+class UserModelCompleteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
         fields = (
             'uuid',
             'email',
+            'username',
+            'photo',
+            'date_joined',
+        )
+
+
+class UserModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = (
+            'uuid',
+            # 'email',
             'username',
             'photo',
         )
