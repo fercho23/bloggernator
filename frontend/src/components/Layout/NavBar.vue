@@ -32,7 +32,7 @@
                   <template #button-content>
                     <em>User</em>
                   </template>
-                  <b-dropdown-item href="#">Profile</b-dropdown-item>
+                  <b-dropdown-item :to="{name: 'profile'}">Profile</b-dropdown-item>
                   <b-dropdown-item :to="{name: 'logout'}">Logout</b-dropdown-item>
                 </b-nav-item-dropdown>
               </template>
