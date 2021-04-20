@@ -1,7 +1,7 @@
 
 import axios from "axios";
-import store from "../store";
-import { URL_BACKEND } from '../constants.js';
+import store from "../utils/store";
+import { URL_BACKEND } from "../constants.js";
 
 const axiosBase = axios.create({
   baseURL: URL_BACKEND,
