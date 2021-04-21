@@ -11,17 +11,25 @@
           <div class="col-9">
             <dl>
                 <dt>Username</dt>
-                <dd>{{ user.username }}</dd>
+                <dd class="ml-4">{{ user.username }}</dd>
 
                 <dt>Date Joined</dt>
-                <!--
-                <dd>{{ user.date_joined | dateFormat('YYYY-MM-DDTHH:mm:ss.sssZ') | dateFormat('MMMM D, YYYY') }}</dd>
-                -->
-                <dd>{{ formatDate(user.date_joined) }}</dd>
+                <dd class="ml-4">{{ formatDate(user.date_joined) }}</dd>
+
+                <dt>Owner of</dt>
+                <dd v-for="(community, index) in user.owns_communities" 
+                  :key="index" 
+                  class="ml-4">{{ community.name }}
+                </dd>
+
+                <dt>Member of</dt>
+                <dd v-for="(community, index) in user.member_coomunities" 
+                  :key="index" 
+                  class="ml-4">{{ community.name }}
+                </dd>
             </dl>
           </div>
         </div>
-
       </template>
       <template v-else="">
         <span v-if="errorGetUser">Profile Error: {{ errorGetUser }}</span>
@@ -60,7 +68,6 @@
         getAPI.get(URL_API_USER_READ.replace(':username', username))
           .then((response) => {
             this.user = response.data;
-            console.log(formatDate(response.data.date_joined));
           })
           .catch(e => {
             this.errorGetUser = e.response.data.detail;

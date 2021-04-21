@@ -18,13 +18,13 @@
           <div class="col-12">
             <dl>
                 <dt>Name</dt>
-                <dd>{{ community.name }}</dd>
+                <dd class="ml-4">{{ community.name }}</dd>
 
                 <dt>Owner</dt>
-                <dd>{{ community.owner.username }}</dd>
+                <dd class="ml-4">{{ community.owner.username }}</dd>
 
                 <dt>Detail</dt>
-                <dd>{{ community.detail }}</dd>
+                <dd class="ml-4">{{ community.detail }}</dd>
             </dl>
           </div>
         </div>

@@ -2,7 +2,7 @@
   <div>
     <h3>Login</h3>
 
-    <h5 v-if="wrongCred">Wrong credentials entered!. Please enter your correct details.</h5>
+    <h5 v-if="wrongCred" class="alert alert-danger">Wrong credentials entered!. Please enter your correct details.</h5>
     <form v-on:submit.prevent="loginUser">
       <div class="form-group">
         <label for="user">Email</label>
@@ -28,19 +28,19 @@
           email: '',
           password: '',
         },
-        wrongCred: false // activates appropriate message if set to true
+        wrongCred: false
       }
     },
     methods: {
-      loginUser () { // call loginUSer action
+      loginUser () {
         this.$store.dispatch('loginUser', this.form)
           .then(() => {
-            this.wrongCred = false
-            this.$router.push({ name: 'home' })
+            this.wrongCred = false;
+            this.$router.push({ name: 'home' });
           })
         .catch(err => {
           console.log(err)
-          this.wrongCred = true // if the credentials were wrong set wrongCred to true
+          this.wrongCred = true;
         });
       }
     }

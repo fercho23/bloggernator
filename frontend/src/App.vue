@@ -18,7 +18,8 @@
       NavBar
     },
     mounted() {
-      this.$store.dispatch("getLanguages");
+      this.$store
+        .dispatch("getLanguages");
     },
   };
 </script>
