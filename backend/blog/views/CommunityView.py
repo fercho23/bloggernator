@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from blog.models.Community import Community
 
-from blog.serializers.CommunitySerializer import CommunityCreateUpdateSerializer, CommunityModelSerializer
+from blog.serializers.CommunitySerializer import CommunityCreateUpdateSerializer, CommunityModelCompleteSerializer
 
 
 class CommunityCreateView(CreateAPIView):
@@ -38,7 +38,7 @@ class CommunityDeleteView(DestroyAPIView):
 
 
 class CommunityCurrentUserListView(ListAPIView):
-    serializer_class = CommunityModelSerializer
+    serializer_class = CommunityModelCompleteSerializer
     pagination_class = None
     filter_backends = (OrderingFilter, )
     ordering_fields = ['name']
@@ -54,7 +54,7 @@ class CommunityCurrentUserListView(ListAPIView):
 
 
 class CommunityListView(ListAPIView):
-    serializer_class = CommunityModelSerializer
+    serializer_class = CommunityModelCompleteSerializer
     filter_backends = (OrderingFilter, )
     ordering_fields = ['name']
 
@@ -79,7 +79,7 @@ class CommunityListView(ListAPIView):
 
 class CommunityReadView(RetrieveAPIView):
     queryset = Community.objects.select_related('owner').prefetch_related('members').all()
-    serializer_class = CommunityModelSerializer
+    serializer_class = CommunityModelCompleteSerializer
     lookup_field = 'slug'
 
 

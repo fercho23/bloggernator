@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 
 from blog.serializers.AccountSerializer import LoginSerializer, SignupSerializer
-from blog.serializers.UserSerializer import UserModelSerializer
+from blog.serializers.UserSerializer import UserModelCompleteSerializer
 
 
 class LoginView(APIView):
@@ -22,7 +22,7 @@ class LoginView(APIView):
             obj, token = serializer.save()
 
             response = {}
-            response['user'] = UserModelSerializer(obj).data
+            response['user'] = UserModelCompleteSerializer(obj).data
             response['token'] = token
 
             return Response(response, status=status.HTTP_200_OK)
@@ -54,7 +54,7 @@ class SignupView(APIView):
             obj, token = serializer.save()
 
             response = {}
-            response['user'] = UserModelSerializer(obj).data
+            response['user'] = UserModelCompleteSerializer(obj).data
             response['token'] = token
 
             return Response(response, status=status.HTTP_201_CREATED)

@@ -7,6 +7,8 @@ from rest_framework import serializers
 
 
 class UserModelCompleteSerializer(serializers.ModelSerializer):
+    owns_communities = serializers.SerializerMethodField()
+    member_communities = serializers.SerializerMethodField()
 
     class Meta:
         model = get_user_model()
@@ -16,7 +18,23 @@ class UserModelCompleteSerializer(serializers.ModelSerializer):
             'username',
             'photo',
             'date_joined',
+            'owns_communities',
+            'member_communities',
         )
+
+    def get_owns_communities(self, obj):
+        from blog.serializers.CommunitySerializer import CommunityModelSerializer
+
+        owns_communities = obj.community_set.all()
+        response = CommunityModelSerializer(owns_communities, many=True).data
+        return response
+
+    def get_member_communities(self, obj):
+        from blog.serializers.CommunitySerializer import CommunityModelSerializer
+
+        member_communities = obj.members.all()
+        response = CommunityModelSerializer(member_communities, many=True).data
+        return response
 
 
 class UserModelSerializer(serializers.ModelSerializer):
