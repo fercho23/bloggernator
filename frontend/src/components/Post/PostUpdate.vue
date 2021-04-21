@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <div v-if="post">
+      <template v-if="post">
         <h3>
           Post Update: <small> {{ post.title }}</small>
         </h3>
@@ -55,11 +55,11 @@
 
           <button type="submit" class="btn btn-primary">Update</button>
         </form>
-      </div>
-      <div v-else="">
+      </template>
+      <template v-else="">
         <span v-if="error">Post Error: {{ error }}</span>
         <p>Please click on a Post...</p>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -67,7 +67,7 @@
 <script>
   import { mapState } from "vuex";
   import { getAPI } from "../../api/axios-base";
-  import { URL_API_COMMUNITY_CURRENT_USER_LIST, URL_API_POST_READ, URL_API_POST_UPDATE } from "../../constants.js";
+  import { URL_API_POST_READ, URL_API_POST_UPDATE } from "../../constants.js";
 
   export default {
     name: "post-update",
@@ -88,18 +88,7 @@
     },
     methods: {
       getCommunities() {
-        const params = new URLSearchParams();
-        params.append('current_user', this.$store.state.currentUser.uuid);
-
-        getAPI.get(URL_API_COMMUNITY_CURRENT_USER_LIST, {
-          params: params
-        })
-          .then((response) => {
-            this.communities = response.data;
-          })
-          .catch(e => {
-            this.errorGetCommunities = e.response.data.detail;
-          });
+        this.communities = this.currentUser.owns_communities.concat(this.currentUser.member_communities)
       },
 
       retrievePost(slug) {

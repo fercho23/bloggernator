@@ -59,11 +59,11 @@
 <script>
   import { mapState } from "vuex";
   import { getAPI } from "../../api/axios-base";
-  import { URL_API_COMMUNITY_CURRENT_USER_LIST, URL_API_POST_CREATE } from "../../constants.js";
+  import { URL_API_POST_CREATE } from "../../constants.js";
 
   export default {
     name: "post-create",
-    computed: mapState(["languages"]),
+    computed: mapState(["currentUser", "languages"]),
     data() {
       return {
         communities: [],
@@ -77,18 +77,7 @@
 
     methods: {
       getCommunities() {
-        const params = new URLSearchParams();
-        params.append("current_user", this.$store.state.currentUser.uuid);
-
-        getAPI.get(URL_API_COMMUNITY_CURRENT_USER_LIST, {
-          params: params
-        })
-          .then((response) => {
-            this.communities = response.data;
-          })
-          .catch(e => {
-            this.errorGetCommunities = e.response.data.detail;
-          });
+        this.communities = this.currentUser.owns_communities.concat(this.currentUser.member_communities)
       },
 
       callCreate() {

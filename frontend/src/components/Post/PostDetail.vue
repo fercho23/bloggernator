@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <div v-if="post">
+      <template v-if="post">
         <router-link
           v-if="isAuthorOrContributor(post)"
           class="btn btn-primary float-right"
@@ -14,17 +14,37 @@
 
         <h3>
           {{ post.title }}
+          <br>
+          <small>
+            <router-link
+              class="btn btn-light"
+              title="Community Detail"
+              :to="{
+                name: 'community-detail',
+                params: { slug: post.community.slug }
+              }">
+              {{ post.community.name }}
+            </router-link>
+             - {{ post.language.name }}
+          </small>
         </h3>
-        <small>
-          {{ post.community.name }} - {{ post.language.name }}
-        </small>
 
         <div>
           {{ post.body }}
+
+          <br>
+          <small>
+            Author: <router-link
+              v-if="isAuthorOrContributor(post)"
+              class="btn btn-light"
+              :to="{
+                name: 'profile',
+                params: { username: post.author.username }
+              }">
+              {{ post.author.username }}
+            </router-link>
+          </small>
         </div>
-        <small>
-          Author: {{ post.author.username }}
-        </small>
 
         <ul class="list-group mt-1">
           <li class="list-group-item list-group-item-primary">
@@ -34,15 +54,19 @@
           </li>
           <li class="list-group-item">
             Find more posts from company 
-            <button type="button" class="btn btn-light">
+            <router-link
+              class="btn btn-light"
+              :to="{
+                name: 'post-list',
+                query: { community: post.community.slug }
+              }">
               {{ post.community.name }}
-            </button>
+            </router-link>
             .
           </li>
 
           <li class="list-group-item">
             Find more posts in 
-
             <router-link
               class="btn btn-light"
               :to="{
@@ -51,20 +75,14 @@
               }">
               {{ post.language.name }}
             </router-link>
-            <!--
-
-            <button type="button" class="btn btn-light">
-              {{ post.language.name }}
-            </button>
-            -->
             .
           </li>
         </ul>
-      </div>
-      <div v-else="">
+      </template>
+      <template v-else="">
         <span v-if="error">Post Error: {{ error }}</span>
         <p>Please click on a Post...</p>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -74,7 +92,7 @@
   import { URL_API_POST_READ } from "../../constants.js";
 
   export default {
-    name: "post-details",
+    name: "post-detail",
     props: ["post"],
     data() {
       return {

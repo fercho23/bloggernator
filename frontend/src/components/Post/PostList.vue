@@ -13,8 +13,10 @@
 
       <div class="row">
         <div class="col-6" v-for="(post, index) in posts" :key="index">
-          <router-link :to="{
-              name: 'post-details',
+          <router-link
+            title="Post Detail"
+            :to="{
+              name: 'post-detail',
               params: { post: post, slug: post.slug }
             }">
             {{post.title}}
@@ -26,13 +28,13 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-  import { getAPI } from '../../api/axios-base';
-  import { URL_API_POST_LIST } from '../../constants.js';
+  import { mapState } from "vuex";
+  import { getAPI } from "../../api/axios-base";
+  import { URL_API_POST_LIST } from "../../constants.js";
 
   export default {
     name: "post-list",
-    computed: mapState(['accessToken']),
+    computed: mapState(["accessToken"]),
     data() {
       return {
         posts: []
