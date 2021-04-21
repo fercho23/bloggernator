@@ -24,9 +24,9 @@ export const URL_BACKEND = "http://127.0.0.1:8000";
         // export const URL_API_COMMUNITY_CREATE = URL_API_COMMUNITY + 'create/';
         export const URL_API_COMMUNITY_CURRENT_USER_LIST = URL_API_COMMUNITY + 'current_user/list/';
         export const URL_API_COMMUNITY_LIST = URL_API_COMMUNITY + 'list/';
-        // export const URL_API_COMMUNITY_READ = URL_API_COMMUNITY + ':slug/';
+        export const URL_API_COMMUNITY_READ = URL_API_COMMUNITY + ':slug/';
         // export const URL_API_COMMUNITY_DELETE = URL_API_COMMUNITY + ':slug/delete/';
-        // export const URL_API_COMMUNITY_UPDATE = URL_API_COMMUNITY + ':slug/update/';
+        export const URL_API_COMMUNITY_UPDATE = URL_API_COMMUNITY + ':slug/update/';
     // -- COMMUNITY
 
     // LANGUAGE

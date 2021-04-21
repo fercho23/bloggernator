@@ -28,6 +28,17 @@
                 <b-nav-item v-if="accessToken==null" :to="{name: 'login'}">Login</b-nav-item>
               </template>
               <template v-else="">
+                <b-nav-item-dropdown text="Community" right>
+                  <b-dropdown-item v-for="(community, index) in currentUser.owns_communities" 
+                    :key="index" 
+                    :to="{
+                      name: 'community-detail',
+                      params: { slug: community.slug }
+                    }" 
+                    :value="community.slug">{{ community.name }}
+                  </b-dropdown-item>
+                </b-nav-item-dropdown>
+
                 <b-nav-item-dropdown right>
                   <template #button-content>
                     <em>User</em>
@@ -50,6 +61,10 @@
 
   export default {
     name: "NavBar",
-    computed: mapState(["accessToken", "languages"])
+    computed: mapState(["accessToken", "currentUser", "languages"]),
+
+    beforeMount() {
+      console.log(this.currentUser);
+    }
   }
 </script>

@@ -45,30 +45,69 @@ export default new Router({
       props: true
     },
 
+    // {
+    //   path: "/community/list",
+    //   name: "community-list",
+    //   component: () => import("../components/Community/CommunityList.vue"),
+    //   props: true
+    // },
+    // {
+    //   path: "/community/create",
+    //   name: "community-create",
+    //   component: () => import("../components/Community/CommunityCreate.vue"),
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
+    {
+      path: "/community/:slug",
+      name: "community-detail",
+      component: () => import("../components/Community/CommunityDetail.vue"),
+      props: true
+    },
+    // {
+    //   path: "/community/:slug/delete",
+    //   name: "community-delete",
+    //   component: () => import("../components/Community/CommunityDelete.vue"),
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    //   props: true
+    // },
+    {
+      path: "/community/:slug/update",
+      name: "community-update",
+      component: () => import("../components/Community/CommunityUpdate.vue"),
+      meta: {
+        requiresAuth: true
+      },
+      props: true
+    },
+
     {
       path: "/post/list",
       name: "post-list",
-      component: () => import("../components/Posts/PostList.vue"),
+      component: () => import("../components/Post/PostList.vue"),
       props: true
     },
     {
       path: "/post/create",
       name: "post-create",
-      component: () => import("../components/Posts/PostCreate.vue"),
+      component: () => import("../components/Post/PostCreate.vue"),
       meta: {
         requiresAuth: true
       }
     },
     {
       path: "/post/:slug",
-      name: "post-details",
-      component: () => import("../components/Posts/PostDetail.vue"),
+      name: "post-detail",
+      component: () => import("../components/Post/PostDetail.vue"),
       props: true
     },
     // {
     //   path: "/post/:slug/delete",
-    //   name: "post-details",
-    //   component: () => import("../components/Posts/PostDelete.vue"),
+    //   name: "post-delete",
+    //   component: () => import("../components/Post/PostDelete.vue"),
     //   meta: {
     //     requiresAuth: true
     //   }
@@ -77,7 +116,7 @@ export default new Router({
     {
       path: "/post/:slug/update",
       name: "post-update",
-      component: () => import("../components/Posts/PostUpdate.vue"),
+      component: () => import("../components/Post/PostUpdate.vue"),
       meta: {
         requiresAuth: true
       },
