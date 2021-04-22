@@ -2,6 +2,16 @@
   <div class="row">
     <div class="col-12 shadow-sm">
       <template v-if="user">
+        <router-link
+          v-if="isYourProfile(user)"
+          class="btn btn-primary float-right"
+          :to="{
+            name: 'profile-update',
+            params: { user: user, username: user.username }
+          }">
+          Update
+        </router-link>
+
         <h3>Profile</h3>
 
         <div class="row">
@@ -78,6 +88,14 @@
       this.getUser(username);
     },
     methods: {
+      isYourProfile(user) {
+        const uuid = this.$store.state.currentUser.uuid;
+        if (user.uuid == uuid)
+          return true;
+
+        return false;
+      },
+
       getUser(username) {
         getAPI.get(URL_API_USER_READ.replace(':username', username))
           .then((response) => {

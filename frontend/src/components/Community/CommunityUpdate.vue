@@ -5,8 +5,7 @@
         <h3>
           Community Update: <small> {{ community.name }}</small>
         </h3>
-        <span v-if="error">Post Error: {{ error }}</span>
-        <span v-if="errorGetCommunities">Post Error: {{ error }}</span>
+        <div class="alert alert-danger" v-if="error">Community Error: {{ error }}</div>
 
         <form @submit.prevent="callUpdate" id="updateForm">
           <div class="form-group">
@@ -28,7 +27,7 @@
         </form>
       </template>
       <template v-else="">
-        <span v-if="error">Community Error: {{ error }}</span>
+        <div class="alert alert-danger" v-if="error">Community Error: {{ error }}</div>
         <p>Please click on a Community...</p>
       </template>
     </div>
@@ -36,19 +35,15 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
   import { getAPI } from "../../api/axios-base";
   import { URL_API_COMMUNITY_READ, URL_API_COMMUNITY_UPDATE } from "../../constants.js";
 
   export default {
     name: "community-update",
     props: ["community"],
-    computed: mapState(["currentUser", "languages"]),
     data() {
       return {
-        communities: [],
         error: undefined,
-        errorGetCommunities: undefined,
       }
     },
 
@@ -59,7 +54,7 @@
     methods: {
 
       retrieveCommunity(slug) {
-        getAPI.get(URL_API_COMMUNITY_READ.replace(':slug', slug))
+        getAPI.get(URL_API_COMMUNITY_READ.replace(":slug", slug))
           .then(response => {
             this.community = response.data;
           })
@@ -71,7 +66,7 @@
       callUpdate() {
         let formData = new FormData(document.getElementById("updateForm"));
 
-        getAPI.patch(URL_API_COMMUNITY_UPDATE.replace(':slug', this.community.slug), formData)
+        getAPI.patch(URL_API_COMMUNITY_UPDATE.replace(":slug", this.community.slug), formData)
           .then((response) => {
             console.log(response);
             this.$router.push({ name: "community-detail", params: { slug: this.community.slug } });

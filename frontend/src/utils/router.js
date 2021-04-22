@@ -44,6 +44,15 @@ export default new Router({
       },
       props: true
     },
+    {
+      path: "/profile/:username?/update",
+      name: "profile-update",
+      component: () => import("../components/Account/ProfileUpdate.vue"),
+      meta: {
+        requiresAuth: true
+      },
+      props: true
+    },
 
     // {
     //   path: "/community/list",

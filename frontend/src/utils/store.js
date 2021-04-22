@@ -25,6 +25,15 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    updateToken (state, token) {
+      localStorage.setItem("access_token", token);
+      state.accessToken = token;
+    },
+    updateCurrentUser (state, current_user) {
+      localStorage.setItem("current_user", JSON.stringify(current_user));
+      state.currentUser = current_user;
+    },
+    /*
     // updateLocalStorage (state, { access, refresh }) {
     updateLocalStorage (state, { token, current_user }) {
       localStorage.setItem("access_token", token);
@@ -34,6 +43,7 @@ export default new Vuex.Store({
       state.currentUser = current_user;
       // state.refreshToken = refresh
     },
+    */
     // updateCurrentuser (state, current_user) {
     //   localStorage.setItem("current_user", JSON.stringify(current_user))
     // },
@@ -111,7 +121,9 @@ export default new Vuex.Store({
         })
         // if successful update local storage:
           .then(response => {
-            context.commit("updateLocalStorage", { token: response.data.token, current_user: response.data.user });
+            context.commit("updateToken", response.data.token);
+            context.commit("updateCurrentUser", response.data.user);
+            // context.commit("updateLocalStorage", { token: response.data.token, current_user: response.data.user });
             // context.commit("updateLocalStorage", { access: response.data.access, refresh: response.data.refresh }); // store the access and refresh token in localstorage
             resolve();
           })
