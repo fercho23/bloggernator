@@ -20,11 +20,36 @@
                 <dt>Name</dt>
                 <dd class="ml-4">{{ community.name }}</dd>
 
-                <dt>Owner</dt>
-                <dd class="ml-4">{{ community.owner.username }}</dd>
+                <template v-if="community.owner && Object.keys(community.owner).length">
+                  <dt>Owner</dt>
+                  <dd class="ml-4">
+                    <router-link
+                      :to="{
+                        name: 'profile',
+                        params: { slug: community.owner.username }
+                      }">
+                      {{ community.owner.username }}
+                    </router-link>
+                  </dd>
+                </template>
 
-                <dt>Detail</dt>
-                <dd class="ml-4">{{ community.detail }}</dd>
+                <template v-if="community.detail">
+                  <dt>Detail</dt>
+                  <dd class="ml-4">{{ community.detail }}</dd>
+                </template>
+
+                <template v-if="community.members.length">
+                  <dt>Members</dt>
+                  <dd v-for="(user, index) in community.members" :key="index" class="ml-4">
+                    <router-link
+                      :to="{
+                        name: 'profile',
+                        params: { slug: user.username }
+                      }">
+                      {{ user.username }}
+                    </router-link>
+                  </dd>
+                </template>
             </dl>
           </div>
         </div>

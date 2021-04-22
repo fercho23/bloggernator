@@ -16,17 +16,31 @@
                 <dt>Date Joined</dt>
                 <dd class="ml-4">{{ formatDate(user.date_joined) }}</dd>
 
-                <dt>Owner of</dt>
-                <dd v-for="(community, index) in user.owns_communities" 
-                  :key="index" 
-                  class="ml-4">{{ community.name }}
-                </dd>
+                <template v-if="user.owns_communities.length">
+                  <dt>Owner of</dt>
+                  <dd v-for="(community, index) in user.owns_communities" :key="index" class="ml-4">
+                    <router-link
+                      :to="{
+                        name: 'community-detail',
+                        params: { slug: community.slug }
+                      }">
+                      {{ community.name }}
+                    </router-link>
+                  </dd>
+                </template>
 
-                <dt>Member of</dt>
-                <dd v-for="(community, index) in user.member_coomunities" 
-                  :key="index" 
-                  class="ml-4">{{ community.name }}
-                </dd>
+                <template v-if="user.member_communities.length">
+                  <dt>Member of</dt>
+                  <dd v-for="(community, index) in user.member_communities" :key="index" class="ml-4">
+                    <router-link
+                      :to="{
+                        name: 'community-detail',
+                        params: { slug: community.slug }
+                      }">
+                      {{ community.name }}
+                    </router-link>
+                  </dd>
+                </template>
             </dl>
           </div>
         </div>
