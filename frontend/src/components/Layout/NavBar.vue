@@ -1,6 +1,6 @@
 <template>
     <div>
-      <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar toggleable="lg" type="dark" variant="dark">
         <div class="container container-fluid">
           <b-navbar-brand href="/">
             <font-awesome-icon :icon="['fas', 'home']" />
@@ -15,6 +15,10 @@
 
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
+              <b-nav-form @submit.prevent="callNavbarSearch">
+                <b-form-input size="sm" class="mr-sm-2" placeholder="Search" id="navbarSearchTitle"></b-form-input>
+                <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+              </b-nav-form>
 
               <b-nav-item-dropdown text="Lang" right>
                 <b-dropdown-item v-for="(language, index) in languages" :key="index">
@@ -41,6 +45,8 @@
                   <template #button-content>
                     <em>User</em>
                   </template>
+
+                  <b-dropdown-item :to="{name: 'post-create'}">Create Post</b-dropdown-item>
                   <b-dropdown-item :to="{name: 'profile'}">Profile</b-dropdown-item>
                   <b-dropdown-item :to="{name: 'logout'}">Logout</b-dropdown-item>
                 </b-nav-item-dropdown>
@@ -63,6 +69,24 @@
 
     beforeMount() {
       console.log(this.currentUser);
+    },
+
+    /*
+    beforeRouteUpdate(to, from) {
+      console.log(to);
+      console.log(from);
+    },
+    */
+
+    methods: {
+      callNavbarSearch() {
+        let title = document.getElementById("navbarSearchTitle").value;
+
+        this.$router.push({
+          name: "post-list",
+          query: { title: title }
+        });
+      }
     }
   }
 </script>

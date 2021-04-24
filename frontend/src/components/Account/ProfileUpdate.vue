@@ -61,7 +61,10 @@
             console.log(response);
             this.user.username = formData.get("username")
             this.$store.commit("updateCurrentUser", this.user);
-            this.$router.push({ name: "profile", params: { username: this.user.username } });
+            this.$router.push({
+              name: "profile",
+              params: { username: this.user.username }
+            });
           })
           .catch(e => {
             this.error = e.response.data.detail;
