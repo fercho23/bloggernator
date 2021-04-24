@@ -14,70 +14,72 @@
 
         <h3>
           {{ post.title }}
-          <br>
-          <small>
-            <router-link
-              class="btn btn-light"
-              title="Community Detail"
-              :to="{
-                name: 'community-detail',
-                params: { slug: post.community.slug }
-              }">
-              {{ post.community.name }}
-            </router-link>
-             - {{ post.language.name }}
-          </small>
         </h3>
 
         <div>
           {{ post.body }}
-
-          <br>
-          <small>
-            Author: <router-link
-              v-if="isAuthorOrContributor(post)"
-              class="btn btn-light"
-              :to="{
-                name: 'profile',
-                params: { username: post.author.username }
-              }">
-              {{ post.author.username }}
-            </router-link>
-          </small>
         </div>
 
-        <ul class="list-group mt-1">
-          <li class="list-group-item list-group-item-primary">
-            <h5>
-              Some quick actions
-            </h5>
-          </li>
-          <li class="list-group-item">
-            Find more posts from company 
-            <router-link
-              class="btn btn-light"
-              :to="{
-                name: 'post-list',
-                query: { community: post.community.slug }
-              }">
-              {{ post.community.name }}
-            </router-link>
-            .
-          </li>
+        <hr>
+        <hr>
 
-          <li class="list-group-item">
-            Find more posts in 
-            <router-link
-              class="btn btn-light"
-              :to="{
-                name: 'post-list',
-                query: { language: post.language.slug }
-              }">
-              {{ post.language.name }}
-            </router-link>
-            .
-          </li>
-        </ul>
+        <strong>
+          Author:
+        </strong>
+        <router-link
+          v-if="isAuthorOrContributor(post)"
+          title="Profile"
+          class="btn btn-link text-primary my-1"
+          :to="{
+            name: 'profile',
+            params: { username: post.author.username }
+          }">
+          {{ post.author.username }}
+        </router-link>
+        <router-link
+          class="btn btn-light"
+          :to="{
+            name: 'post-list',
+            query: { community: post.community.slug }
+          }">
+          Author's Posts
+        </router-link>
+        <br>
+
+        <strong>
+          Community:
+        </strong>
+        <router-link
+          class="btn btn-link text-primary my-1"
+          title="Community Detail"
+          :to="{
+            name: 'community-detail',
+            params: { slug: post.community.slug }
+          }">
+          {{ post.community.name }}
+        </router-link>
+        <router-link
+          class="btn btn-light"
+          :to="{
+            name: 'post-list',
+            query: { language: post.language.slug }
+          }">
+          Community's Posts
+        </router-link>
+        <br>
+
+        <strong>
+          Language:
+        </strong>
+        {{ post.language.name }}
+        <router-link
+          class="btn btn-light my-1"
+          :to="{
+            name: 'post-list',
+            query: { authors: post.author.username }
+          }">
+          Language Posts
+        </router-link>
       </template>
       <template v-else="">
         <span v-if="error">Post Error: {{ error }}</span>

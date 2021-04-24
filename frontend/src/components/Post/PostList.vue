@@ -19,7 +19,7 @@
               name: 'post-detail',
               params: { post: post, slug: post.slug }
             }">
-            {{post.title}}
+            {{ post.title }}
           </router-link>
         </div>
       </div>
@@ -40,11 +40,16 @@
         posts: []
       };
     },
+    beforeRouteUpdate() {
+      this.retrievePostList({});
+    },
     methods: {
-      retrievePostList() {
+      retrievePostList(query=undefined) {
+        if (query == undefined)
+          query = this.$route.query;
 
         getAPI.get(URL_API_POST_LIST, {
-            params: this.$route.query
+            params: query
           })
           .then(response => {
             this.posts = response.data.results;
