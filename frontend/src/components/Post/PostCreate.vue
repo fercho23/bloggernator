@@ -33,7 +33,7 @@
           <label for="language">Language</label>
           <select id="language" name="language" class="form-control">
               <option disabled selected>Select a Language</option>
-              <option v-for="(language, index) in languages" 
+              <option v-for="(language, index) in allLanguages" 
                 :key="index" 
                 :value="language.uuid">{{ language.name }}
               </option>
@@ -63,7 +63,7 @@
 
   export default {
     name: "post-create",
-    computed: mapState(["currentUser", "languages"]),
+    computed: mapState(["currentUser", "allLanguages"]),
     data() {
       return {
         communities: [],

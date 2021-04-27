@@ -14,7 +14,7 @@ export default new Vuex.Store({
   state: {
      accessToken: localStorage.getItem("access_token") || null,
      currentUser: localStorage.getItem("current_user") !== null ? JSON.parse(localStorage.getItem("current_user")) : null,
-     languages: localStorage.getItem("languages") !== null ? JSON.parse(localStorage.getItem("languages")) : null,
+     allLanguages: localStorage.getItem("all_languages") !== null ? JSON.parse(localStorage.getItem("all_languages")) : null,
     // refreshing the page
      // refreshToken: localStorage.getItem("refresh_token") || null,
      APIData: "" // received data from the backend API is stored here.
@@ -53,12 +53,12 @@ export default new Vuex.Store({
     destroyToken (state) {
       state.accessToken = null
       state.currentUser = null
-      state.languages = null
+      state.allLanguages = null
       // state.refreshToken = null
 
       localStorage.removeItem("access_token");
       localStorage.removeItem("current_user");
-      localStorage.removeItem("languages");
+      localStorage.removeItem("all_languages");
       // localStorage.removeItem("refresh_token");
     }
   },
@@ -135,7 +135,7 @@ export default new Vuex.Store({
     getLanguages () {
       getAPI.get(URL_API_LANGUAGE_LIST)
         .then((response) => {
-          localStorage.setItem("languages", JSON.stringify(response.data));
+          localStorage.setItem("all_languages", JSON.stringify(response.data));
         });
     }
 

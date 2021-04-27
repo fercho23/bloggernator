@@ -35,7 +35,7 @@
           <label for="language">Language</label>
           <select id="language" name="language" class="form-control" :disabled="currentUser.uuid !== post.author.uuid">
               <option disabled selected>Select a Language</option>
-              <option v-for="(language, index) in languages" 
+              <option v-for="(language, index) in allLanguages" 
                 :selected="language.uuid === post.language.uuid"
                 :key="index" 
                 :value="language.uuid">{{ language.name }}
@@ -72,7 +72,7 @@
   export default {
     name: "post-update",
     props: ["post"],
-    computed: mapState(["currentUser", "languages"]),
+    computed: mapState(["currentUser", "allLanguages"]),
     data() {
       return {
         communities: [],

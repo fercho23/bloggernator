@@ -11,6 +11,7 @@
           <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
               <b-nav-item :to="{name: 'post-list'}">Posts</b-nav-item>
+              <b-nav-item :to="{name: 'community-list'}">Communities</b-nav-item>
             </b-navbar-nav>
 
             <!-- Right aligned nav items -->
@@ -21,7 +22,7 @@
               </b-nav-form>
 
               <b-nav-item-dropdown text="Lang" right>
-                <b-dropdown-item v-for="(language, index) in languages" :key="index">
+                <b-dropdown-item v-for="(language, index) in allLanguages" :key="index">
                   {{ language.name }}
                 </b-dropdown-item>
               </b-nav-item-dropdown>
@@ -65,18 +66,16 @@
 
   export default {
     name: "NavBar",
-    computed: mapState(["accessToken", "currentUser", "languages"]),
+    computed: mapState(["accessToken", "currentUser", "allLanguages"]),
 
-    beforeMount() {
-      console.log(this.currentUser);
-    },
+    // beforeMount() {
+    //   console.log(this.currentUser);
+    // },
 
-    /*
-    beforeRouteUpdate(to, from) {
-      console.log(to);
-      console.log(from);
-    },
-    */
+    // beforeRouteUpdate(to, from) {
+    //   console.log(to);
+    //   console.log(from);
+    // },
 
     methods: {
       callNavbarSearch() {
