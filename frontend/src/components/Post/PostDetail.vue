@@ -40,7 +40,7 @@
           class="btn btn-light"
           :to="{
             name: 'post-list',
-            query: { community: post.community.slug }
+            query: { authors: post.author.username }
           }">
           Author's Posts
         </router-link>
@@ -62,7 +62,7 @@
           class="btn btn-light"
           :to="{
             name: 'post-list',
-            query: { language: post.language.slug }
+            query: { community: post.community.slug }
           }">
           Community's Posts
         </router-link>
@@ -76,7 +76,7 @@
           class="btn btn-light my-1"
           :to="{
             name: 'post-list',
-            query: { authors: post.author.username }
+            query: { language: post.language.slug }
           }">
           Language Posts
         </router-link>
@@ -92,10 +92,14 @@
 <script>
   import { getAPI } from "../../api/axios-base";
   import { URL_API_POST_READ } from "../../constants.js";
+  import isAuthorOrContributor from "../../utils/isAuthorOrContributor.js";
 
   export default {
     name: "post-detail",
     props: ["post"],
+    mixins: [
+      isAuthorOrContributor
+    ],
     data() {
       return {
         error: undefined,
@@ -106,17 +110,6 @@
         this.retrievePost(this.$route.params.slug);
     },
     methods: {
-      isAuthorOrContributor(post) {
-        const uuid = this.$store.state.currentUser.uuid;
-        if (post.author.uuid == uuid)
-          return true;
-
-        const contributors = post.contributors.map(({ uuid }) => uuid);
-        if (contributors.includes(uuid))
-          return true;
-
-        return false;
-      },
       updatePost(post) {
         console.log(post)
       },
