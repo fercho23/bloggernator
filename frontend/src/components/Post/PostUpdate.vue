@@ -22,7 +22,7 @@
           <div class="form-group">
             <label for="community">Community</label>
             <select id="community" name="community" class="form-control" :disabled="currentUser.uuid !== post.author.uuid">
-                <option disabled selected>Select a Community</option>
+                <option :value="undefined" disabled selected>Select a Community</option>
                 <option v-for="(community, index) in communities" 
                   :selected="community.uuid === post.community.uuid"
                   :key="index" 
@@ -34,7 +34,7 @@
         <div class="form-group">
           <label for="language">Language</label>
           <select id="language" name="language" class="form-control" :disabled="currentUser.uuid !== post.author.uuid">
-              <option disabled selected>Select a Language</option>
+              <option :value="undefined" disabled selected>Select a Language</option>
               <option v-for="(language, index) in allLanguages" 
                 :selected="language.uuid === post.language.uuid"
                 :key="index" 

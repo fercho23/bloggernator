@@ -21,7 +21,7 @@
         <div class="form-group">
           <label for="community">Community</label>
           <select id="community" name="community" class="form-control">
-              <option disabled selected>Select a Community</option>
+              <option :value="undefined" disabled selected>Select a Community</option>
               <option v-for="(community, index) in communities" 
                 :key="index" 
                 :value="community.uuid">{{ community.name }}
@@ -32,7 +32,7 @@
         <div class="form-group">
           <label for="language">Language</label>
           <select id="language" name="language" class="form-control">
-              <option disabled selected>Select a Language</option>
+              <option :value="undefined" disabled selected>Select a Language</option>
               <option v-for="(language, index) in allLanguages" 
                 :key="index" 
                 :value="language.uuid">{{ language.name }}
