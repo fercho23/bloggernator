@@ -78,9 +78,14 @@
       if (this.community === undefined)
         this.retrieveCommunity(this.$route.params.slug);
     },
-    beforeRouteUpdate(to) {
-      this.retrieveCommunity(to.params.slug);
+
+    beforeRouteUpdate(to, from, next) {
+      if (from.params.slug != to.params.slug) {
+        this.retrieveCommunity(to.params.slug);
+        next();
+      }
     },
+
     methods: {
       isOwner(community) {
         const uuid = this.$store.state.currentUser.uuid;
