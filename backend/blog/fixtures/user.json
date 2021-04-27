@@ -9,7 +9,7 @@
     "email": "AnonymousUser",
     "username": "",
     "is_staff": false,
-    "is_active": true,
+    "is_active": false,
     "last_login": null,
     "date_joined": "2021-03-13T13:48:23.278Z",
     "photo": "",

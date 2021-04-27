@@ -23,7 +23,7 @@ from blog.views.CommunityView import CommunityCreateView, CommunityDeleteView, C
 from blog.views.LanguageView import LanguageListView
 from blog.views.PostView import PostCreateView, PostDeleteView, PostListView, PostReadView, PostUpdateView
 from blog.views.TagView import TagListView
-from blog.views.UserView import UserDeleteView, UserReadView, UserUpdateView
+from blog.views.UserView import UserDeleteView, UserListView, UserReadView, UserUpdateView
 
 urlpatterns = [
 
@@ -61,6 +61,7 @@ urlpatterns = [
     ])),
 
     path('user/', include([
+        path('list/', UserListView.as_view(), name='api.user.list'),
         path('<str:username>/', UserReadView.as_view(), name='api.user.read'),
         path('<str:username>/update/', UserUpdateView.as_view(), name='api.user.update'),
         path('<str:username>/delete/', UserDeleteView.as_view(), name='api.user.delete'),

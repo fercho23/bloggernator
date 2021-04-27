@@ -86,7 +86,7 @@ class AccountTests(TestCase):
     def test_logout_user(self):
         """ test_logout_user - Logout """
 
-        obj = User.objects.get(pk=1)
+        obj = User.objects.get(pk=2)
         token = Token.objects.create(user=obj)
 
         client = APIClient()

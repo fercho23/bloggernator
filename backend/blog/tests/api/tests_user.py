@@ -31,6 +31,64 @@ class UserTests(TestCase):
         'post',
     ]
 
+    def test_user_list(self):
+        """ test_user_list - User List """
+
+        client = APIClient()
+        response = client.get('/api/user/list/')
+        result = json.loads(response.content)
+
+        objects_count = 5
+        first_uuid = 'cce06edc-8636-4375-b61e-5959b5c6eac6'
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
+    def test_user_list_filtered_by_username(self):
+        """ test_user_list_filtered_by_username - User List filtered by username """
+
+        first_obj = User.objects.get(pk=2)
+
+        data = {
+            'username': first_obj.username[:-1],
+        }
+
+        client = APIClient()
+        response = client.get('/api/user/list/', data)
+        result = json.loads(response.content)
+
+        objects_count = 1
+        first_uuid = 'cce06edc-8636-4375-b61e-5959b5c6eac6'
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
+    def test_user_ordered_list(self):
+        """ test_user_ordered_list - User ordered List """
+
+        data = {
+            'ordering': '-username',
+        }
+
+        client = APIClient()
+        response = client.get('/api/user/list/', data)
+        result = json.loads(response.content)
+
+        objects_count = 5
+        first_uuid = '4d7cd81f-c413-41e7-99db-e5e04ae089b2'
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
     def test_get_user(self):
         """ test_get_user - Get User """
 
