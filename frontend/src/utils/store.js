@@ -53,12 +53,12 @@ export default new Vuex.Store({
     destroyToken (state) {
       state.accessToken = null
       state.currentUser = null
-      state.allLanguages = null
+      // state.allLanguages = null
       // state.refreshToken = null
 
       localStorage.removeItem("access_token");
       localStorage.removeItem("current_user");
-      localStorage.removeItem("all_languages");
+      // localStorage.removeItem("all_languages");
       // localStorage.removeItem("refresh_token");
     }
   },
