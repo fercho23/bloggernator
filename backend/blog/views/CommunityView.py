@@ -72,6 +72,17 @@ class CommunityListView(ListAPIView):
             user_owner_or_member = query_params.getlist('user_owner_or_member')
             queryset = queryset.filter(Q(owner__uuid__in=user_owner_or_member) | Q(members__uuid__in=user_owner_or_member))
 
+        not_in_name = query_params.get('not_in_name')
+        if not_in_name is not None:
+            not_in_name = query_params.getlist('not_in_name')
+        if not_in_name is None:
+            not_in_name = query_params.get('not_in_name[]')
+            if not_in_name is not None:
+                not_in_name = query_params.getlist('not_in_name[]')
+
+        if not_in_name is not None:
+            queryset = queryset.exclude(name__in=not_in_name)
+
         queryset = queryset.distinct()
 
         return queryset

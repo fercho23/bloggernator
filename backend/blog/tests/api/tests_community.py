@@ -80,6 +80,28 @@ class CommunityTests(TestCase):
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
+    def test_community_list_filtered_by_not_in_name(self):
+        """ test_community_list_filtered_by_not_in_name - Community List filtered by not_in_name """
+
+        first_obj = Community.objects.get(pk=1)
+
+        data = {
+            'not_in_name': first_obj.name,
+        }
+
+        client = APIClient()
+        response = client.get('/api/community/list/', data)
+        result = json.loads(response.content)
+
+        objects_count = 29
+        first_uuid = '8b547291-8c69-49ca-8501-2a4e3e127a99'
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
     def test_community_list_filtered_by_user(self):
         """ test_community_list_filtered_by_current_user - Community List filtered by user (Owner or Member) """
 
