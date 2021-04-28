@@ -49,7 +49,7 @@ export const URL_BACKEND = "http://127.0.0.1:8000";
         export const URL_API_USER = URL_API + 'user/';
 
         // export const URL_API_USER_CREATE = URL_API_USER + 'create/';
-        // export const URL_API_USER_LIST = URL_API_USER + 'list/';
+        export const URL_API_USER_LIST = URL_API_USER + 'list/';
         export const URL_API_USER_READ = URL_API_USER + ':username/';
         export const URL_API_USER_DELETE = URL_API_USER + ':username/delete/';
         export const URL_API_USER_UPDATE = URL_API_USER + ':username/update/';

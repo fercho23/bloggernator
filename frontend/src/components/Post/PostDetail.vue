@@ -41,6 +41,7 @@
           :to="{
             name: 'post-list',
             query: { authors: post.author.username }
+
           }">
           Author's Posts
         </router-link>
@@ -54,7 +55,7 @@
           title="Community Detail"
           :to="{
             name: 'community-detail',
-            params: { slug: post.community.slug }
+            params: { slug: [post.community.slug] }
           }">
           {{ post.community.name }}
         </router-link>
@@ -62,7 +63,7 @@
           class="btn btn-light"
           :to="{
             name: 'post-list',
-            query: { community: post.community.slug }
+            query: { communities: [post.community.name] }
           }">
           Community's Posts
         </router-link>
