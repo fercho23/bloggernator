@@ -39,6 +39,17 @@ class UserListView(ListAPIView):
         if username is not None:
             queryset = queryset.filter(username__icontains=username)
 
+        not_in_username = query_params.get('not_in_username')
+        if not_in_username is not None:
+            not_in_username = query_params.getlist('not_in_username')
+        if not_in_username is None:
+            not_in_username = query_params.get('not_in_username[]')
+            if not_in_username is not None:
+                not_in_username = query_params.getlist('not_in_username[]')
+
+        if not_in_username is not None:
+            queryset = queryset.exclude(username__in=not_in_username)
+
         return queryset
 
 

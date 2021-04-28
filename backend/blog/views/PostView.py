@@ -73,6 +73,12 @@ class PostListView(ListAPIView):
         authors = query_params.get('authors')
         if authors is not None:
             authors = query_params.getlist('authors')
+        if authors is None:
+            authors = query_params.get('authors[]')
+            if authors is not None:
+                authors = query_params.getlist('authors[]')
+
+        if authors is not None:
             queryset = queryset.filter(author__username__in=authors)
 
         contributors = query_params.get('contributors')

@@ -69,6 +69,28 @@ class UserTests(TestCase):
         self.assertIn('next', result)
         self.assertIn('previous', result)
 
+    def test_user_list_filtered_by_not_in_username(self):
+        """ test_user_list_filtered_by_not_in_username - User List filtered by not in username """
+
+        first_obj = User.objects.get(pk=2)
+
+        data = {
+            'not_in_username': first_obj.username,
+        }
+
+        client = APIClient()
+        response = client.get('/api/user/list/', data)
+        result = json.loads(response.content)
+
+        objects_count = 4
+        first_uuid = '5cff2f09-1d8a-4ad6-ab73-4b23a991861c'
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.get('count', None), objects_count)
+        self.assertEqual(result.get('results', None)[0]['uuid'], first_uuid)
+        self.assertIn('next', result)
+        self.assertIn('previous', result)
+
     def test_user_ordered_list(self):
         """ test_user_ordered_list - User ordered List """
 
