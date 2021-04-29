@@ -5,13 +5,15 @@ from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 
+User = get_user_model()
+
 
 class UserModelCompleteSerializer(serializers.ModelSerializer):
     owns_communities = serializers.SerializerMethodField()
     member_communities = serializers.SerializerMethodField()
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = (
             'uuid',
             'email',
@@ -40,7 +42,7 @@ class UserModelCompleteSerializer(serializers.ModelSerializer):
 class UserModelSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = (
             'uuid',
             # 'email',
@@ -55,7 +57,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = (
             'username',
             'photo',

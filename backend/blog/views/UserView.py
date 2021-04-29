@@ -1,5 +1,6 @@
 
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import get_user_model
 
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import DestroyAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView
@@ -7,8 +8,9 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
-from blog.models.User import User
 from blog.serializers.UserSerializer import UserModelCompleteSerializer, UserModelSerializer, UserUpdateSerializer
+
+User = get_user_model()
 
 
 class UserDeleteView(DestroyAPIView):
@@ -57,6 +59,14 @@ class UserReadView(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserModelCompleteSerializer
     lookup_field = 'username'
+
+    def get_object(self):
+        pk = self.kwargs.get(self.lookup_field)
+
+        if pk == 'current':
+            return self.request.user
+
+        return super(UserReadView, self).get_object()
 
 
 class UserUpdateView(UpdateAPIView):

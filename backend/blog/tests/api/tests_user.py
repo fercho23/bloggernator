@@ -125,6 +125,22 @@ class UserTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(result['uuid'], first_uuid)
 
+    def test_get_current_user(self):
+        """ test_get_current_user - Get Current User """
+
+        user = User.objects.get(pk=3)
+        token = Token.objects.create(user=user)
+
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = client.get('/api/user/current/')
+        result = json.loads(response.content)
+
+        first_uuid = user.uuid
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(result['uuid'], first_uuid)
+
     def test_get_user_that_not_exist(self):
         """ Get User that not exist """
 
