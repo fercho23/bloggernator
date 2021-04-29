@@ -1,75 +1,97 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <router-link
-        v-if="accessToken!=null"
-        class="btn btn-primary float-right"
-        :to="{
-          name: 'post-create'
-        }">
-        Create Post
-      </router-link>
+
+      <div class="float-right">
+        <router-link
+          v-if="accessToken!=null"
+          class="btn btn-primary mr-1"
+          :to="{
+            name: 'post-create'
+          }">
+          Create Post
+        </router-link>
+
+        <b-button v-b-toggle.filtersCollapse variant="primary">Toggle Filters</b-button>
+      </div>
+
       <h3>Post List</h3>
 
-      <div class="card bg-light my-2">
-        <div class="card-header">
-          <strong>
-            Filters
-          </strong>
-        </div>
+      <b-collapse id="filtersCollapse">
+        <b-card class="bg-light my-2">
+          <template #header>
+            <strong>Filters</strong>
+          </template>
 
-        <div class="card-body">
-          <form @submit.prevent="callFilter" id="filterForm">
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label>Title</label>
-                <input type="text" v-model="filters.title" class="form-control">
+          <b-card-body>
+            <form @submit.prevent="callFilter" id="filterForm">
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label>Title</label>
+                  <input type="text" v-model="filters.title" class="form-control">
+                </div>
               </div>
 
-              <div class="form-group col-md-6">
-                <label>Language</label>
-                <select v-model="filters.language" class="form-control">
-                    <option :value="undefined">Select a Language</option>
-                    <option v-for="(language, index) in allLanguages" 
-                      :key="index" 
-                      :value="language.slug">{{ language.name }}
-                    </option>
-                </select>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>Communities</label>
+                  <span v-for="(community, index) in filters.communities" :key="index" class="badge badge-secondary mx-1 mb-1">
+                    {{ community }}
+                    <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeCommunity(index)">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <input type="hidden" v-model="filters.communities[index]">
+                  </span>
+
+                  <AutoComplete :api="autocompleteCommunities" :prop-to-show="'name'" :function-after="autocompleteCommunitiesAfter" />
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label>Language</label>
+                  <select v-model="filters.language" class="form-control">
+                      <option :value="undefined">Select a Language</option>
+                      <option v-for="(language, index) in allLanguages" 
+                        :key="index" 
+                        :value="language.slug">{{ language.name }}
+                      </option>
+                  </select>
+                </div>
               </div>
-            </div>
 
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label>Authors</label>
-                <span v-for="(author, index) in filters.authors" :key="index" class="badge badge-secondary mx-1 mb-1">
-                  {{ author }}
-                  <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeAuthor($event, index)">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <input type="hidden" v-model="filters.authors[index]">
-                </span>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>Authors</label>
+                  <span v-for="(author, index) in filters.authors" :key="index" class="badge badge-secondary mx-1 mb-1">
+                    {{ author }}
+                    <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeAuthor(index)">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <input type="hidden" v-model="filters.authors[index]">
+                  </span>
 
-                <AutoComplete :api="autocompleteUsers" :prop-to-show="'username'" :function-after="autocompleteUsersAfter" />
+                  <AutoComplete :api="autocompleteAuthors" :prop-to-show="'username'" :function-after="autocompleteAuthorsAfter" />
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label>Contributors</label>
+                  <span v-for="(contributor, index) in filters.contributors" :key="index" class="badge badge-secondary mx-1 mb-1">
+                    {{ contributor }}
+                    <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeContributor(index)">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <input type="hidden" v-model="filters.contributors[index]">
+                  </span>
+
+                  <AutoComplete :api="autocompleteContributors" :prop-to-show="'username'" :function-after="autocompleteContributorsAfter" />
+                </div>
               </div>
 
-              <div class="form-group col-md-6">
-                <label>Communities</label>
-                <span v-for="(community, index) in filters.communities" :key="index" class="badge badge-secondary mx-1 mb-1">
-                  {{ community }}
-                  <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeCommunity($event, index)">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <input type="hidden" v-model="filters.communities[index]">
-                </span>
-
-                <AutoComplete :api="autocompleteCommunity" :prop-to-show="'name'" :function-after="autocompleteCommunityAfter" />
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Filter</button>
-          </form>
-        </div>
-      </div>
+              <button type="submit" class="btn btn-primary">Filter</button>
+              <button type="button" class="btn btn-link float-right" @click="clearFilters()">Clear Filters</button>
+            </form>
+          </b-card-body>
+        </b-card>
+      </b-collapse>
 
       <div class="row">
         <div class="col-6" v-for="(post, index) in posts" :key="index">
@@ -104,11 +126,11 @@
         filters: {
           title: this.$route.query.title,
           language: this.$route.query.language,
-          authors: Array.isArray(this.$route.query.authors) || this.$route.query.authors === undefined ? this.$route.query.authors : [this.$route.query.authors],
-          communities: Array.isArray(this.$route.query.communities) || this.$route.query.communities === undefined ? this.$route.query.communities : [this.$route.query.communities],
-          // community: this.$route.query.community,
+          authors: this.$route.query.authors === undefined ? undefined : (Array.isArray(this.$route.query.authors) ? this.$route.query.authors : [this.$route.query.authors]),
+          contributors: this.$route.query.contributors === undefined ? undefined : (Array.isArray(this.$route.query.contributors) ? this.$route.query.contributors : [this.$route.query.contributors]),
+          communities: this.$route.query.communities === undefined ? undefined : (Array.isArray(this.$route.query.communities) ? this.$route.query.communities : [this.$route.query.communities]),
         },
-        posts: []
+        posts: [],
       };
     },
 
@@ -120,7 +142,12 @@
     },
 
     // beforeMount() {
-    //   this.getCommunities();
+    //   const query = this.$route.query;
+    //   this.filters.title = query.title;
+    //   this.filters.language = query.language;
+    //   this.filters.authors = query.authors === undefined ? undefined : (Array.isArray(query.authors) ? query.authors : [query.authors]);
+    //   this.filters.contributors = query.contributors === undefined ? undefined : (Array.isArray(query.contributors) ? query.contributors : [query.contributors]);
+    //   this.filters.communities = query.communities === undefined ? undefined : (Array.isArray(query.communities) ? query.communities : [query.communities]);
     // },
 
     mounted() {
@@ -129,7 +156,7 @@
     methods: {
       retrievePostList(query=undefined) {
         if (query == undefined)
-          query = this.filters
+          query = this.filters;
 
         getAPI.get(URL_API_POST_LIST, {
             params: query
@@ -142,52 +169,89 @@
           });
       },
 
-      autocompleteUsers(username) {
-        let query = {};
-          query.username = username;
-        if (Array.isArray(this.filters.authors))
-          query.not_in_username = this.filters.authors;
+      // AUTHORS
+        autocompleteAuthors(username) {
+          let query = {};
+            query.username = username;
+          if (Array.isArray(this.filters.authors))
+            query.not_in_username = this.filters.authors;
 
-        return getAPI.get(URL_API_USER_LIST, {
-          params: query
-        });
-      },
+          return getAPI.get(URL_API_USER_LIST, {
+            params: query
+          });
+        },
 
-      autocompleteUsersAfter(selected) {
-        if (this.filters.authors === undefined)
-          this.filters.authors = [];
-        this.filters.authors.push(selected.username);
-      },
+        autocompleteAuthorsAfter(selected) {
+          if (selected) {
+            if (this.filters.authors === undefined)
+              this.filters.authors = [];
+            this.filters.authors.push(selected.username);
+          }
+        },
 
-      removeAuthor(event, index) {
-        if (this.filters.authors.indexOf(index)) {
-          delete this.filters.authors[index];
-          event.currentTarget.parentNode.remove();
-        }
-      },
+        removeAuthor(index) {
+          if (this.filters.authors[index] !== undefined) {
+            this.filters.authors.splice(index, 1);
+          }
+        },
+      // -- AUTHORS
 
-      autocompleteCommunity(name) {
-        let query = {};
-          query.name = name;
-        if (Array.isArray(this.filters.communities))
-          query.not_in_name = this.filters.communities;
+      // CONTRIBUTORS
+        autocompleteContributors(username) {
+          let query = {};
+            query.username = username;
+          if (Array.isArray(this.filters.contributors))
+            query.not_in_username = this.filters.contributors;
 
-        return getAPI.get(URL_API_COMMUNITY_LIST, {
-          params: query
-        });
-      },
+          return getAPI.get(URL_API_USER_LIST, {
+            params: query
+          });
+        },
 
-      autocompleteCommunityAfter(selected) {
-        if (this.filters.communities === undefined)
-          this.filters.communities = [];
-        this.filters.communities.push(selected.name);
-      },
+        autocompleteContributorsAfter(selected) {
+          if (selected) {
+            if (this.filters.contributors === undefined)
+              this.filters.contributors = [];
+            this.filters.contributors.push(selected.username);
+          }
+        },
 
-      removeCommunity(event, index) {
-        if (this.filters.communities.indexOf(index)) {
-          delete this.filters.communities[index];
-          event.currentTarget.parentNode.remove();
-        }
+        removeContributor(index) {
+          if (this.filters.contributors[index] !== undefined) {
+            this.filters.contributors.splice(index, 1);
+          }
+        },
+      // -- CONTRIBUTORS
+
+      // COMMUNITIES
+        autocompleteCommunities(name) {
+          let query = {};
+            query.name = name;
+          if (Array.isArray(this.filters.communities))
+            query.not_in_name = this.filters.communities;
+
+          return getAPI.get(URL_API_COMMUNITY_LIST, {
+            params: query
+          });
+        },
+
+        autocompleteCommunitiesAfter(selected) {
+          if (selected) {
+            if (this.filters.communities === undefined)
+              this.filters.communities = [];
+            this.filters.communities.push(selected.name);
+          }
+        },
+
+        removeCommunity(index) {
+          if (this.filters.communities[index] !== undefined) {
+            this.filters.communities.splice(index, 1);
+          }
+        },
+      // -- COMMUNITIES
+
+      clearFilters() {
+        Object.keys(this.filters).forEach((i) => this.filters[i] = undefined);
       },
 
       callFilter() {
