@@ -60,14 +60,14 @@ const router = new Router({
       component: () => import("../components/Community/CommunityList.vue"),
       props: true
     },
-    // {
-    //   path: "/community/create",
-    //   name: "community-create",
-    //   component: () => import("../components/Community/CommunityCreate.vue"),
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    // },
+    {
+      path: "/community/create",
+      name: "community-create",
+      component: () => import("../components/Community/CommunityCreate.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: "/community/:slug",
       name: "community-detail",
@@ -134,4 +134,4 @@ const router = new Router({
   ]
 });
 
-export default router
+export default router;

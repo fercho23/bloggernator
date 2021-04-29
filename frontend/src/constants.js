@@ -21,7 +21,7 @@ export const URL_BACKEND = "http://127.0.0.1:8000";
     // COMMUNITY
         export const URL_API_COMMUNITY = URL_API + 'community/';
 
-        // export const URL_API_COMMUNITY_CREATE = URL_API_COMMUNITY + 'create/';
+        export const URL_API_COMMUNITY_CREATE = URL_API_COMMUNITY + 'create/';
         export const URL_API_COMMUNITY_CURRENT_USER_LIST = URL_API_COMMUNITY + 'current_user/list/';
         export const URL_API_COMMUNITY_LIST = URL_API_COMMUNITY + 'list/';
         export const URL_API_COMMUNITY_READ = URL_API_COMMUNITY + ':slug/';
@@ -50,6 +50,7 @@ export const URL_BACKEND = "http://127.0.0.1:8000";
 
         // export const URL_API_USER_CREATE = URL_API_USER + 'create/';
         export const URL_API_USER_LIST = URL_API_USER + 'list/';
+        export const URL_API_USER_CURRENT = URL_API_USER + 'current/';
         export const URL_API_USER_READ = URL_API_USER + ':username/';
         export const URL_API_USER_DELETE = URL_API_USER + ':username/delete/';
         export const URL_API_USER_UPDATE = URL_API_USER + ':username/update/';

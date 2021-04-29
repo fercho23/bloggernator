@@ -10,17 +10,17 @@
         <form @submit.prevent="callUpdate" id="updateForm">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="form-control" :value="community.name">
+            <input type="text" name="name" class="form-control" :value="community.name">
           </div>
 
           <div class="form-group">
             <label for="slug">Slug</label>
-            <input type="text" name="slug" id="slug" class="form-control" :value="community.slug">
+            <input type="text" name="slug" class="form-control" :value="community.slug">
           </div>
 
           <div class="form-group">
             <label for="detail">Detail</label>
-            <input type="text" name="detail" id="detail" class="form-control" :value="community.detail">
+            <textarea name="detail" class="form-control" :value="community.detail"></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary">Update</button>
@@ -69,6 +69,7 @@
         getAPI.patch(URL_API_COMMUNITY_UPDATE.replace(":slug", this.community.slug), formData)
           .then((response) => {
             console.log(response);
+            this.$store.dispatch("updateLocalCurrentUser");
             this.$router.push({ name: "community-detail", params: { slug: this.community.slug } });
           })
           .catch(e => {

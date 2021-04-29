@@ -6,7 +6,8 @@ import {
   URL_API_ACCOUNT_SIGNUP,
   URL_API_ACCOUNT_LOGOUT,
   URL_API_ACCOUNT_LOGIN,
-  URL_API_LANGUAGE_LIST
+  URL_API_LANGUAGE_LIST,
+  URL_API_USER_CURRENT,
 } from "../constants.js";
 
 Vue.use(Vuex)
@@ -131,6 +132,12 @@ export default new Vuex.Store({
             reject(err);
           })
       })
+    },
+    updateLocalCurrentUser (context) {
+      getAPI.get(URL_API_USER_CURRENT)
+        .then((response) => {
+          context.commit("updateCurrentUser", response.data);
+        });
     },
     getLanguages () {
       getAPI.get(URL_API_LANGUAGE_LIST)
