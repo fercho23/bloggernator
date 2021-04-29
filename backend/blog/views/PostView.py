@@ -66,9 +66,17 @@ class PostListView(ListAPIView):
         if language is not None:
             queryset = queryset.filter(language__slug=language)
 
-        community = query_params.get('community')
-        if community is not None:
-            queryset = queryset.filter(community__slug=community)
+        communities = query_params.get('communities')
+        if communities is not None:
+            communities = query_params.getlist('communities')
+        if communities is None:
+            communities = query_params.get('communities[]')
+            if communities is not None:
+                communities = query_params.getlist('communities[]')
+
+        if communities is not None:
+            queryset = queryset.filter(community__name__in=communities)
+
 
         authors = query_params.get('authors')
         if authors is not None:
