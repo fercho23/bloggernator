@@ -1,16 +1,18 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <!--
-      <router-link
-        v-if="accessToken!=null"
-        class="btn btn-primary float-right"
-        :to="{
-          name: 'community-create'
-        }">
-        Create Community
-      </router-link>
-      -->
+
+      <div class="float-right">
+        <router-link
+          v-if="accessToken!=null"
+          class="btn btn-primary"
+          :to="{
+            name: 'community-create'
+          }">
+          Create Community
+        </router-link>
+      </div>
+
       <h3>Community List</h3>
 
       <div class="row">
@@ -21,7 +23,7 @@
               name: 'community-detail',
               params: { community: community, slug: community.slug }
             }">
-            {{ community.title }}
+            {{ community.name }}
           </router-link>
 
         </div>
@@ -40,7 +42,7 @@
     computed: mapState(["accessToken"]),
     data() {
       return {
-        communities: []
+        communities: [],
       };
     },
 
