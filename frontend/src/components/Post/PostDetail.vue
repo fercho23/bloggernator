@@ -3,7 +3,7 @@
     <div class="col-12">
       <template v-if="post">
         <router-link
-          v-if="isAuthorOrContributor(post)"
+          v-if="isAuthorOrContributorInPost(post)"
           class="btn btn-primary float-right"
           :to="{
             name: 'post-update',
@@ -164,13 +164,13 @@
 <script>
   import { getAPI } from "../../api/axios-base";
   import { URL_API_POST_READ } from "../../constants.js";
-  import isAuthorOrContributor from "../../utils/isAuthorOrContributor.js";
+  import isAuthorOrContributorInPost from "../../utils/isAuthorOrContributorInPost.js";
 
   export default {
     name: "post-detail",
     props: ["post"],
     mixins: [
-      isAuthorOrContributor
+      isAuthorOrContributorInPost
     ],
     data() {
       return {

@@ -4,7 +4,7 @@ import { mapState } from "vuex";
 export default {
   computed: mapState(["currentUser"]),
   methods: {
-    isAuthorOrContributor(post) {
+    isAuthorOrContributorInPost(post) {
       if (this.currentUser) {
         const uuid = this.currentUser.uuid;
         if (post.author && post.author.uuid == uuid)
