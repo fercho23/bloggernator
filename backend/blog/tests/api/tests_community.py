@@ -222,6 +222,38 @@ class CommunityTests(TestCase):
         self.assertEqual(community.name, data['name'])
         self.assertEqual(community.detail, data['detail'])
 
+    def test_community_update_members(self):
+        """ test_community_update_members - Community Update Members """
+
+        community = Community.objects.get(pk=2)
+        user = community.owner
+        token = Token.objects.create(user=user)
+
+        data = {
+            'name': community.name + ' 2',
+            'detail': community.detail[:50],
+            'members': [
+                User.objects.get(pk=3).username,
+                User.objects.get(pk=4).username,
+            ],
+        }
+
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = client.patch('/api/community/{}/update/'.format(community.slug), data)
+        result = json.loads(response.content)
+
+        community = Community.objects.get(pk=community.id)
+        # print()
+        # print(community.members)
+        # print()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsNotNone(community)
+        self.assertEqual(community.name, data['name'])
+        self.assertEqual(community.detail, data['detail'])
+        self.assertEqual(community.members.count(), len(data['members']))
+
     def test_community_update_only_owner(self):
         """ test_community_update_only_owner - Community Update only by Owner"""
 

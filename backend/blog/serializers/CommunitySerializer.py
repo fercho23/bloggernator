@@ -1,8 +1,11 @@
 
+from django.contrib.auth import get_user_model
+
 from rest_framework import serializers
 
 from blog.models.Community import Community
 
+User = get_user_model()
 
 
 class CommunityModelCompleteSerializer(serializers.ModelSerializer):
@@ -38,11 +41,16 @@ class CommunityModelSerializer(serializers.ModelSerializer):
 
 
 class CommunityCreateUpdateSerializer(serializers.ModelSerializer):
+    members = serializers.SlugRelatedField(
+        many=True,
+        queryset=User.objects.all(),
+        slug_field='username',
+     )
 
     class Meta:
         model = Community
         fields = (
             'name',
             'detail',
+            'members',
         )
-
