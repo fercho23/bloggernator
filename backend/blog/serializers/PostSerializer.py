@@ -46,27 +46,41 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
     community = serializers.SlugRelatedField(
         many=False,
         queryset=Community.objects.select_related('owner').prefetch_related('members').all(),
-        slug_field='uuid',
+        slug_field='slug',
+        # slug_field='uuid',
      )
 
     language = serializers.SlugRelatedField(
         many=False,
         queryset=Language.objects.all(),
-        slug_field='uuid',
+        slug_field='slug',
+        # slug_field='uuid',
      )
+
+    # tags = serializers.SlugRelatedField(
+    #     many=True,
+    #     queryset=Tag.objects.all(),
+    #     slug_field='uuid',
+    #     allow_null=False,
+    #  )
+
+    # contributors = serializers.SlugRelatedField(
+    #     many=True,
+    #     queryset=User.objects.all(),
+    #     slug_field='uuid',
+    #     allow_null=False,
+    #  )
 
     tags = serializers.SlugRelatedField(
         many=True,
         queryset=Tag.objects.all(),
-        slug_field='uuid',
-        allow_null=False,
+        slug_field='slug',
      )
 
     contributors = serializers.SlugRelatedField(
         many=True,
         queryset=User.objects.all(),
-        slug_field='uuid',
-        allow_null=False,
+        slug_field='username',
      )
 
     class Meta:
@@ -81,35 +95,3 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
             'tags',
             'contributors',
         )
-        # extra_kwargs = {
-        #     'community' : {'read_only' : True},
-        #     'language' : {'read_only' : True},
-        #     'tags' : {'read_only' : True},
-        #     'contributors' : {'read_only' : True},
-        # }
-
-
-    # def validate(self, data):
-    #     print()
-    #     print(data.get('community', None))
-    #     print()
-
-        # community = data.get('community', None)
-        # if community is not None:
-        #     data['community'] = Community.objects.filter(uuid=community).first()
-
-        # language = data.get('language', None)
-        # if language is not None:
-        #     data['language'] = Language.objects.filter(uuid=language).first()
-
-        # tags = data.get('tags', None)
-        # if tags is not None:
-        #     tags = tags if isinstance(tags, list) else [tags]
-        #     data['tags'] = Tag.objects.filter(uuid__in=tags).all()
-
-        # # contributors = data.get('contributors', None)
-        # # if contributors is not None:
-        # #     contributors = contributors if isinstance(contributors, list) else [contributors]
-        # #     data['contributors'] = User.objects.filter(uuid__in=contributors).all()
-
-        # return data

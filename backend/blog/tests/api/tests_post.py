@@ -245,8 +245,8 @@ class PostTests(TestCase):
             'title': 'Testing Post Creation',
             'body': 'Detail Testing Post Creation',
             'abstract': 'Abstract Testing Post Creation',
-            'language': language.uuid,
-            'community': community.uuid,
+            'language': language.slug,
+            'community': community.slug,
             # 'community': '41834ea0-e06d-4ae2-8aa6-445736edf823',
             # 'community': '7cd3ce2b-a32e-4562-a2e6-28bbdf88bd89',
         }
@@ -293,6 +293,39 @@ class PostTests(TestCase):
         self.assertEqual(post.title, data['title'])
         self.assertEqual(post.body, data['body'])
         self.assertEqual(post.abstract, data['abstract'])
+
+    def test_post_update_contributors(self):
+        """ test_post_update_contributors - Post Update Contributors """
+
+        post = Post.objects.get(pk=1)
+        user = post.author
+        token = Token.objects.create(user=user)
+
+        data = {
+            'title': 'Testing Post Creation',
+            'body': 'Detail Testing Post Creation',
+            'abstract': 'Abstract Testing Post Creation',
+            # 'community': '7cd3ce2b-a32e-4562-a2e6-28bbdf88bd89',
+            'contributors': [
+                User.objects.get(pk=4).username,
+                User.objects.get(pk=5).username,
+                User.objects.get(pk=6).username,
+            ],
+        }
+
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = client.patch('/api/post/{}/update/'.format(post.slug), data)
+        result = json.loads(response.content)
+
+        post = Post.objects.get(pk=post.id)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsNotNone(post)
+        self.assertEqual(post.title, data['title'])
+        self.assertEqual(post.body, data['body'])
+        self.assertEqual(post.abstract, data['abstract'])
+        self.assertEqual(post.contributors.count(), len(data['contributors']))
 
     def test_post_update_only_author_or_contributors(self):
         """ test_post_update_only_author_or_contributors - Post Update only by author or contributors """
