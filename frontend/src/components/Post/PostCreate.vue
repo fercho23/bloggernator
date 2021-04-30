@@ -4,8 +4,8 @@
       <h3>
         Post Create
       </h3>
-      <span v-if="error">Post Error: {{ error }}</span>
-      <span v-if="errorGetCommunities">Post Error: {{ error }}</span>
+      <span v-if="error" class="alert alert-danger">Post Error: {{ error }}</span>
+      <span v-if="errorGetCommunities" class="alert alert-danger">Post Error: {{ error }}</span>
 
       <form @submit.prevent="callCreate" id="createForm">
         <div class="form-group">
@@ -27,6 +27,19 @@
                 :value="community.uuid">{{ community.name }}
               </option>
           </select>
+        </div>
+
+        <div class="form-group">
+          <label>Contributors</label>
+          <span v-for="(contributor, index) in contributors" :key="index" class="badge badge-secondary mx-1 mb-1">
+            {{ contributor.username }}
+            <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeContributor(index)">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <input type="hidden" v-model="contributors[index]">
+          </span>
+
+          <AutoComplete :api="autocompleteContributors" :prop-to-show="'username'" :function-after="autocompleteContributorsAfter" />
         </div>
 
         <div class="form-group">
@@ -57,15 +70,20 @@
 </template>
 
 <script>
+  import AutoComplete from "../Layout/AutoComplete";
   import { mapState } from "vuex";
   import { getAPI } from "../../api/axios-base";
-  import { URL_API_POST_CREATE } from "../../constants.js";
+  import { URL_API_POST_CREATE, URL_API_USER_LIST } from "../../constants.js";
 
   export default {
     name: "post-create",
     computed: mapState(["currentUser", "allLanguages"]),
+    components: {
+      AutoComplete
+    },
     data() {
       return {
+        contributors: undefined,
         communities: [],
         error: undefined,
         errorGetCommunities: undefined,
@@ -76,6 +94,37 @@
     },
 
     methods: {
+
+      // CONTRIBUTORS
+        autocompleteContributors(username) {
+          let query = {};
+            query.username = username;
+
+          query.not_in_username = [];
+          query.not_in_username.push(this.currentUser.username);
+          if (Array.isArray(this.contributors))
+            query.not_in_username = query.not_in_username.concat(this.contributors.map(({ username }) => username))
+
+          return getAPI.get(URL_API_USER_LIST, {
+            params: query
+          });
+        },
+
+        autocompleteContributorsAfter(selected) {
+          if (selected) {
+            if (this.contributors === undefined)
+              this.contributors = [];
+            this.contributors.push(selected);
+          }
+        },
+
+        removeContributor(index) {
+          if (this.contributors[index] !== undefined) {
+            this.contributors.splice(index, 1);
+          }
+        },
+      // -- CONTRIBUTORS
+
       getCommunities() {
         this.communities = this.currentUser.owns_communities.concat(this.currentUser.member_communities)
       },
