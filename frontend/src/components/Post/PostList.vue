@@ -153,6 +153,7 @@
     mounted() {
       this.retrievePostList();
     },
+
     methods: {
       retrievePostList(query=undefined) {
         if (query == undefined)
