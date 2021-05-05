@@ -27,7 +27,6 @@
           </router-link>
         </div>
 
-        <!-- <div class="col-12" v-if="communitiesCount"> -->
         <div class="col-12">
           <Pagination :key="communitiesKey" :query="communitiesQuery" :pageCount="communitiesCount" :previousUrl="communitiesPrevious" :nextUrl="communitiesNext" />
         </div>
