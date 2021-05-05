@@ -104,12 +104,17 @@
             {{ post.title }}
           </router-link>
         </div>
+
+        <div class="col-12">
+          <Pagination :key="postsKey" :query="postsQuery" :pageCount="postsCount" :previousUrl="postsPrevious" :nextUrl="postsNext" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import Pagination from "../Layout/Pagination";
   import { mapState } from "vuex";
   import { getAPI } from "../../api/axios-base";
   import AutoComplete from "../Layout/AutoComplete";
@@ -119,7 +124,8 @@
     name: "post-list",
     computed: mapState(["accessToken", "allLanguages"]),
     components: {
-      AutoComplete
+      AutoComplete,
+      Pagination,
     },
     data() {
       return {
@@ -131,6 +137,11 @@
           communities: this.$route.query.communities === undefined ? undefined : (Array.isArray(this.$route.query.communities) ? this.$route.query.communities : [this.$route.query.communities]),
         },
         posts: [],
+        postsCount: null,
+        postsPrevious: null,
+        postsNext: null,
+        postsQuery: null,
+        postsKey: null,
       };
     },
 
@@ -164,6 +175,10 @@
           })
           .then(response => {
             this.posts = response.data.results;
+            this.postsCount = response.data.count;
+            this.postsPrevious = response.data.previous;
+            this.postsNext = response.data.next;
+            this.postsKey = Date.now();
           })
           .catch(e => {
             console.log(e);
