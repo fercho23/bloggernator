@@ -106,7 +106,7 @@
         </div>
 
         <div class="col-12">
-          <Pagination :key="postsKey" :query="postsQuery" :pageCount="postsCount" :previousUrl="postsPrevious" :nextUrl="postsNext" />
+          <Pagination :key="postsKey" :baseUrl="baseUrl" :query="postsQuery" :pageCount="postsCount" :previousUrl="postsPrevious" :nextUrl="postsNext" />
         </div>
       </div>
     </div>
@@ -129,6 +129,7 @@
     },
     data() {
       return {
+        baseUrl: window.location.pathname,
         filters: {
           title: this.$route.query.title,
           language: this.$route.query.language,

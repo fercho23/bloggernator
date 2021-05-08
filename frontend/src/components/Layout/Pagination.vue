@@ -16,6 +16,10 @@
   export default {
     name: "Pagination",
     props: {
+      baseUrl: {
+        type: String,
+        default: window.location.pathname
+      },
       query: {},
       pageCount: {
         type: Number,
@@ -44,10 +48,6 @@
       propPageOnUrl: {
         type: String,
         default: "page"
-      },
-      baseUrl: {
-        type: String,
-        default: window.location.pathname
       },
     },
 

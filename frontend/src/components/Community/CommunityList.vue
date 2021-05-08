@@ -28,7 +28,7 @@
         </div>
 
         <div class="col-12">
-          <Pagination :key="communitiesKey" :query="communitiesQuery" :pageCount="communitiesCount" :previousUrl="communitiesPrevious" :nextUrl="communitiesNext" />
+          <Pagination :key="communitiesKey" :baseUrl="baseUrl" :query="communitiesQuery" :pageCount="communitiesCount" :previousUrl="communitiesPrevious" :nextUrl="communitiesNext" />
         </div>
       </div>
     </div>
@@ -49,6 +49,7 @@
     computed: mapState(["accessToken"]),
     data() {
       return {
+        baseUrl: window.location.pathname,
         communities: [],
         communitiesCount: null,
         communitiesPrevious: null,
