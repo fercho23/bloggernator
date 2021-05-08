@@ -48,16 +48,16 @@
 </template>
 
 <script>
-  import AutoComplete from "../Layout/AutoComplete";
-  import { getAPI } from "../../api/axios-base";
-  import { URL_API_COMMUNITY_READ, URL_API_COMMUNITY_UPDATE, URL_API_USER_LIST } from "../../constants.js";
+  import AutoComplete from '../Layout/AutoComplete';
+  import { getAPI } from '../../api/axios-base';
+  import { URL_API_COMMUNITY_READ, URL_API_COMMUNITY_UPDATE, URL_API_USER_LIST } from '../../constants.js';
 
   export default {
-    name: "community-update",
+    name: 'community-update',
     components: {
       AutoComplete
     },
-    props: ["community"],
+    props: ['community'],
     data() {
       return {
         members: this.community ? this.community.members : undefined,
@@ -102,7 +102,7 @@
       // -- MEMBERS
 
       retrieveCommunity(slug) {
-        getAPI.get(URL_API_COMMUNITY_READ.replace(":slug", slug))
+        getAPI.get(URL_API_COMMUNITY_READ.replace(':slug', slug))
           .then(response => {
             this.community = response.data;
           })
@@ -112,16 +112,16 @@
       },
 
       callUpdate() {
-        let formData = new FormData(document.getElementById("updateForm"));
+        let formData = new FormData(document.getElementById('updateForm'));
         for (let index = 0; index < this.members.length; index++) {
-          formData.append("members", this.members[index].username);
+          formData.append('members', this.members[index].username);
         }
 
-        getAPI.patch(URL_API_COMMUNITY_UPDATE.replace(":slug", this.community.slug), formData)
+        getAPI.patch(URL_API_COMMUNITY_UPDATE.replace(':slug', this.community.slug), formData)
           .then((response) => {
             console.log(response);
-            this.$store.dispatch("updateLocalCurrentUser");
-            this.$router.push({ name: "community-detail", params: { slug: this.community.slug } });
+            this.$store.dispatch('updateLocalCurrentUser');
+            this.$router.push({ name: 'community-detail', params: { slug: this.community.slug } });
           })
           .catch(e => {
             this.error = e.response.data.detail;

@@ -69,8 +69,8 @@
   import { URL_API_USER_READ, URL_IMAGE_USER_DEFAULT } from "../../constants.js";
 
   export default {
-    name: "profile",
-    computed: mapState(["currentUser"]),
+    name: 'profile',
+    computed: mapState(['currentUser']),
     mixins: [
       formatDate
     ],

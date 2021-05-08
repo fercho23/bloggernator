@@ -1,9 +1,9 @@
 
-export const URL_BACKEND = "http://127.0.0.1:8000";
+export const URL_BACKEND = 'http://127.0.0.1:8000';
 
 
 // URL IMAGES
-    export const URL_IMAGE_USER_DEFAULT = URL_BACKEND + '/media/avatar.png'
+    export const URL_IMAGE_USER_DEFAULT = URL_BACKEND + '/media/avatar.png';
 // URL IMAGES
 
 // URL API

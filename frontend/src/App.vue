@@ -13,13 +13,13 @@
   import NavBar from "./components/Layout/NavBar.vue";
 
   export default {
-    name: "app",
+    name: 'app',
     components: {
       NavBar
     },
     mounted() {
       this.$store
-        .dispatch("getLanguages");
+        .dispatch('getLanguages');
     },
   };
 </script>

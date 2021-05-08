@@ -25,17 +25,17 @@
 
 <script>
   export default {
-    name: "AutoComplete",
+    name: 'AutoComplete',
     props: {
       api: null,
       functionAfter: null,
       propToShow: {
         type: String,
-        default: "name"
+        default: 'name'
       },
       propToGetApiResults: {
         type: String,
-        default: "results"
+        default: 'results'
       },
     },
 
@@ -50,10 +50,10 @@
     },
 
     mounted() {
-      document.addEventListener("click", this.handleClickOutside);
+      document.addEventListener('click', this.handleClickOutside);
     },
     destroyed() {
-      document.removeEventListener("click", this.handleClickOutside);
+      document.removeEventListener('click', this.handleClickOutside);
     },
 
     methods: {

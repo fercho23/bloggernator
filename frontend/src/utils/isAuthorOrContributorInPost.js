@@ -1,8 +1,8 @@
 
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
-  computed: mapState(["currentUser"]),
+  computed: mapState(['currentUser']),
   methods: {
     isAuthorOrContributorInPost(post) {
       if (this.currentUser) {

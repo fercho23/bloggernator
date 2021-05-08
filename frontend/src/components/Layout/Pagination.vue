@@ -14,7 +14,7 @@
 
 <script>
   export default {
-    name: "Pagination",
+    name: 'Pagination',
     props: {
       baseUrl: {
         type: String,
@@ -27,11 +27,11 @@
       },
       previousUrl: {
         type: String,
-        default: ""
+        default: ''
       },
       nextUrl: {
         type: String,
-        default: ""
+        default: ''
       },
       elementsByPage: {
         type: Number,
@@ -47,7 +47,7 @@
       },
       propPageOnUrl: {
         type: String,
-        default: "page"
+        default: 'page'
       },
     },
 
@@ -86,8 +86,8 @@
           // PREV PAGE
             if (this.previousUrl) {
               this.pages.push({
-                "url": base_url + (this.previousUrl.includes("?") ? "?" + this.previousUrl.split("?")[1] : ""),
-                "number": "Previous",
+                'url': base_url + (this.previousUrl.includes('?') ? '?' + this.previousUrl.split('?')[1] : ''),
+                'number': 'Previous',
               });
             }
           // -- PREV PAGE
@@ -98,17 +98,17 @@
                 query[this.propPageOnUrl] = this.firstPageNumber;
 
               this.pages.push({
-                "url": {
+                'url': {
                   path: base_url,
                   query: query,
                 },
-                "number": this.firstPageNumber,
+                'number': this.firstPageNumber,
               });
 
               if (start_page > (this.firstPageNumber + 1)) {
                 this.pages.push({
-                  "url": "",
-                  "number": "...",
+                  'url': '',
+                  'number': '...',
                 });
               }
             }
@@ -121,7 +121,7 @@
 
               let page_data = {};
                 page_data.number = page;
-                page_data.url = "";
+                page_data.url = '';
               if (page != this.currentPageNumber) {
                 page_data.url = {
                   path: base_url,
@@ -136,8 +136,8 @@
             if (end_page < page_total_amount) {
               if (end_page < (page_total_amount - this.firstPageNumber)) {
                 this.pages.push({
-                  "url": "",
-                  "number": "...",
+                  'url': '',
+                  'number': '...',
                 });
               }
 
@@ -145,11 +145,11 @@
                 query[this.propPageOnUrl] = page_total_amount;
 
               this.pages.push({
-                "url": {
+                'url': {
                   path: base_url,
                   query: query,
                 },
-                "number": page_total_amount,
+                'number': page_total_amount,
               });
             }
           // -- LAST PAGE
@@ -157,8 +157,8 @@
           // NEXT PAGE
             if (this.nextUrl) {
               this.pages.push({
-                "url": base_url + (this.nextUrl.includes("?") ? "?" + this.nextUrl.split("?")[1] : ""),
-                "number": "Next",
+                'url': base_url + (this.nextUrl.includes('?') ? '?' + this.nextUrl.split('?')[1] : ''),
+                'number': 'Next',
               });
             }
           // -- NEXT PAGE

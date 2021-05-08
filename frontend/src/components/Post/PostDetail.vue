@@ -162,13 +162,13 @@
 </template>
 
 <script>
-  import { getAPI } from "../../api/axios-base";
-  import { URL_API_POST_READ } from "../../constants.js";
-  import isAuthorOrContributorInPost from "../../utils/isAuthorOrContributorInPost.js";
+  import { getAPI } from '../../api/axios-base';
+  import { URL_API_POST_READ } from '../../constants.js';
+  import isAuthorOrContributorInPost from '../../utils/isAuthorOrContributorInPost.js';
 
   export default {
-    name: "post-detail",
-    props: ["post"],
+    name: 'post-detail',
+    props: ['post'],
     mixins: [
       isAuthorOrContributorInPost
     ],
@@ -210,7 +210,7 @@
         }
 
         this.$router.replace({
-          name: "post-list",
+          name: 'post-list',
           query: query
         });
       },
@@ -220,7 +220,7 @@
       },
 
       retrievePost(slug) {
-        getAPI.get(URL_API_POST_READ.replace(":slug", slug))
+        getAPI.get(URL_API_POST_READ.replace(':slug', slug))
           .then(response => {
             this.post = response.data;
           })

@@ -78,15 +78,15 @@
 </template>
 
 <script>
-  import AutoComplete from "../Layout/AutoComplete";
-  import { mapState } from "vuex";
-  import { getAPI } from "../../api/axios-base";
-  import { URL_API_POST_READ, URL_API_POST_UPDATE, URL_API_USER_LIST } from "../../constants.js";
+  import AutoComplete from '../Layout/AutoComplete';
+  import { mapState } from 'vuex';
+  import { getAPI } from '../../api/axios-base';
+  import { URL_API_POST_READ, URL_API_POST_UPDATE, URL_API_USER_LIST } from '../../constants.js';
 
   export default {
-    name: "post-update",
-    props: ["post"],
-    computed: mapState(["currentUser", "allLanguages"]),
+    name: 'post-update',
+    props: ['post'],
+    computed: mapState(['currentUser', 'allLanguages']),
     components: {
       AutoComplete
     },
@@ -151,12 +151,12 @@
       },
 
       callUpdate() {
-        let formData = new FormData(document.getElementById("updateForm"));
+        let formData = new FormData(document.getElementById('updateForm'));
 
         getAPI.patch(URL_API_POST_UPDATE.replace(':slug', this.post.slug), formData)
           .then((response) => {
             console.log(response);
-            this.$router.push({ name: "post-list" });
+            this.$router.push({ name: 'post-list' });
           })
           .catch(e => {
             this.error = e.response.data.detail;

@@ -44,18 +44,18 @@
 </template>
 
 <script>
-  import AutoComplete from "../Layout/AutoComplete";
-  import { getAPI } from "../../api/axios-base";
-  import { URL_API_COMMUNITY_CREATE, URL_API_USER_LIST } from "../../constants.js";
-  import { mapState } from "vuex";
+  import AutoComplete from '../Layout/AutoComplete';
+  import { getAPI } from '../../api/axios-base';
+  import { URL_API_COMMUNITY_CREATE, URL_API_USER_LIST } from '../../constants.js';
+  import { mapState } from 'vuex';
 
 
   export default {
-    name: "community-create",
+    name: 'community-create',
     components: {
       AutoComplete
     },
-    computed: mapState(["currentUser"]),
+    computed: mapState(['currentUser']),
     data() {
       return {
         members: undefined,
@@ -96,16 +96,16 @@
       // -- MEMBERS
 
       callCreate() {
-        let formData = new FormData(document.getElementById("createForm"));
+        let formData = new FormData(document.getElementById('createForm'));
         for (let index = 0; index < this.members.length; index++) {
-          formData.append("members", this.members[index].username);
+          formData.append('members', this.members[index].username);
         }
 
         getAPI.post(URL_API_COMMUNITY_CREATE, formData)
           .then((response) => {
             console.log(response);
-            this.$store.dispatch("updateLocalCurrentUser");
-            this.$router.push({ name: "community-list" });
+            this.$store.dispatch('updateLocalCurrentUser');
+            this.$router.push({ name: 'community-list' });
           })
           .catch(e => {
             this.error = e.response.data.detail;

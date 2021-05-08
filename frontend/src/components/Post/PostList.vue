@@ -114,15 +114,15 @@
 </template>
 
 <script>
-  import Pagination from "../Layout/Pagination";
-  import { mapState } from "vuex";
-  import { getAPI } from "../../api/axios-base";
-  import AutoComplete from "../Layout/AutoComplete";
-  import { URL_API_COMMUNITY_LIST, URL_API_POST_LIST, URL_API_USER_LIST } from "../../constants.js";
+  import Pagination from '../Layout/Pagination';
+  import { mapState } from 'vuex';
+  import { getAPI } from '../../api/axios-base';
+  import AutoComplete from '../Layout/AutoComplete';
+  import { URL_API_COMMUNITY_LIST, URL_API_POST_LIST, URL_API_USER_LIST } from '../../constants.js';
 
   export default {
-    name: "post-list",
-    computed: mapState(["accessToken", "allLanguages"]),
+    name: 'post-list',
+    computed: mapState(['accessToken', 'allLanguages']),
     components: {
       AutoComplete,
       Pagination,
@@ -273,7 +273,7 @@
 
       callFilter() {
         this.$router.replace({
-          name: "post-list",
+          name: 'post-list',
           query: this.filters
         });
       }

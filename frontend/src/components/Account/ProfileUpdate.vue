@@ -29,8 +29,8 @@
   import { URL_API_USER_READ, URL_API_USER_UPDATE } from "../../constants.js";
 
   export default {
-    name: "profile-update",
-    props: ["user"],
+    name: 'profile-update',
+    props: ['user'],
     data() {
       return {
         error: undefined,
@@ -44,7 +44,7 @@
     methods: {
 
       retrieveUser(username) {
-        getAPI.get(URL_API_USER_READ.replace(":username", username))
+        getAPI.get(URL_API_USER_READ.replace(':username', username))
           .then(response => {
             this.user = response.data;
           })
@@ -54,15 +54,15 @@
       },
 
       callUpdate() {
-        let formData = new FormData(document.getElementById("updateForm"));
+        let formData = new FormData(document.getElementById('updateForm'));
 
-        getAPI.patch(URL_API_USER_UPDATE.replace(":username", this.user.username), formData)
+        getAPI.patch(URL_API_USER_UPDATE.replace(':username', this.user.username), formData)
           .then((response) => {
             console.log(response);
-            this.user.username = formData.get("username")
-            this.$store.commit("updateCurrentUser", this.user);
+            this.user.username = formData.get('username')
+            this.$store.commit('updateCurrentUser', this.user);
             this.$router.push({
-              name: "profile",
+              name: 'profile',
               params: { username: this.user.username }
             });
           })

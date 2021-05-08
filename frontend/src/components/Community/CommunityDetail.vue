@@ -72,12 +72,12 @@
 </template>
 
 <script>
-  import isOwnerInCommunity from "../../utils/isOwnerInCommunity.js";
-  import { getAPI } from "../../api/axios-base";
-  import { URL_API_COMMUNITY_READ } from "../../constants.js";
+  import isOwnerInCommunity from '../../utils/isOwnerInCommunity.js';
+  import { getAPI } from '../../api/axios-base';
+  import { URL_API_COMMUNITY_READ } from '../../constants.js';
 
   export default {
-    name: "community-detail",
+    name: 'community-detail',
     mixins: [
       isOwnerInCommunity
     ],
@@ -101,7 +101,7 @@
 
     methods: {
       retrieveCommunity(slug) {
-        getAPI.get(URL_API_COMMUNITY_READ.replace(":slug", slug))
+        getAPI.get(URL_API_COMMUNITY_READ.replace(':slug', slug))
           .then(response => {
             this.community = response.data;
           })

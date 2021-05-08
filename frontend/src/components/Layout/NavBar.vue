@@ -63,11 +63,11 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+  import { mapState } from 'vuex';
 
   export default {
-    name: "NavBar",
-    computed: mapState(["accessToken", "currentUser", "allLanguages"]),
+    name: 'NavBar',
+    computed: mapState(['accessToken', 'currentUser', 'allLanguages']),
 
     // beforeMount() {
     //   console.log(this.currentUser);
@@ -80,10 +80,10 @@
 
     methods: {
       callNavbarSearch() {
-        let title = document.getElementById("navbarSearchTitle").value;
+        let title = document.getElementById('navbarSearchTitle').value;
 
         this.$router.push({
-          name: "post-list",
+          name: 'post-list',
           query: { title: title }
         });
       }

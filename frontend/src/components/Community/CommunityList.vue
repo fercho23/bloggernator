@@ -36,17 +36,17 @@
 </template>
 
 <script>
-  import Pagination from "../Layout/Pagination";
-  import { mapState } from "vuex";
-  import { getAPI } from "../../api/axios-base";
-  import { URL_API_COMMUNITY_LIST } from "../../constants.js";
+  import Pagination from '../Layout/Pagination';
+  import { mapState } from 'vuex';
+  import { getAPI } from '../../api/axios-base';
+  import { URL_API_COMMUNITY_LIST } from '../../constants.js';
 
   export default {
-    name: "community-list",
+    name: 'community-list',
     components: {
       Pagination
     },
-    computed: mapState(["accessToken"]),
+    computed: mapState(['accessToken']),
     data() {
       return {
         baseUrl: window.location.pathname,

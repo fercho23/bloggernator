@@ -1,8 +1,8 @@
 
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
-  computed: mapState(["currentUser"]),
+  computed: mapState(['currentUser']),
   methods: {
     isOwnerInCommunity(community) {
       if (this.currentUser) {
