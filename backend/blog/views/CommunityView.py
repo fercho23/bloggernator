@@ -34,6 +34,9 @@ class CommunityDeleteView(DestroyAPIView):
         if obj.members.count() > 0:
             raise ValidationError({'detail': _('Only communities without members can be deleted.')})
 
+        if obj.post_set.count() > 0:
+            raise ValidationError({'detail': _('Only communities without posts can be deleted.')})
+
         serializer.delete()
 
 

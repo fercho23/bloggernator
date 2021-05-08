@@ -20,6 +20,9 @@ class CommunityTests(TestCase):
         'user',
         'group',
         'community',
+        'language',
+        'tag',
+        'post',
     ]
 
     def test_community_list(self):
@@ -277,7 +280,7 @@ class CommunityTests(TestCase):
     def test_community_delete(self):
         """ test_community_delete - Community Delete """
 
-        community = Community.objects.get(pk=2)
+        community = Community.objects.get(pk=30)
         user = community.owner
         token = Token.objects.create(user=user)
 
@@ -309,6 +312,21 @@ class CommunityTests(TestCase):
         """ test_community_can_not_be_deleted_if_has_members - Community can not be deleted if it has members """
 
         community = Community.objects.get(pk=1)
+        user = community.owner
+        token = Token.objects.create(user=user)
+
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        response = client.delete('/api/community/{}/delete/'.format(community.slug))
+        result = json.loads(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('detail', result)
+
+    def test_community_can_not_be_deleted_if_has_posts(self):
+        """ test_community_can_not_be_deleted_if_has_posts - Community can not be deleted if it has posts """
+
+        community = Community.objects.get(pk=2)
         user = community.owner
         token = Token.objects.create(user=user)
 
