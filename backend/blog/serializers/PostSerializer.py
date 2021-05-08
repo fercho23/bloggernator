@@ -10,17 +10,30 @@ from blog.models.Language import Language
 from blog.models.Post import Post
 from blog.models.Tag import Tag
 
-from blog.serializers.UserSerializer import UserModelSerializer
-from blog.serializers.LanguageSerializer import LanguageModelSerializer
-from blog.serializers.CommunitySerializer import CommunityModelSerializer
-from blog.serializers.TagSerializer import TagModelSerializer
 
 User = get_user_model()
 
 
+class PostModelBasicSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Post
+        fields = (
+            'uuid',
+            'title',
+            'slug',
+        )
+
+
 class PostModelSerializer(serializers.ModelSerializer):
+    from blog.serializers.UserSerializer import UserModelSerializer
+    from blog.serializers.LanguageSerializer import LanguageModelSerializer
+    # from blog.serializers.CommunitySerializer import CommunityModelSerializer
+    from blog.serializers.TagSerializer import TagModelSerializer
+
     author = UserModelSerializer()
-    community = CommunityModelSerializer()
+    # community = CommunityModelSerializer()
+    community = serializers.SerializerMethodField()
     language = LanguageModelSerializer()
     tags = TagModelSerializer(many=True)
     contributors = UserModelSerializer(many=True)
@@ -40,6 +53,10 @@ class PostModelSerializer(serializers.ModelSerializer):
             'tags',
             'contributors',
         )
+
+    def get_community(self, obj):
+        from blog.serializers.CommunitySerializer import CommunityModelSerializer
+        return CommunityModelSerializer(obj.community).data
 
 
 class PostCreateUpdateSerializer(serializers.ModelSerializer):
