@@ -63,10 +63,10 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
-  import formatDate from "../../utils/formatDate.js";
-  import { getAPI } from "../../api/axios-base";
-  import { URL_API_USER_READ, URL_IMAGE_USER_DEFAULT } from "../../constants.js";
+  import { mapState } from 'vuex';
+  import formatDate from '../../utils/formatDate.js';
+  import { getAPI } from '../../api/axios-base';
+  import { URL_API_USER_READ, URL_IMAGE_USER_DEFAULT } from '../../constants.js';
 
   export default {
     name: 'profile',

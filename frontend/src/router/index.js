@@ -74,15 +74,15 @@ const router = new Router({
       component: () => import('../components/Community/CommunityDetail.vue'),
       props: true
     },
-    // {
-    //   path: '/community/:slug/delete',
-    //   name: 'community-delete',
-    //   component: () => import('../components/Community/CommunityDelete.vue'),
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    //   props: true
-    // },
+    {
+      path: '/community/:slug/delete',
+      name: 'community-delete',
+      component: () => import('../components/Community/CommunityDelete.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      props: true
+    },
     {
       path: '/community/:slug/update',
       name: 'community-update',
@@ -113,15 +113,15 @@ const router = new Router({
       component: () => import('../components/Post/PostDetail.vue'),
       props: true
     },
-    // {
-    //   path: '/post/:slug/delete',
-    //   name: 'post-delete',
-    //   component: () => import('../components/Post/PostDelete.vue'),
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    //   props: true
-    // },
+    {
+      path: '/post/:slug/delete',
+      name: 'post-delete',
+      component: () => import('../components/Post/PostDelete.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      props: true
+    },
     {
       path: '/post/:slug/update',
       name: 'post-update',
