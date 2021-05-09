@@ -2,15 +2,26 @@
   <div class="row">
     <div class="col-12">
       <template v-if="community">
-        <router-link
-          v-if="isOwnerInCommunity(community)"
-          class="btn btn-primary float-right"
-          :to="{
-            name: 'community-update',
-            params: { community: community, slug: community.slug }
-          }">
-          Update
-        </router-link>
+        <div class="float-right">
+          <router-link
+            v-if="isOwnerInCommunity(community)"
+            class="btn btn-primary ml-1"
+            :to="{
+              name: 'community-update',
+              params: { community: community, slug: community.slug }
+            }">
+            Update
+          </router-link>
+          <router-link
+            v-if="isOwnerInCommunity(community)"
+            class="btn btn-primary ml-1"
+            :to="{
+              name: 'community-delete',
+              params: { community: community, slug: community.slug }
+            }">
+            Delete
+          </router-link>
+        </div>
 
         <h3>Community Detail</h3>
 
@@ -28,9 +39,10 @@
                 <dt>Owner</dt>
                 <dd class="ml-4">
                   <router-link
+                    title="Profile"
                     :to="{
                       name: 'profile',
-                      params: { slug: community.owner.username }
+                      params: { username: community.owner.username }
                     }">
                     {{ community.owner.username }}
                   </router-link>
@@ -46,15 +58,30 @@
                 <dd class="ml-4">{{ community.detail }}</dd>
               </template>
 
-              <template v-if="community.members.length">
+              <template v-if="community.members && community.members.length">
                 <dt>Members</dt>
                 <dd v-for="(user, index) in community.members" :key="index" class="ml-4">
                   <router-link
+                    title="Profile"
                     :to="{
                       name: 'profile',
-                      params: { slug: user.username }
+                      params: { username: user.username }
                     }">
                     {{ user.username }}
+                  </router-link>
+                </dd>
+              </template>
+
+              <template v-if="community.last_posts && community.last_posts.length">
+                <dt>Last Posts</dt>
+                <dd v-for="(post, index) in community.last_posts" :key="index" class="ml-4">
+                  <router-link
+                    title="Post Detail"
+                    :to="{
+                      name: 'post-detail',
+                      params: { post: post, slug: post.slug }
+                    }">
+                    {{ post.title }}
                   </router-link>
                 </dd>
               </template>
@@ -64,7 +91,7 @@
         </div>
       </template>
       <template v-else="">
-        <span v-if="error">Community Error: {{ error }}</span>
+        <span v-if="error" class="alert alert-danger">Community Error: {{ error }}</span>
         <p>Please click on a Community...</p>
       </template>
     </div>

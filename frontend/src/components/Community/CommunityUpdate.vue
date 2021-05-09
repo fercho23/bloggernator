@@ -5,7 +5,6 @@
         <h3>
           Community Update: <small> {{ community.name }}</small>
         </h3>
-        <div class="alert alert-danger" v-if="error">Community Error: {{ error }}</div>
 
         <form @submit.prevent="callUpdate" id="updateForm">
           <div class="form-group">
@@ -40,7 +39,7 @@
         </form>
       </template>
       <template v-else="">
-        <div class="alert alert-danger" v-if="error">Community Error: {{ error }}</div>
+        <div v-if="error" class="alert alert-danger">Community Error: {{ error }}</div>
         <p>Please click on a Community...</p>
       </template>
     </div>
@@ -64,13 +63,11 @@
         error: undefined,
       }
     },
-
     beforeMount() {
       if (this.community === undefined)
         this.retrieveCommunity(this.$route.params.slug);
     },
     methods: {
-
       // MEMBERS
         autocompleteMembers(username) {
           let query = {};
@@ -85,7 +82,6 @@
             params: query
           });
         },
-
         autocompleteMembersAfter(selected) {
           if (selected) {
             if (this.members === undefined)
@@ -93,7 +89,6 @@
             this.members.push(selected);
           }
         },
-
         removeMember(index) {
           if (this.members[index] !== undefined) {
             this.members.splice(index, 1);
@@ -119,12 +114,20 @@
 
         getAPI.patch(URL_API_COMMUNITY_UPDATE.replace(':slug', this.community.slug), formData)
           .then((response) => {
-            console.log(response);
+            this.$root.$bvToast.toast(`Community "${response.data.name}" was successfully updated.`, {
+              title: 'Success',
+              variant: 'success',
+              solid: true
+            });
             this.$store.dispatch('updateLocalCurrentUser');
             this.$router.push({ name: 'community-detail', params: { slug: this.community.slug } });
           })
           .catch(e => {
-            this.error = e.response.data.detail;
+            this.$bvToast.toast(e.response.data.detail, {
+              title: 'Error',
+              variant: 'danger',
+              solid: true
+            });
           });
       }
     }

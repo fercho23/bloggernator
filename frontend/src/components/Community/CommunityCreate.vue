@@ -1,11 +1,9 @@
 <template>
   <div class="row">
     <div class="col-12">
-
       <h3>
         Community Create
       </h3>
-      <div v-if="error" class="alert alert-danger">Community Error: {{ error }}</div>
 
       <form @submit.prevent="callCreate" id="createForm">
         <div class="form-group">
@@ -38,7 +36,6 @@
 
         <button type="submit" class="btn btn-primary">Create</button>
       </form>
-
     </div>
   </div>
 </template>
@@ -59,7 +56,6 @@
     data() {
       return {
         members: undefined,
-        error: undefined,
       }
     },
 
@@ -103,12 +99,20 @@
 
         getAPI.post(URL_API_COMMUNITY_CREATE, formData)
           .then((response) => {
-            console.log(response);
+            this.$root.$bvToast.toast(`Community "${response.data.name}" was successfully created.`, {
+              title: 'Success',
+              variant: 'success',
+              solid: true
+            });
             this.$store.dispatch('updateLocalCurrentUser');
             this.$router.push({ name: 'community-list' });
           })
           .catch(e => {
-            this.error = e.response.data.detail;
+            this.$bvToast.toast(e.response.data.detail, {
+              title: 'Error',
+              variant: 'danger',
+              solid: true
+            });
           });
       }
     }
