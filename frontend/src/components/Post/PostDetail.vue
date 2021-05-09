@@ -2,15 +2,26 @@
   <div class="row">
     <div class="col-12">
       <template v-if="post">
-        <router-link
-          v-if="isAuthorOrContributorInPost(post)"
-          class="btn btn-primary float-right"
-          :to="{
-            name: 'post-update',
-            params: { post: post, slug: post.slug }
-          }">
-          Update
-        </router-link>
+        <div class="float-right">
+          <router-link
+            v-if="isAuthorOrContributorInPost(post)"
+            class="btn btn-primary ml-1"
+            :to="{
+              name: 'post-update',
+              params: { post: post, slug: post.slug }
+            }">
+            Update
+          </router-link>
+          <router-link
+            v-if="isAuthorOrContributorInPost(post)"
+            class="btn btn-primary ml-1"
+            :to="{
+              name: 'post-delete',
+              params: { post: post, slug: post.slug }
+            }">
+            Delete
+          </router-link>
+        </div>
 
         <h3>
           {{ post.title }}
@@ -29,8 +40,8 @@
                 <dt>Author</dt>
                 <dd class="ml-4">
                   <router-link
-                    title="Profile"
                     class="btn btn-link text-primary my-1"
+                    title="Profile"
                     :to="{
                       name: 'profile',
                       params: { username: post.author.username }
@@ -62,9 +73,10 @@
                 <dt>Contributors</dt>
                 <dd v-for="(user, index) in post.contributors" :key="index" class="ml-4">
                   <router-link
+                    title="Profile"
                     :to="{
                       name: 'profile',
-                      params: { slug: user.username }
+                      params: { username: user.username }
                     }">
                     {{ user.username }}
                   </router-link>
@@ -213,10 +225,6 @@
           name: 'post-list',
           query: query
         });
-      },
-
-      updatePost(post) {
-        console.log(post)
       },
 
       retrievePost(slug) {

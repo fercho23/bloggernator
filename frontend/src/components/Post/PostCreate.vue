@@ -4,8 +4,18 @@
       <h3>
         Post Create
       </h3>
-      <span v-if="error" class="alert alert-danger">Post Error: {{ error }}</span>
-      <span v-if="errorGetCommunities" class="alert alert-danger">Post Error: {{ error }}</span>
+
+      <div v-if="validations && Object.keys(validations).length" class="alert alert-danger" id="formValidations">
+        <h3>
+          Errors:
+        </h3>
+        <dl v-for="(errors, field) in validations" :key="field">
+          <dt>{{ field }}</dt>
+          <dd v-for="(error, index) in errors" :key="index" class="ml-4">
+              {{ error }}
+          </dd>
+        </dl>
+      </div>
 
       <form @submit.prevent="callCreate" id="createForm">
         <div class="form-group">
@@ -24,7 +34,7 @@
               <option :value="undefined" disabled selected>Select a Community</option>
               <option v-for="(community, index) in communities" 
                 :key="index" 
-                :value="community.uuid">{{ community.name }}
+                :value="community.slug">{{ community.name }}
               </option>
           </select>
         </div>
@@ -48,7 +58,7 @@
               <option :value="undefined" disabled selected>Select a Language</option>
               <option v-for="(language, index) in allLanguages" 
                 :key="index" 
-                :value="language.uuid">{{ language.name }}
+                :value="language.slug">{{ language.name }}
               </option>
           </select>
         </div>
@@ -85,16 +95,13 @@
       return {
         contributors: undefined,
         communities: [],
-        error: undefined,
-        errorGetCommunities: undefined,
+        validations: {},
       }
     },
     beforeMount() {
       this.getCommunities();
     },
-
     methods: {
-
       // CONTRIBUTORS
         autocompleteContributors(username) {
           let query = {};
@@ -109,7 +116,6 @@
             params: query
           });
         },
-
         autocompleteContributorsAfter(selected) {
           if (selected) {
             if (this.contributors === undefined)
@@ -117,7 +123,6 @@
             this.contributors.push(selected);
           }
         },
-
         removeContributor(index) {
           if (this.contributors[index] !== undefined) {
             this.contributors.splice(index, 1);
@@ -129,16 +134,41 @@
         this.communities = this.currentUser.owns_communities.concat(this.currentUser.member_communities)
       },
 
+    validateBeforeSubmit() {
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          // eslint-disable-next-line
+          alert('Form Submitted!');
+          return;
+        }
+
+        alert('Correct them errors!');
+      });
+    },
+
       callCreate() {
         let formData = new FormData(document.getElementById('createForm'));
 
         getAPI.post(URL_API_POST_CREATE, formData)
           .then((response) => {
-            console.log(response);
+            this.$root.$bvToast.toast(`Post "${response.data.name}" was successfully created.`, {
+              title: 'Success',
+              variant: 'success',
+              solid: true
+            });
             this.$router.push({ name: 'post-list' });
           })
           .catch(e => {
-            this.error = e.response.data.detail;
+            if (e.response.status == 400) {
+              console.log(e.response.data);
+              this.validations = e.response.data;
+            } else {
+              this.$bvToast.toast(e.response.data.detail, {
+                title: 'Error',
+                variant: 'danger',
+                solid: true
+              });
+            }
           });
       }
     }

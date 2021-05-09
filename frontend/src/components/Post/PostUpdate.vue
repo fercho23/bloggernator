@@ -5,8 +5,6 @@
         <h3>
           Post Update: <small> {{ post.title }}</small>
         </h3>
-        <span v-if="error" class="alert alert-danger">Post Error: {{ error }}</span>
-        <span v-if="errorGetCommunities" class="alert alert-danger">Post Error: {{ error }}</span>
 
         <form @submit.prevent="callUpdate" id="updateForm">
           <div class="form-group">
@@ -26,7 +24,7 @@
                 <option v-for="(community, index) in communities" 
                   :selected="community.uuid === post.community.uuid"
                   :key="index" 
-                  :value="community.uuid">{{ community.name }}
+                  :value="community.slug">{{ community.name }}
                 </option>
             </select>
           </div>
@@ -51,7 +49,7 @@
                 <option v-for="(language, index) in allLanguages" 
                   :selected="language.uuid === post.language.uuid"
                   :key="index" 
-                  :value="language.uuid">{{ language.name }}
+                  :value="language.slug">{{ language.name }}
                 </option>
             </select>
           </div>
@@ -70,7 +68,7 @@
         </form>
       </template>
       <template v-else="">
-        <span v-if="error">Post Error: {{ error }}</span>
+        <span v-if="error" class="alert alert-danger">Post Error: {{ error }}</span>
         <p>Please click on a Post...</p>
       </template>
     </div>
@@ -95,7 +93,6 @@
         communities: [],
         contributors: this.post ? this.post.contributors : undefined,
         error: undefined,
-        errorGetCommunities: undefined,
       }
     },
 
@@ -155,11 +152,19 @@
 
         getAPI.patch(URL_API_POST_UPDATE.replace(':slug', this.post.slug), formData)
           .then((response) => {
-            console.log(response);
+            this.$root.$bvToast.toast(`Post "${response.data.name}" was successfully updated.`, {
+              title: 'Success',
+              variant: 'success',
+              solid: true
+            });
             this.$router.push({ name: 'post-list' });
           })
           .catch(e => {
-            this.error = e.response.data.detail;
+            this.$bvToast.toast(e.response.data.detail, {
+              title: 'Error',
+              variant: 'danger',
+              solid: true
+            });
           });
       }
     }
