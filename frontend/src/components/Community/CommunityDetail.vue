@@ -79,7 +79,7 @@
                     title="Post Detail"
                     :to="{
                       name: 'post-detail',
-                      params: { post: post, slug: post.slug }
+                      params: { slug: post.slug }
                     }">
                     {{ post.title }}
                   </router-link>
