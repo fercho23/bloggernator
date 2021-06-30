@@ -17,64 +17,71 @@
         </dl>
       </div>
 
-      <form @submit.prevent="callCreate" id="createForm">
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input type="text" name="title" id="title" class="form-control">
-        </div>
+      <ValidationObserver>
+        <form @submit.prevent="callCreate" id="createForm">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <ValidationProvider rules="required" v-slot="{ errors }">
+              <input type="text" name="title" id="title" class="form-control">
+              <span id="error">{{ errors[0] }}</span>
+            </ValidationProvider>
 
-        <div class="form-group">
-          <label for="slug">Slug</label>
-          <input type="text" name="slug" id="slug" class="form-control">
-        </div>
+            <!-- <input type="text" name="title" id="title" class="form-control"> -->
+          </div>
 
-        <div class="form-group">
-          <label for="community">Community</label>
-          <select id="community" name="community" class="form-control">
-              <option :value="undefined" disabled selected>Select a Community</option>
-              <option v-for="(community, index) in communities" 
-                :key="index" 
-                :value="community.slug">{{ community.name }}
-              </option>
-          </select>
-        </div>
+          <div class="form-group">
+            <label for="slug">Slug</label>
+            <input type="text" name="slug" id="slug" class="form-control">
+          </div>
 
-        <div class="form-group">
-          <label>Contributors</label>
-          <span v-for="(contributor, index) in contributors" :key="index" class="badge badge-secondary mx-1 mb-1">
-            {{ contributor.username }}
-            <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeContributor(index)">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <input type="hidden" v-model="contributors[index]">
-          </span>
+          <div class="form-group">
+            <label for="community">Community</label>
+            <select id="community" name="community" class="form-control">
+                <option :value="undefined" disabled selected>Select a Community</option>
+                <option v-for="(community, index) in communities" 
+                  :key="index" 
+                  :value="community.slug">{{ community.name }}
+                </option>
+            </select>
+          </div>
 
-          <AutoComplete :api="autocompleteContributors" :prop-to-show="'username'" :function-after="autocompleteContributorsAfter" />
-        </div>
+          <div class="form-group">
+            <label>Contributors</label>
+            <span v-for="(contributor, index) in contributors" :key="index" class="badge badge-secondary mx-1 mb-1">
+              {{ contributor.username }}
+              <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeContributor(index)">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <input type="hidden" v-model="contributors[index]">
+            </span>
 
-        <div class="form-group">
-          <label for="language">Language</label>
-          <select id="language" name="language" class="form-control">
-              <option :value="undefined" disabled selected>Select a Language</option>
-              <option v-for="(language, index) in allLanguages" 
-                :key="index" 
-                :value="language.slug">{{ language.name }}
-              </option>
-          </select>
-        </div>
+            <AutoComplete :api="autocompleteContributors" :prop-to-show="'username'" :function-after="autocompleteContributorsAfter" />
+          </div>
 
-        <div class="form-group">
-          <label for="body">Body</label>
-          <input type="text" name="body" id="body" class="form-control">
-        </div>
+          <div class="form-group">
+            <label for="language">Language</label>
+            <select id="language" name="language" class="form-control">
+                <option :value="undefined" disabled selected>Select a Language</option>
+                <option v-for="(language, index) in allLanguages" 
+                  :key="index" 
+                  :value="language.slug">{{ language.name }}
+                </option>
+            </select>
+          </div>
 
-        <div class="form-group">
-          <label for="abstract">Abstract</label>
-          <input type="text" name="abstract" id="abstract" class="form-control">
-        </div>
+          <div class="form-group">
+            <label for="body">Body</label>
+            <input type="text" name="body" id="body" class="form-control">
+          </div>
 
-        <button type="submit" class="btn btn-primary">Create</button>
-      </form>
+          <div class="form-group">
+            <label for="abstract">Abstract</label>
+            <input type="text" name="abstract" id="abstract" class="form-control">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+      </ValidationObserver>
     </div>
   </div>
 </template>
@@ -84,12 +91,15 @@
   import { mapState } from 'vuex';
   import { getAPI } from '../../api/axios-base';
   import { URL_API_POST_CREATE, URL_API_USER_LIST } from '../../constants.js';
+  import { ValidationProvider, ValidationObserver } from 'vee-validate';
 
   export default {
     name: 'post-create',
     computed: mapState(['currentUser', 'allLanguages']),
     components: {
-      AutoComplete
+      AutoComplete,
+      ValidationProvider,
+      ValidationObserver,
     },
     data() {
       return {

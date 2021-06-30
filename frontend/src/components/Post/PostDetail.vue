@@ -98,6 +98,7 @@
 
           <div class="col-12">
             <router-link
+              v-if="post.author"
               class="btn btn-light mr-1"
               :to="{
                 name: 'post-list',
@@ -108,6 +109,7 @@
             </router-link>
 
             <router-link
+              v-if="post.community"
               class="btn btn-light mr-1"
               :to="{
                 name: 'post-list',
@@ -117,6 +119,7 @@
             </router-link>
 
             <router-link
+              v-if="post.language"
               class="btn btn-light mr-1"
               :to="{
                 name: 'post-list',
@@ -135,17 +138,17 @@
           <div class="col-12">
             <form @submit.prevent="callFilter" id="filterForm">
 
-              <div class="form-check form-check-inline">
+              <div class="form-check form-check-inline" v-if="post.author">
                 <input type="checkbox" class="form-check-input" v-model="filters.checkboxAuthor">
                 <label class="form-check-label">Author</label>
               </div>
 
-              <div class="form-check form-check-inline">
+              <div class="form-check form-check-inline" v-if="post.community">
                 <input type="checkbox" class="form-check-input" v-model="filters.checkboxCommunity">
                 <label class="form-check-label">Community</label>
               </div>
 
-              <div class="form-check form-check-inline">
+              <div class="form-check form-check-inline" v-if="post.language">
                 <input type="checkbox" class="form-check-input" v-model="filters.checkboxLanguage">
                 <label class="form-check-label">Language</label>
               </div>
@@ -205,19 +208,21 @@
 
         let query = {}
 
-        if (this.filters.checkboxAuthor) {
-          query.authors = [this.post.author.username];
-        }
-        if (this.filters.checkboxCommunity) {
-          query.communities = [this.post.community.name];
-        }
-        if (this.filters.checkboxLanguage) {
-          query.language = this.post.language.slug;
-        }
-        if (this.filters.checkboxContributors && this.filters.checkboxContributors.length) {
-          query.contributors = [];
-          for (let i = 0; i < this.filters.checkboxContributors.length; i++) {
-            query.contributors.push(this.post.contributors[i].username)
+        if (this.post) {
+          if (this.filters.checkboxAuthor && this.post.author) {
+            query.authors = [this.post.author.username];
+          }
+          if (this.filters.checkboxCommunity && this.post.community) {
+            query.communities = [this.post.community.name];
+          }
+          if (this.filters.checkboxLanguage && this.post.language) {
+            query.language = this.post.language.slug;
+          }
+          if (this.filters.checkboxContributors && this.filters.checkboxContributors.length) {
+            query.contributors = [];
+            for (let i = 0; i < this.filters.checkboxContributors.length; i++) {
+              query.contributors.push(this.post.contributors[i].username)
+            }
           }
         }
 
