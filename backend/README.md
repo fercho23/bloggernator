@@ -29,15 +29,15 @@ python -m virtualenv <env_name>
 source <env_name>/bin/activate
 ```
 
-#### 4. Install: (On venv)
+#### 4. Install Requirements: (On venv)
 ```bash
-python -m pip install -r requirements/testing_requirements.txt
+python -m pip install -r bloggernator/requirements/testing_requirements.txt
 ```
 
-or ons erver
+or on production server ...
 
 ```bash
-python -m pip install -r requirements/production_requirements.txt
+python -m pip install -r bloggernator/requirements/production_requirements.txt
 ```
 
 * Maybe you need:
