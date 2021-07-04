@@ -4,7 +4,9 @@
         <li class="page-item " :class="{ disabled: !page.url}" v-for="(page, index) in pages" :key="index">
           <router-link
             class="page-link"
-            :to="page.url">
+            :to="page.url"
+            @click.native="scrollToTop()"
+            >
             {{ page.number }}
           </router-link>
         </li>
@@ -49,6 +51,10 @@
         type: String,
         default: 'page'
       },
+      scrollToTopOnClick: {
+        type: Boolean,
+        default: false
+      },
     },
 
     mounted() {
@@ -63,6 +69,16 @@
     },
 
     methods: {
+      scrollToTop() {
+        if (this.scrollToTopOnClick) {
+          window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+          });
+        }
+      },
+
       generatePages() {
         if (this.query || this.previousUrl || this.nextUrl) {
           this.pages = [];
