@@ -1,4 +1,6 @@
 
+from PIL import Image
+import tempfile
 import json
 
 from django.contrib.auth import get_user_model
@@ -183,9 +185,16 @@ class CommunityTests(TestCase):
         user = User.objects.get(pk=3)
         token = Token.objects.create(user=user)
 
+        image = Image.new('RGB', (100, 100))
+
+        tmp_file = tempfile.NamedTemporaryFile(suffix='.jpg')
+        image.save(tmp_file)
+        tmp_file.seek(0)
+
         data = {
             'name': 'Testing Company',
             'detail': 'Detail Testing Company',
+            'photo': tmp_file,
         }
 
         client = APIClient()
@@ -200,6 +209,7 @@ class CommunityTests(TestCase):
         self.assertEqual(community.owner, user)
         self.assertEqual(community.name, data['name'])
         self.assertEqual(community.detail, data['detail'])
+        self.assertIn('photo', result)
 
     def test_community_update(self):
         """ test_community_update - Community Update """
@@ -208,9 +218,16 @@ class CommunityTests(TestCase):
         user = community.owner
         token = Token.objects.create(user=user)
 
+        image = Image.new('RGB', (100, 100))
+
+        tmp_file = tempfile.NamedTemporaryFile(suffix='.jpg')
+        image.save(tmp_file)
+        tmp_file.seek(0)
+
         data = {
             'name': community.name + ' 2',
             'detail': community.detail[:50],
+            'photo': tmp_file,
         }
 
         client = APIClient()
@@ -224,6 +241,7 @@ class CommunityTests(TestCase):
         self.assertIsNotNone(community)
         self.assertEqual(community.name, data['name'])
         self.assertEqual(community.detail, data['detail'])
+        self.assertIn('photo', result)
 
     def test_community_update_members(self):
         """ test_community_update_members - Community Update Members """

@@ -67,7 +67,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         image = data.get('photo', None)
         if image:
             if image.size > (512 * 1024):
-                raise serializers.ValidationError(_('The image is too large, the maximum weight allowed is 512KB and the size sent is {} KB'.format(round (image.size / 1024))))
+                raise serializers.ValidationError(_('The image is too large, the maximum weight allowed is 512KB and the size sent is {} KB'.format(round(image.size / 1024))))
 
         return data
 

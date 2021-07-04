@@ -1,4 +1,5 @@
 
+from django.core.validators import FileExtensionValidator
 from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
@@ -25,6 +26,7 @@ class CommunityModelCompleteSerializer(serializers.ModelSerializer):
             'name',
             'slug',
             'detail',
+            'photo',
             'created_at',
             'owner',
             'members',
@@ -47,6 +49,7 @@ class CommunityModelSerializer(serializers.ModelSerializer):
             'name',
             'slug',
             'detail',
+            'photo',
             'created_at',
         )
 
@@ -56,7 +59,10 @@ class CommunityCreateUpdateSerializer(serializers.ModelSerializer):
         many=True,
         queryset=User.objects.all(),
         slug_field='username',
-     )
+    )
+    photo = serializers.ImageField(
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
+    )
 
     class Meta:
         model = Community
@@ -64,4 +70,13 @@ class CommunityCreateUpdateSerializer(serializers.ModelSerializer):
             'name',
             'detail',
             'members',
+            'photo',
         )
+
+    def validate(self, data):
+        image = data.get('photo', None)
+        if image:
+            if image.size > (512 * 1024):
+                raise serializers.ValidationError(_('The image is too large, the maximum weight allowed is 512KB and the size sent is {} KB'.format(round(image.size / 1024))))
+
+        return data
