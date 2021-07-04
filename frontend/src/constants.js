@@ -3,7 +3,8 @@ export const URL_BACKEND = 'http://127.0.0.1:8000';
 
 
 // URL IMAGES
-    export const URL_IMAGE_USER_DEFAULT = URL_BACKEND + '/media/avatar.png';
+    export const URL_IMAGE_USER_DEFAULT = URL_BACKEND + '/media/default/user.png';
+    export const URL_IMAGE_COMMUNITY_DEFAULT = URL_BACKEND + '/media/default/community.jpg';
 // URL IMAGES
 
 // URL API
