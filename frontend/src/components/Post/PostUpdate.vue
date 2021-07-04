@@ -13,7 +13,7 @@
           </div>
 
           <div class="form-group">
-            <label for="slug">Slug</label>
+            <label for="slug">Slug</label> <b-button size="sm" variant="outline-primary" @click="generateSlug()">Generate Slug</b-button>
             <input type="text" name="slug" id="slug" class="form-control" :value="post.slug">
           </div>
 
@@ -33,9 +33,9 @@
             <label>Contributors</label>
             <span v-for="(contributor, index) in contributors" :key="index" class="badge badge-secondary mx-1 mb-1">
               {{ contributor.username }}
-              <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeContributor(index)">
+              <b-button class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeContributor(index)">
                 <span aria-hidden="true">&times;</span>
-              </button>
+              </b-button>
               <input type="hidden" v-model="contributors[index]">
             </span>
 
@@ -64,7 +64,7 @@
             <input type="text" name="abstract" id="abstract" class="form-control" :value="post.abstract">
           </div>
 
-          <button type="submit" class="btn btn-primary">Update</button>
+          <b-button type="submit" class="btn btn-primary">Update</b-button>
         </form>
       </template>
       <template v-else="">
@@ -78,6 +78,7 @@
 <script>
   import AutoComplete from '../Layout/AutoComplete';
   import { mapState } from 'vuex';
+  import strToSlug from '../../utils/strToSlug.js';
   import { getAPI } from '../../api/axios-base';
   import { URL_API_POST_READ, URL_API_POST_UPDATE, URL_API_USER_LIST } from '../../constants.js';
 
@@ -86,8 +87,12 @@
     props: ['post'],
     computed: mapState(['currentUser', 'allLanguages']),
     components: {
-      AutoComplete
+      AutoComplete,
     },
+    mixins: [
+      strToSlug,
+    ],
+
     data() {
       return {
         communities: [],
@@ -101,6 +106,7 @@
       if (this.post === undefined)
         this.retrievePost(this.$route.params.slug);
     },
+
     methods: {
 
       // CONTRIBUTORS
@@ -132,6 +138,12 @@
           }
         },
       // -- CONTRIBUTORS
+
+      generateSlug() {
+        if (document.getElementById('title') && document.getElementById('title').value) {
+          document.getElementById('slug').value = this.strToSlug(document.getElementById('title').value);
+        }
+      },
 
       getCommunities() {
         this.communities = this.currentUser.owns_communities.concat(this.currentUser.member_communities)

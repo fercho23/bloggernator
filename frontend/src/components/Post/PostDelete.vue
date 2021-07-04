@@ -66,7 +66,7 @@
         </div>
 
         <form @submit.prevent="callDelete" id="deleteForm">
-          <button type="submit" class="btn btn-primary">Delete</button>
+          <b-button type="submit" class="btn btn-primary">Delete</b-button>
         </form>
 
       </template>

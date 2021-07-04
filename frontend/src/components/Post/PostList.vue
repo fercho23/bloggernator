@@ -37,9 +37,9 @@
                   <label>Communities</label>
                   <span v-for="(community, index) in filters.communities" :key="index" class="badge badge-secondary mx-1 mb-1">
                     {{ community }}
-                    <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeCommunity(index)">
+                    <b-button class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeCommunity(index)">
                       <span aria-hidden="true">&times;</span>
-                    </button>
+                    </b-button>
                     <input type="hidden" v-model="filters.communities[index]">
                   </span>
 
@@ -63,9 +63,9 @@
                   <label>Authors</label>
                   <span v-for="(author, index) in filters.authors" :key="index" class="badge badge-secondary mx-1 mb-1">
                     {{ author }}
-                    <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeAuthor(index)">
+                    <b-button class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeAuthor(index)">
                       <span aria-hidden="true">&times;</span>
-                    </button>
+                    </b-button>
                     <input type="hidden" v-model="filters.authors[index]">
                   </span>
 
@@ -76,9 +76,9 @@
                   <label>Contributors</label>
                   <span v-for="(contributor, index) in filters.contributors" :key="index" class="badge badge-secondary mx-1 mb-1">
                     {{ contributor }}
-                    <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeContributor(index)">
+                    <b-button class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeContributor(index)">
                       <span aria-hidden="true">&times;</span>
-                    </button>
+                    </b-button>
                     <input type="hidden" v-model="filters.contributors[index]">
                   </span>
 
@@ -86,7 +86,7 @@
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary">Filter</button>
+              <b-button type="submit" class="btn btn-primary">Filter</b-button>
               <button type="button" class="btn btn-link float-right" @click="clearFilters()">Clear Filters</button>
             </form>
           </b-card-body>
@@ -94,19 +94,56 @@
       </b-collapse>
 
       <div class="row">
-        <div class="col-6" v-for="(post, index) in posts" :key="index">
-          <router-link
-            title="Post Detail"
-            :to="{
-              name: 'post-detail',
-              params: { post: post, slug: post.slug }
-            }">
-            {{ post.title }}
-          </router-link>
+        <div class="col-12">
+          <Pagination
+            :key="postsKey"
+            :baseUrl="baseUrl"
+            :query="postsQuery"
+            :pageCount="postsCount"
+            :previousUrl="postsPrevious"
+            :nextUrl="postsNext"
+          />
         </div>
 
         <div class="col-12">
-          <Pagination :key="postsKey" :baseUrl="baseUrl" :query="postsQuery" :pageCount="postsCount" :previousUrl="postsPrevious" :nextUrl="postsNext" />
+          <b-card-group columns>
+            <b-card v-for="(post, index) in posts" :key="index"
+              :title="post.title"
+              img-top
+            >
+            <!--
+              img-src="https://placekitten.com/g/400/450"
+              img-alt="Image"
+            -->
+              <b-card-text>
+                <!--
+                {{ post.body }}
+                -->
+                {{ strLimit(post.body) }}
+                <br>
+                <router-link
+                  :to="{
+                    name: 'post-detail',
+                    params: { post: post, slug: post.slug }
+                  }">
+                  See ...
+                </router-link>
+              </b-card-text>
+              <!-- <b-card-text class="small text-muted">Last updated 3 mins ago</b-card-text> -->
+            </b-card>
+          </b-card-group>
+        </div>
+
+        <div class="col-12">
+          <Pagination
+            :key="postsKey"
+            :baseUrl="baseUrl"
+            :query="postsQuery"
+            :pageCount="postsCount"
+            :previousUrl="postsPrevious"
+            :nextUrl="postsNext"
+            :scrollToTopOnClick="true"
+          />
         </div>
       </div>
     </div>
@@ -116,6 +153,7 @@
 <script>
   import Pagination from '../Layout/Pagination';
   import { mapState } from 'vuex';
+  import strLimit from '../../utils/strLimit.js';
   import { getAPI } from '../../api/axios-base';
   import AutoComplete from '../Layout/AutoComplete';
   import { URL_API_COMMUNITY_LIST, URL_API_POST_LIST, URL_API_USER_LIST } from '../../constants.js';
@@ -127,6 +165,10 @@
       AutoComplete,
       Pagination,
     },
+    mixins: [
+      strLimit,
+    ],
+
     data() {
       return {
         baseUrl: window.location.pathname,

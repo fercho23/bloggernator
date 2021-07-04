@@ -162,7 +162,7 @@
               </template>
 
               <br>
-              <button type="submit" class="btn btn-primary mt-2">Get Posts!</button>
+              <b-button type="submit" class="btn btn-primary mt-2">Get Posts!</b-button>
             </form>
           </div>
         </div>

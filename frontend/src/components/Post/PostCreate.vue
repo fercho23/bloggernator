@@ -30,7 +30,7 @@
           </div>
 
           <div class="form-group">
-            <label for="slug">Slug</label>
+            <label for="slug">Slug</label> <b-button size="sm" variant="outline-primary" @click="generateSlug()">Generate Slug</b-button>
             <input type="text" name="slug" id="slug" class="form-control">
           </div>
 
@@ -49,9 +49,9 @@
             <label>Contributors</label>
             <span v-for="(contributor, index) in contributors" :key="index" class="badge badge-secondary mx-1 mb-1">
               {{ contributor.username }}
-              <button type="button" class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeContributor(index)">
+              <b-button class="btn btn-outline-dark btn-sm" aria-label="Close" @click="removeContributor(index)">
                 <span aria-hidden="true">&times;</span>
-              </button>
+              </b-button>
               <input type="hidden" v-model="contributors[index]">
             </span>
 
@@ -79,7 +79,7 @@
             <input type="text" name="abstract" id="abstract" class="form-control">
           </div>
 
-          <button type="submit" class="btn btn-primary">Create</button>
+          <b-button type="submit" class="btn btn-primary">Create</b-button>
         </form>
       </ValidationObserver>
     </div>
@@ -89,6 +89,7 @@
 <script>
   import AutoComplete from '../Layout/AutoComplete';
   import { mapState } from 'vuex';
+  import strToSlug from '../../utils/strToSlug.js';
   import { getAPI } from '../../api/axios-base';
   import { URL_API_POST_CREATE, URL_API_USER_LIST } from '../../constants.js';
   import { ValidationProvider, ValidationObserver } from 'vee-validate';
@@ -101,6 +102,9 @@
       ValidationProvider,
       ValidationObserver,
     },
+    mixins: [
+      strToSlug,
+    ],
     data() {
       return {
         contributors: undefined,
@@ -112,6 +116,7 @@
       this.getCommunities();
     },
     methods: {
+
       // CONTRIBUTORS
         autocompleteContributors(username) {
           let query = {};
@@ -140,21 +145,27 @@
         },
       // -- CONTRIBUTORS
 
+      generateSlug() {
+        if (document.getElementById('title') && document.getElementById('title').value) {
+          document.getElementById('slug').value = this.strToSlug(document.getElementById('title').value);
+        }
+      },
+
       getCommunities() {
         this.communities = this.currentUser.owns_communities.concat(this.currentUser.member_communities)
       },
 
-    validateBeforeSubmit() {
-      this.$validator.validateAll().then((result) => {
-        if (result) {
-          // eslint-disable-next-line
-          alert('Form Submitted!');
-          return;
-        }
+      validateBeforeSubmit() {
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            // eslint-disable-next-line
+            alert('Form Submitted!');
+            return;
+          }
 
-        alert('Correct them errors!');
-      });
-    },
+          alert('Correct them errors!');
+        });
+      },
 
       callCreate() {
         let formData = new FormData(document.getElementById('createForm'));
