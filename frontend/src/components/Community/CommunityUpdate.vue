@@ -9,12 +9,12 @@
         <form @submit.prevent="callUpdate" id="updateForm">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" name="name" class="form-control" :value="community.name">
+            <input type="text" name="name" id="name" class="form-control" :value="community.name">
           </div>
 
           <div class="form-group">
-            <label for="slug">Slug</label>
-            <input type="text" name="slug" class="form-control" :value="community.slug">
+            <label for="slug">Slug</label> <b-button size="sm" variant="outline-primary" @click="generateSlug()">Generate Slug</b-button>
+            <input type="text" name="slug" id="slug" class="form-control" :value="community.slug">
           </div>
 
           <div class="form-group">
@@ -49,25 +49,33 @@
 <script>
   import AutoComplete from '../Layout/AutoComplete';
   import { getAPI } from '../../api/axios-base';
+  import strToSlug from '../../utils/strToSlug.js';
   import { URL_API_COMMUNITY_READ, URL_API_COMMUNITY_UPDATE, URL_API_USER_LIST } from '../../constants.js';
 
   export default {
     name: 'community-update',
     components: {
-      AutoComplete
+      AutoComplete,
     },
+    mixins: [
+      strToSlug,
+    ],
     props: ['community'],
+
     data() {
       return {
         members: this.community ? this.community.members : undefined,
         error: undefined,
       }
     },
+
     beforeMount() {
       if (this.community === undefined)
         this.retrieveCommunity(this.$route.params.slug);
     },
+
     methods: {
+
       // MEMBERS
         autocompleteMembers(username) {
           let query = {};
@@ -95,6 +103,12 @@
           }
         },
       // -- MEMBERS
+
+      generateSlug() {
+        if (document.getElementById('name') && document.getElementById('name').value) {
+          document.getElementById('slug').value = this.strToSlug(document.getElementById('name').value);
+        }
+      },
 
       retrieveCommunity(slug) {
         getAPI.get(URL_API_COMMUNITY_READ.replace(':slug', slug))

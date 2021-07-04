@@ -12,7 +12,7 @@
         </div>
 
         <div class="form-group">
-          <label for="slug">Slug</label>
+          <label for="slug">Slug</label> <b-button size="sm" variant="outline-primary" @click="generateSlug()">Generate Slug</b-button>
           <input type="text" name="slug" id="slug" class="form-control">
         </div>
 
@@ -43,16 +43,20 @@
 <script>
   import AutoComplete from '../Layout/AutoComplete';
   import { getAPI } from '../../api/axios-base';
+  import strToSlug from '../../utils/strToSlug.js';
   import { URL_API_COMMUNITY_CREATE, URL_API_USER_LIST } from '../../constants.js';
   import { mapState } from 'vuex';
-
 
   export default {
     name: 'community-create',
     components: {
-      AutoComplete
+      AutoComplete,
     },
+    mixins: [
+      strToSlug,
+    ],
     computed: mapState(['currentUser']),
+
     data() {
       return {
         members: undefined,
@@ -90,6 +94,12 @@
           }
         },
       // -- MEMBERS
+
+      generateSlug() {
+        if (document.getElementById('name') && document.getElementById('name').value) {
+          document.getElementById('slug').value = this.strToSlug(document.getElementById('name').value);
+        }
+      },
 
       callCreate() {
         let formData = new FormData(document.getElementById('createForm'));

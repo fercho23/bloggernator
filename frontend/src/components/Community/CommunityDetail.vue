@@ -26,29 +26,34 @@
         <h3>Community Detail</h3>
 
         <div class="row">
-          <div class="col-6">
-            <dl>
-              <dt>Name</dt>
-              <dd class="ml-4">{{ community.name }}</dd>
-            </dl>
+          <div class="col-3">
+            <img v-bind:src="community.photo || urlImageCommunityDefault" alt="User Photo" class="img-thumbnail" width="100%">
           </div>
-
-          <div class="col-6">
-            <template v-if="community.owner && Object.keys(community.owner).length">
+          <div class="col-9">
+            <div class="col-6">
               <dl>
-                <dt>Owner</dt>
-                <dd class="ml-4">
-                  <router-link
-                    title="Profile"
-                    :to="{
-                      name: 'profile',
-                      params: { username: community.owner.username }
-                    }">
-                    {{ community.owner.username }}
-                  </router-link>
-                </dd>
+                <dt>Name</dt>
+                <dd class="ml-4">{{ community.name }}</dd>
               </dl>
-            </template>
+            </div>
+
+            <div class="col-6">
+              <template v-if="community.owner && Object.keys(community.owner).length">
+                <dl>
+                  <dt>Owner</dt>
+                  <dd class="ml-4">
+                    <router-link
+                      title="Profile"
+                      :to="{
+                        name: 'profile',
+                        params: { username: community.owner.username }
+                      }">
+                      {{ community.owner.username }}
+                    </router-link>
+                  </dd>
+                </dl>
+              </template>
+            </div>
           </div>
 
           <div class="col-12">
@@ -101,7 +106,7 @@
 <script>
   import isOwnerInCommunity from '../../utils/isOwnerInCommunity.js';
   import { getAPI } from '../../api/axios-base';
-  import { URL_API_COMMUNITY_READ } from '../../constants.js';
+  import { URL_API_COMMUNITY_READ, URL_IMAGE_COMMUNITY_DEFAULT } from '../../constants.js';
 
   export default {
     name: 'community-detail',
@@ -112,6 +117,7 @@
       return {
         community: undefined,
         error: undefined,
+        urlImageCommunityDefault: URL_IMAGE_COMMUNITY_DEFAULT,
       }
     },
     beforeMount() {
