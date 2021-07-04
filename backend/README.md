@@ -31,7 +31,13 @@ source <env_name>/bin/activate
 
 #### 4. Install: (On venv)
 ```bash
-python -m pip install -r requirements.txt
+python -m pip install -r requirements/testing_requirements.txt
+```
+
+or ons erver
+
+```bash
+python -m pip install -r requirements/production_requirements.txt
 ```
 
 * Maybe you need:
