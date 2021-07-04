@@ -16,6 +16,8 @@ class Community(Group):
     detail = models.CharField(_('detail'), max_length=180, blank=True)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name=_('members'), blank=True, related_name='members')
 
+    photo = models.ImageField(upload_to='communities', blank=True, null=True, verbose_name=_('photo'))
+
     created_at = models.DateTimeField(_('created at'), auto_now_add=True, blank=True)
 
     class Meta:
