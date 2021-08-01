@@ -3,3 +3,5 @@ djangorestframework
 django-guardian
 django-cors-headers
 Pillow
+Faker
+factory_boy
