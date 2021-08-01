@@ -34,5 +34,7 @@ class Community(Group):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = self.name
+        self.slug = slugify(self.slug)
+
         super(Community, self).save(*args, **kwargs)
